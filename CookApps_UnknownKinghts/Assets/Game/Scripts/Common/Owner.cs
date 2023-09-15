@@ -8,6 +8,7 @@ using UnityEngine;
 // ----- User Defined
 using InGame.ForUI;
 using InGame.ForState;
+using Utility.ForCurrency;
 
 namespace InGame
 {
@@ -41,7 +42,8 @@ namespace InGame
         {
             // [TODO] 기본 셋팅에 필요한 내용 적용
 
-            // 
+            // Currency System 초기화
+            CurrencySystem.Instance.OnInit();
 
             // Loader 보여주기
 
@@ -54,6 +56,7 @@ namespace InGame
         // --------------------------------------------------
         // Functions - Nomal
         // --------------------------------------------------
+        // ----- Private
         
     }
 }

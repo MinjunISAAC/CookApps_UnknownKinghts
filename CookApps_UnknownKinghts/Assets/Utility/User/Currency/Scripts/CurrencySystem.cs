@@ -18,7 +18,7 @@ namespace Utility.ForCurrency
         private static CurrencySystem _instance = null;
 
         // ----- Variables
-        private const string FILE_PATH = "CurrencySystem";
+        private const string FILE_PATH = "CurrenySystem";
         private bool _isSingleton = false;
 
         // ----- Property
@@ -91,13 +91,16 @@ namespace Utility.ForCurrency
         // --------------------------------------------------
         // Functions - Nomal
         // --------------------------------------------------
-        public void OnInit(int coinValue, int gemValue, int healthValue)
+        public void OnInit()
         {
             if (_healthHudView == null || _coinHudView == null || _gemHudView == null)
             {
                 Debug.LogError($"<color=red>[CurrencySystem.OnInit] Currency들의 View가 존재하지 않는 View가 존재합니다.</color>");
                 return;
             }
+            var coinValue   = UserDataSystem.GetToCoin  ();
+            var gemValue    = UserDataSystem.GetToGem   ();
+            var healthValue = UserDataSystem.GetToHealth();
 
             _coinHudView   .RefreshToCurreny(coinValue  );
             _gemHudView    .RefreshToCurreny(gemValue   );
