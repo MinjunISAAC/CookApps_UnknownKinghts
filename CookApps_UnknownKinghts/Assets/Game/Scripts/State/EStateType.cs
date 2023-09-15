@@ -5,7 +5,7 @@ namespace InGame.ForState
         Unknown     = 0,
         Village     = 1,
         BattleReady = 2,
-        BulidDeck   = 3,
+        BuildDeck   = 3,
         Battle      = 4,
         Result      = 5,
     }

@@ -21,7 +21,7 @@ namespace InGame.ForState
         // --------------------------------------------------
         // Property
         // --------------------------------------------------
-        public override EStateType State => EStateType.BulidDeck;
+        public override EStateType State => EStateType.BuildDeck;
 
         // --------------------------------------------------
         // Functions - Nomal
