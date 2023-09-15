@@ -54,19 +54,20 @@ namespace InGame.ForState
                 }
                 UnityEngine.Object.DontDestroyOnLoad(executorGameObject);
             }
-            /*
+            
             OnInit
             (
                 new Dictionary<EStateType, SimpleState<EStateType>>()
                 {
-                    { EStateType.Ready, new State_Ready() },
-                    { EStateType.Play,  new State_Play()  },
-                    { EStateType.End,   new State_End()   },
+                    { EStateType.Village,     new State_Village()     },
+                    { EStateType.BattleReady, new State_BattleReady() },
+                    { EStateType.BuildDeck,   new State_BuildDeck()   },
+                    { EStateType.Battle,      new State_Battle()      },
+                    { EStateType.Result,      new State_Result()      },
                 },
                 _coroutineExecutor,
                 null
             );
-            */
         }
     }
 }

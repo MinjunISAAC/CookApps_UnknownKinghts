@@ -5,6 +5,10 @@ using System.Collections.Generic;
 // ----- Unity
 using UnityEngine;
 
+// ----- User Defined
+using InGame.ForUI;
+using InGame.ForState;
+
 namespace InGame
 {
     public class Owner : MonoBehaviour
@@ -12,9 +16,8 @@ namespace InGame
         // --------------------------------------------------
         // Components
         // --------------------------------------------------
-        //[Header("UI Group")]
-        //[SerializeField] private MainUI _mainUI = null;
-
+        [Header("0. UI Group")]
+        [SerializeField] private UIOwner _mainUI = null;
 
         // --------------------------------------------------
         // Variables
@@ -36,7 +39,15 @@ namespace InGame
 
         private IEnumerator Start()
         {
+            // [TODO] 기본 셋팅에 필요한 내용 적용
 
+            // 
+
+            // Loader 보여주기
+
+            // State 초기화
+            StateMachine.Instance.ChangeState(EStateType.Village);
+           
             yield return null;
         }
 

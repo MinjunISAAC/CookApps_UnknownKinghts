@@ -215,6 +215,7 @@ GameObject:
   - component: {fileID: 472730880}
   - component: {fileID: 472730879}
   - component: {fileID: 472730878}
+  - component: {fileID: 472730881}
   m_Layer: 0
   m_Name: MainCanvas
   m_TagString: Untagged
@@ -304,6 +305,23 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &472730881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 472730876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fba7055eb139de547980a802c220a4a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _villageView: {fileID: 491313338}
+  _battleReadyView: {fileID: 1752085980}
+  _buildDeckView: {fileID: 114049656}
+  _battleView: {fileID: 1149491619}
+  _resultView: {fileID: 1061765966}
 --- !u!1 &491313336
 GameObject:
   m_ObjectHideFlags: 0

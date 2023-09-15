@@ -89,7 +89,7 @@ public class SimpleStateMachine<TKey>
         }
     }
 
-    public virtual void ChangeState(TKey targetStateType, object startParam)
+    public virtual void ChangeState(TKey targetStateType, object startParam = null)
     {
         if (null == _stateSet)
         {
