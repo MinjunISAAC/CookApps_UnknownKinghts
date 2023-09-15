@@ -38,6 +38,10 @@ namespace Utility.ForData.ForUser
                 Save();
         }
 
+        public static int GetToCoin   () => UserData.CurrencyCoin;
+        public static int GetToGem    () => UserData.CurrencyGem;
+        public static int GetToHealth () => UserData.CurrencyHealth;
+
         public static void Load()
         {
             if (!_TryLoad(FILE_NAME, out string fileContents))

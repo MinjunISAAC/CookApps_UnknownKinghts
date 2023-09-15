@@ -12,17 +12,19 @@ namespace Utility.ForData.ForUser
         // --------------------------------------------------
         // Components
         // --------------------------------------------------
-        [SerializeField] private int _health       = 100;
-        [SerializeField] private int _currencyCoin = 0;
-        [SerializeField] private int _currencyGem  = 0;
+        [SerializeField] private int _level          = 1;
+
+        [SerializeField] private int _currencyHealth = 100;
+        [SerializeField] private int _currencyCoin   = 0;
+        [SerializeField] private int _currencyGem    = 0;
 
         // --------------------------------------------------
         // Properties
         // --------------------------------------------------
-        public int Health
+        public int CurrencyHealth
         {
-            get => _health;
-            set => _health = value;
+            get => _currencyHealth;
+            set => _currencyHealth = value;
         }
         public int CurrencyCoin
         {
