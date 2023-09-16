@@ -12,7 +12,9 @@ namespace Utility.ForData.ForUser
         // --------------------------------------------------
         // Components
         // --------------------------------------------------
-        [SerializeField] private int _level          = 1;
+        [SerializeField] private int    _level          = 1;
+        [SerializeField] private int    _experience     = 0;
+        [SerializeField] private string _userName       = "Å×½ºÆ®";
 
         [SerializeField] private int _currencyHealth = 100;
         [SerializeField] private int _currencyCoin   = 0;
@@ -21,6 +23,21 @@ namespace Utility.ForData.ForUser
         // --------------------------------------------------
         // Properties
         // --------------------------------------------------
+        public int Level
+        {
+            get => _level;
+            set => _level = value;
+        }
+        public int Experience
+        {
+            get => _experience;
+            set => _experience = value;
+        }
+        public string UserName
+        {
+            get => _userName;
+            set => _userName = value;   
+        }
         public int CurrencyHealth
         {
             get => _currencyHealth;

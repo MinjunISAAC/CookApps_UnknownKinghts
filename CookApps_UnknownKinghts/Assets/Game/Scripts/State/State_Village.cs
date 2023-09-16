@@ -7,6 +7,8 @@ using UnityEngine;
 
 // ----- User Defined
 using Utility.SimpleFSM;
+using InGame.ForState.ForUI;
+using Utility.ForData.ForUser;
 
 namespace InGame.ForState
 {
@@ -17,6 +19,9 @@ namespace InGame.ForState
         // --------------------------------------------------
         // ----- Owner
         private Owner _owner = null;
+        
+        // ----- UI
+        private VillageView _villageView = null;
 
         // --------------------------------------------------
         // Property
@@ -39,7 +44,15 @@ namespace InGame.ForState
                 return;
             }
 
+            _villageView = (VillageView)_owner.UIOwner.GetStateUI();
+            if (_villageView == null)
+            {
+                Debug.LogError($"<color=red>[State_{State}._Start] Village View가 Null 상태입니다.</color>");
+                return;
+
+            }
             #endregion
+
         }
         protected override void _Update()
         {
@@ -49,6 +62,20 @@ namespace InGame.ForState
         protected override void _Finish(EStateType nextStateKey)
         {
             Debug.Log($"<color=yellow>[State_{State}._Start] {State} State에 이탈하였습니다.</color>");
+        }
+
+        // ----- Private
+        private void _SetToUI()
+        {
+            // User Data Set
+            var userLevel = UserDataSystem.GetToLevel   ();
+            var userExp   = UserDataSystem.GetToExp     ();
+            var userName  = UserDataSystem.GetToUserName();
+
+            // UI Init
+            _villageView.OnInit();
+            _villageView.SetToProfileView();
+
         }
     }
 }

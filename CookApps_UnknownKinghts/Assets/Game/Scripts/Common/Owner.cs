@@ -9,6 +9,7 @@ using UnityEngine;
 using InGame.ForUI;
 using InGame.ForState;
 using Utility.ForCurrency;
+using Utility.ForData.ForUser;
 
 namespace InGame
 {
@@ -18,7 +19,7 @@ namespace InGame
         // Components
         // --------------------------------------------------
         [Header("0. UI Group")]
-        [SerializeField] private UIOwner _mainUI = null;
+        [SerializeField] private UIOwner _uiOwner = null;
 
         // --------------------------------------------------
         // Variables
@@ -33,6 +34,8 @@ namespace InGame
             private set;
         } = null;
 
+        public UIOwner UIOwner => _uiOwner;
+
         // --------------------------------------------------
         // Functions - Event
         // --------------------------------------------------
@@ -41,11 +44,10 @@ namespace InGame
         private IEnumerator Start()
         {
             // [TODO] 기본 셋팅에 필요한 내용 적용
-
-            // Currency System 초기화
+            // 1. User Data Load
+            // 2. Currency System Init
+            UserDataSystem.Load();
             CurrencySystem.Instance.OnInit();
-
-            // Loader 보여주기
 
             // State 초기화
             StateMachine.Instance.ChangeState(EStateType.Village);

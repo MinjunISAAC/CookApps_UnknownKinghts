@@ -38,6 +38,10 @@ namespace Utility.ForData.ForUser
                 Save();
         }
 
+        public static int    GetToLevel   () => UserData.Level;
+        public static int    GetToExp     () => UserData.Experience;
+        public static string GetToUserName() => UserData.UserName;
+
         public static int GetToCoin   () => UserData.CurrencyCoin;
         public static int GetToGem    () => UserData.CurrencyGem;
         public static int GetToHealth () => UserData.CurrencyHealth;
