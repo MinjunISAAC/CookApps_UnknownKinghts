@@ -9,6 +9,7 @@ using UnityEngine;
 using Utility.SimpleFSM;
 using InGame.ForState.ForUI;
 using Utility.ForData.ForUser;
+using CoreData;
 
 namespace InGame.ForState
 {
@@ -53,6 +54,8 @@ namespace InGame.ForState
             }
             #endregion
 
+            // UI Init
+            _SetToUI();
         }
         protected override void _Update()
         {
@@ -68,14 +71,14 @@ namespace InGame.ForState
         private void _SetToUI()
         {
             // User Data Set
-            var userLevel = UserDataSystem.GetToLevel   ();
-            var userExp   = UserDataSystem.GetToExp     ();
-            var userName  = UserDataSystem.GetToUserName();
-
+            var userLevel  = UserDataSystem.GetToLevel     ();
+            var userExp    = UserDataSystem.GetToExp       ();
+            var userName   = UserDataSystem.GetToUserName  ();
+            var levelUpExp = CoreDataHelper.GetToLevelUpExp(userLevel + 1);
+            
             // UI Init
             _villageView.OnInit();
-            _villageView.SetToProfileView();
-
+            _villageView.SetToProfileView(userLevel, userExp, levelUpExp, userName);
         }
     }
 }

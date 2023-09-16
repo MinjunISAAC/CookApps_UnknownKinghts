@@ -1,3 +1,4 @@
+using CoreData;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -98,30 +99,45 @@ namespace Utility.ForCurrency
                 Debug.LogError($"<color=red>[CurrencySystem.OnInit] Currency들의 View가 존재하지 않는 View가 존재합니다.</color>");
                 return;
             }
+
+            var userLevel   = UserDataSystem.GetToLevel ();
             var coinValue   = UserDataSystem.GetToCoin  ();
             var gemValue    = UserDataSystem.GetToGem   ();
             var healthValue = UserDataSystem.GetToHealth();
+            var maxHealth   = CoreDataHelper.GetToMaxHealth(userLevel);
 
             _coinHudView   .RefreshToCurreny(coinValue  );
             _gemHudView    .RefreshToCurreny(gemValue   );
-            _healthHudView .RefreshToCurreny(healthValue);
+            _healthHudView .RefreshToCurreny(healthValue, maxHealth);
         }
 
         public void RefreshCredit(ECurrencyType type)
         {
+            var userLevel   = UserDataSystem.GetToLevel    ();
+            var coinValue   = UserDataSystem.GetToCoin     ();
+            var gemValue    = UserDataSystem.GetToGem      ();
+            var healthValue = UserDataSystem.GetToHealth   ();
+            var maxHealth   = CoreDataHelper.GetToMaxHealth(userLevel);
+
             switch (type)
             {
-                case ECurrencyType.Coin   : _coinHudView   .RefreshToCurreny(UserDataSystem.GetToCoin  ()); break;
-                case ECurrencyType.Gem    : _gemHudView    .RefreshToCurreny(UserDataSystem.GetToGem   ()); break;
-                case ECurrencyType.Health : _healthHudView .RefreshToCurreny(UserDataSystem.GetToHealth()); break;
+                case ECurrencyType.Coin   : _coinHudView   .RefreshToCurreny(coinValue             ); break;
+                case ECurrencyType.Gem    : _gemHudView    .RefreshToCurreny(gemValue              ); break;
+                case ECurrencyType.Health : _healthHudView .RefreshToCurreny(healthValue, maxHealth); break;
             }
         }
 
         public void RefreshAllCredit()
         {
-            _coinHudView   .RefreshToCurreny(UserDataSystem.GetToCoin  ());
-            _gemHudView    .RefreshToCurreny(UserDataSystem.GetToGem   ());
-            _healthHudView .RefreshToCurreny(UserDataSystem.GetToHealth());
+            var userLevel   = UserDataSystem.GetToLevel    ();
+            var coinValue   = UserDataSystem.GetToCoin     ();
+            var gemValue    = UserDataSystem.GetToGem      ();
+            var healthValue = UserDataSystem.GetToHealth   ();
+            var maxHealth   = CoreDataHelper.GetToMaxHealth(userLevel);
+
+            _coinHudView  .RefreshToCurreny(coinValue             );
+            _gemHudView   .RefreshToCurreny(gemValue              );
+            _healthHudView.RefreshToCurreny(healthValue, maxHealth);
         }
     }
 }

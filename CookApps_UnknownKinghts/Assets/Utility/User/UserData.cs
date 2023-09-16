@@ -14,6 +14,7 @@ namespace Utility.ForData.ForUser
         // --------------------------------------------------
         [SerializeField] private int    _level          = 1;
         [SerializeField] private int    _experience     = 0;
+        [SerializeField] private int    _maxHealth      = 0;
         [SerializeField] private string _userName       = "Å×½ºÆ®";
 
         [SerializeField] private int _currencyHealth = 100;
@@ -32,6 +33,11 @@ namespace Utility.ForData.ForUser
         {
             get => _experience;
             set => _experience = value;
+        }
+        public int MaxHealth
+        {
+            get => _maxHealth;
+            set => _maxHealth = value;
         }
         public string UserName
         {

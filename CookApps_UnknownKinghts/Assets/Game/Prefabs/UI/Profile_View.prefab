@@ -105,13 +105,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4686787872501948202}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4686787874370717256}
-  m_RootOrder: 0
+  m_Father: {fileID: 4686787873956518831}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -746,6 +746,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4686787874370717256}
+  - {fileID: 4686787872501948205}
   m_Father: {fileID: 4686787872404688793}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -821,16 +822,15 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4686787872501948205}
+  m_Children: []
   m_Father: {fileID: 4686787873956518831}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -128.38501, y: 0.000011444092}
+  m_SizeDelta: {x: 256.77, y: 10}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &4686787874370717258
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -852,7 +852,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.16078432, g: 0.14117648, b: 0.12156863, a: 1}
+  m_Color: {r: 0.59517634, g: 1, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -920,7 +920,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _IMG_UserPhoto: {fileID: 4686787872943780887}
-  _IMG_ExpGuage: {fileID: 4686787874370717259}
+  _RECT_ExpFrame: {fileID: 4686787873956518831}
+  _RECT_ExpGuage: {fileID: 4686787874370717256}
   _TMP_UserLevel: {fileID: 4686787873747252316}
   _TMP_UserId: {fileID: 4686787873626121612}
   _TMP_Exp: {fileID: 4686787872501948204}

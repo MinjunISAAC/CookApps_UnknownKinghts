@@ -38,12 +38,15 @@ namespace InGame.ForUI
         // --------------------------------------------------
         public void OnInit(int level, int exp, int levelUpExp, string userName)
         {
+            _levelUpExp = levelUpExp;
+
             _TMP_UserLevel.text = $"Lv.{level}";
             _TMP_UserId   .text = $"{userName}";
-            _TMP_Exp      .text = $"{exp}/{_levelUpExp}";
+            _TMP_Exp      .text = $"{exp}/{_levelUpExp}({Mathf.Abs(exp/_levelUpExp*100)}%)";
 
             _expRectSize             = _RECT_ExpFrame.rect.size;
-            _expRectSize.x           = (exp * levelUpExp) / (float)_levelUpExp;
+            _expRectSize.x           = (exp * _expRectSize.x) / _levelUpExp;
+            _expRectSize.y           = _RECT_ExpGuage.sizeDelta.y;
             _RECT_ExpGuage.sizeDelta = _expRectSize;
         }
     }

@@ -10,6 +10,7 @@ using InGame.ForUI;
 using InGame.ForState;
 using Utility.ForCurrency;
 using Utility.ForData.ForUser;
+using JsonUtil;
 
 namespace InGame
 {
@@ -44,10 +45,20 @@ namespace InGame
         private IEnumerator Start()
         {
             // [TODO] 기본 셋팅에 필요한 내용 적용
-            // 1. User Data Load
-            // 2. Currency System Init
-            UserDataSystem.Load();
+            // 1. Json Fil Load
+            // 2. User Data Load
+            // 3. Currency System Init
+            JsonParser             .LoadJson();
+            UserDataSystem         .Load  ();
             CurrencySystem.Instance.OnInit();
+
+
+
+
+
+
+
+
 
             // State 초기화
             StateMachine.Instance.ChangeState(EStateType.Village);

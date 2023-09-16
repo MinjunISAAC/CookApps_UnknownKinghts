@@ -1,0 +1,55 @@
+{
+  "DataSet": 
+  [
+    {
+      "Level"     : 1,
+      "Exp"       : 0,
+      "MaxHealth" : 100
+    },
+    {
+      "Level"     : 2,
+      "Exp"       : 100,
+      "MaxHealth" : 105
+    },
+    {
+      "Level"     : 3,
+      "Exp"       : 150,
+      "MaxHealth" : 110
+    },
+    {
+      "Level"     : 4,
+      "Exp"       : 200,
+      "MaxHealth" : 115
+    },
+    {
+      "Level"     : 5,
+      "Exp"       : 250,
+      "MaxHealth" : 120
+    },
+    {
+      "Level"     : 6,
+      "Exp"       : 300,
+      "MaxHealth" : 130
+    },
+    {
+      "Level"     : 7,
+      "Exp"       : 400,
+      "MaxHealth" : 140
+    },
+    {
+      "Level"     : 8,
+      "Exp"       : 500,
+      "MaxHealth" : 160
+    },
+    {
+      "Level"     : 9,
+      "Exp"       : 600,
+      "MaxHealth" : 180
+    },
+    {
+      "Level"     : 10,
+      "Exp"       : 700,
+      "MaxHealth" : 200
+    }
+  ]
+}

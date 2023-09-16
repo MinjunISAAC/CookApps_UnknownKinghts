@@ -9,6 +9,7 @@ namespace CoreData.ForLevel
     {
         public int Level;
         public int Exp;
+        public int MaxHealth;
     }
 
     [System.Serializable]

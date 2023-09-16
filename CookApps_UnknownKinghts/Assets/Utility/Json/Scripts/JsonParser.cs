@@ -26,7 +26,7 @@ namespace JsonUtil
         // --------------------------------------------------
         public static void LoadJson()
         {
-            var loadedJsonFile = Resources.Load<TextAsset>($"JsonSet/{JSONFILE_NAME}");
+            var loadedJsonFile = Resources.Load<TextAsset>($"{JSONFILE_NAME}");
 
             if (loadedJsonFile == null)
             {
@@ -43,12 +43,12 @@ namespace JsonUtil
             }
         }
 
-        public static LevelSheetDatas GetLocaleDataSet()
+        public static List<LevelSheetData> GetLevelDataSet()
         {
             if (_dataSet == null)
                 return null;
 
-            return _dataSet;
+            return _dataSet.DataSet;
         }
     }
 }

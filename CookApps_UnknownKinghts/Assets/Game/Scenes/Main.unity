@@ -4595,7 +4595,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 193698720}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -15536,7 +15536,7 @@ RectTransform:
   - {fileID: 1192644791}
   - {fileID: 1163602360}
   m_Father: {fileID: 1456613553}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -18406,7 +18406,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2138972868}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -25437,7 +25437,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 566990544}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -29430,7 +29430,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 861236192}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -29711,7 +29711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85bdc8ce3d665554796a559cb3604698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainUI: {fileID: 472730881}
+  _uiOwner: {fileID: 472730881}
 --- !u!1 &2045708356
 GameObject:
   m_ObjectHideFlags: 0
@@ -30999,6 +30999,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 491313337}
     m_Modifications:
+    - target: {fileID: 4686787874370717259, guid: b5b3379f39361104ea1c1762d942f16d, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4686787874370717259, guid: b5b3379f39361104ea1c1762d942f16d, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4686787874370717259, guid: b5b3379f39361104ea1c1762d942f16d, type: 3}
+      propertyPath: m_Color.r
+      value: 0.752962
+      objectReference: {fileID: 0}
     - target: {fileID: 4686787874468657694, guid: b5b3379f39361104ea1c1762d942f16d, type: 3}
       propertyPath: m_Name
       value: Profile_View
