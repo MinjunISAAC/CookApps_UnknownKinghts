@@ -26,8 +26,9 @@ namespace InGame.ForChapterGroup.ForChapter
         // --------------------------------------------------
         // Properties
         // --------------------------------------------------
-        public string Name => _name;   
-        public int    Step => _step;
+        public string Name          => _name;   
+        public int    Step          => _step;
+        public int    StageQuantity => _stageSet.Count;
 
         // --------------------------------------------------
         // Functions - Nomal

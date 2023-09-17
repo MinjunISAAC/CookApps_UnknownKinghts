@@ -53,13 +53,17 @@ namespace InGame.ForState
                 Debug.LogError($"<color=red>[State_{State}._Start] {State} View가 Null 상태입니다.</color>");
                 return;
             }
+            #endregion
 
             // Last Chapter Info Load
             var userLastChapterStep = UserDataSystem.GetToLastChapter();
             var userLastStageStep   = UserDataSystem.GetToLastStage  ();
             var chapter             = _owner.GetToChapter(userLastChapterStep);
+            var stageQuantity       = chapter.StageQuantity;
             var stage               = _owner.GetToStage  (userLastChapterStep, userLastStageStep);
-            
+
+            Debug.Log($"Value Test {userLastChapterStep} | {userLastStageStep} | {chapter} | {stageQuantity} | {stage}");
+
             // Loader Hide
             Loader.Instance.Hide
             (
@@ -70,7 +74,8 @@ namespace InGame.ForState
             // UI Init
             _SetToUI(userLastChapterStep, chapter.Name);
 
-            #endregion
+
+
         }
         protected override void _Update()
         {
