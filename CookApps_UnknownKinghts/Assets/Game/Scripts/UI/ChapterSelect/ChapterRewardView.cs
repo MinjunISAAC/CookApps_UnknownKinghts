@@ -31,7 +31,8 @@ namespace InGame.ForState.ForChapterSelect
         // --------------------------------------------------
         // Variables
         // --------------------------------------------------
-        [SerializeField] private List<RewardItemView> _rewardItemViewGroup = new List<RewardItemView>();
+        private List<RewardItemView> _rewardItemViewGroup = new List<RewardItemView>();
+        private bool                 _isInit              = false;
 
         // --------------------------------------------------
         // Functions - Nomal
@@ -75,8 +76,12 @@ namespace InGame.ForState.ForChapterSelect
 
         public void SetToButtonEvent(Action onClickPrevStage, Action onClickNextStage)
         {
-            _BTN_PrevStage.onClick.AddListener(() => onClickPrevStage());
-            _BTN_NextStage.onClick.AddListener(() => onClickNextStage());
+            if (!_isInit)
+            {
+                _BTN_PrevStage.onClick.AddListener(() => onClickPrevStage());
+                _BTN_NextStage.onClick.AddListener(() => onClickNextStage());
+                _isInit = true;
+            }
         }
 
         // ----- Private

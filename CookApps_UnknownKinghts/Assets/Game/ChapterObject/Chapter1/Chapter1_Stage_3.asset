@@ -30,12 +30,12 @@ MonoBehaviour:
     FrameSprite: {fileID: 21300000, guid: e3b40123e33db2f46af569bd6877399b, type: 3}
     IconSprite: {fileID: 21300000, guid: 4de91076f2631fb4a820dcb0d6e57ea1, type: 3}
   - Type: 1
-    Value: 2500
-    StarSprite: {fileID: 21300000, guid: 877df08e89c560e468434f62557ac7ad, type: 3}
-    FrameSprite: {fileID: 0}
+    Value: 2900
+    StarSprite: {fileID: 0}
+    FrameSprite: {fileID: 21300000, guid: 877df08e89c560e468434f62557ac7ad, type: 3}
     IconSprite: {fileID: 21300000, guid: f122ec0c2cb691b4db9b16c8922ce28c, type: 3}
   - Type: 3
     Value: 20
-    StarSprite: {fileID: 21300000, guid: 877df08e89c560e468434f62557ac7ad, type: 3}
-    FrameSprite: {fileID: 0}
+    StarSprite: {fileID: 0}
+    FrameSprite: {fileID: 21300000, guid: 877df08e89c560e468434f62557ac7ad, type: 3}
     IconSprite: {fileID: 21300000, guid: f18eec69ae0eb404da66023097a37ce6, type: 3}

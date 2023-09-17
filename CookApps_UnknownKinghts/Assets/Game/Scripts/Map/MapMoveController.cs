@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +17,8 @@ namespace InGame.ForMap
         // --------------------------------------------------
         // Variables
         // --------------------------------------------------
-        private Vector2 _prevPos = Vector2.zero;
+        private Vector2   _prevPos      = Vector2.zero;
+        private Coroutine _co_MoveToMap = null;
 
         // --------------------------------------------------
         // Fucntions - Nomal
@@ -35,8 +37,14 @@ namespace InGame.ForMap
             _RECT_Map.anchoredPosition = pos;
         }
 
-        public void ResetToMap()
+        public void MoveToMap(Vector2 pos, float duration, Action doneCallBack = null)
         {
+            if (_co_MoveToMap == null)
+                _co_MoveToMap = StartCoroutine(_Co_MoveToMap(pos, duration, doneCallBack));
+        }
+
+        public void ResetToMap() 
+        { 
             _RECT_Map.anchoredPosition = Vector2.zero;
         }
 
@@ -63,5 +71,27 @@ namespace InGame.ForMap
             }
         }
 
+        // --------------------------------------------------
+        // Fucntions - Coroutine
+        // --------------------------------------------------
+        private IEnumerator _Co_MoveToMap(Vector2 pos, float duration, Action doneCallBack)
+        {
+            var sec      = 0.0f;
+            var startPos = _RECT_Map.anchoredPosition;
+            var endPos   = pos;
+
+            while (sec < duration)
+            {
+                sec += Time.deltaTime;
+
+                _RECT_Map.anchoredPosition = Vector2.Lerp(startPos, endPos, sec/duration);
+                yield return null;
+            }
+
+            _RECT_Map.anchoredPosition = endPos;
+
+            _co_MoveToMap = null;
+            doneCallBack?.Invoke();
+        }
     }
 }

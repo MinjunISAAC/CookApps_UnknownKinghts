@@ -76,18 +76,18 @@ namespace InGame.ForState
             // Last Chapter Info Load
             var userLastChapterStep = UserDataSystem.GetToLastChapter  ();
             var userLastStageStep   = UserDataSystem.GetToLastStage    ();
-                _userClearData      = UserDataSystem.GetToClearDataList(userLastChapterStep);
-            var chapterData         = _owner.GetToChapter(userLastChapterStep);
-            var stageData           = _owner.GetToStage  (userLastChapterStep, userLastStageStep);
+                _targetChapterStep  = userLastChapterStep;
+                _targetStageStep    = userLastStageStep;
+                _userClearData      = UserDataSystem.GetToClearDataList(_targetChapterStep);
+            var chapterData         = _owner.GetToChapter(_targetChapterStep);
+            var stageData           = _owner.GetToStage  (_targetChapterStep, _targetStageStep);
 
-            _targetChapterStep = userLastChapterStep;
-            _targetStageStep   = userLastStageStep;
             
             // Reward Item Data Init
             var rewardItemDatas = stageData.RewardList;
 
             // UI Init
-            _SetToUI(chapterData, stageData, _userClearData, rewardItemDatas, userLastStageStep);
+            _SetToUI(chapterData, stageData, _userClearData, rewardItemDatas, _targetStageStep);
 
         }
         protected override void _Update()
@@ -97,6 +97,9 @@ namespace InGame.ForState
 
         protected override void _Finish(EStateType nextStateKey)
         {
+            _targetChapterStep = 0;
+            _targetStageStep   = 0;
+            
             _chapterSelectView.gameObject.SetActive(false);
             Debug.Log($"<color=yellow>[State_{State}._Start] {State} State에 이탈하였습니다.</color>");
         }
@@ -124,39 +127,37 @@ namespace InGame.ForState
 
         private void _PrevStage()
         {
-            var userLastChapterStep = UserDataSystem.GetToLastChapter();
-            var userLastStageStep   = UserDataSystem.GetToLastStage  ();
-            var chapterData         = _owner.GetToChapter(userLastChapterStep);
-            var stageData           = _owner.GetToStage(userLastChapterStep, userLastStageStep);
-            var rewardItemList      = stageData.RewardList;
             
             if (_targetStageStep > 1)
             {
                 _targetStageStep--;
 
-                var currStageData = _owner.GetToStage(userLastChapterStep, _targetStageStep);
-                var currClearData = UserDataSystem.GetToClearData(userLastChapterStep, currStageData.Step);
-                
+                var chapterData = _owner.GetToChapter(_targetChapterStep);
+                var currStageData  = _owner.GetToStage(_targetChapterStep, _targetStageStep);
+                var currClearData  = UserDataSystem.GetToClearData(_targetChapterStep, currStageData.Step);
+                var stageData      = _owner.GetToStage(_targetChapterStep, _targetStageStep);
+                var rewardItemList = stageData.RewardList;
+
+                _chapterSelectView.MoveToMap(currStageData.Step, 0.25f, null);
                 _chapterSelectView.RefreshChapterRewardView(chapterData, currStageData, currClearData, rewardItemList);
             }
         }
 
         private void _NextStage()
         {
-            var userLastChapterStep = UserDataSystem.GetToLastChapter();
-            var userLastStageStep   = UserDataSystem.GetToLastStage();
-            var chapterData         = _owner.GetToChapter(userLastChapterStep);
-            var stageData           = _owner.GetToStage(userLastChapterStep, userLastStageStep);
-            var rewardItemList      = stageData.RewardList;
-            var stageQuantity       = chapterData.StageQuantity;
+            var chapterData = _owner.GetToChapter(_targetChapterStep);
+            var stageQuantity = chapterData.StageQuantity;
 
             if (_targetStageStep < stageQuantity )
             {
                 _targetStageStep++;
 
-                var currStageData = _owner.GetToStage(userLastChapterStep, _targetStageStep);
-                var currClearData = UserDataSystem.GetToClearData(userLastChapterStep, currStageData.Step);
+                var currStageData  = _owner.GetToStage(_targetChapterStep, _targetStageStep);
+                var currClearData  = UserDataSystem.GetToClearData(_targetChapterStep, currStageData.Step);
+                var stageData      = _owner.GetToStage(_targetChapterStep, _targetStageStep);
+                var rewardItemList = stageData.RewardList;
 
+                _chapterSelectView.MoveToMap(currStageData.Step, 0.25f, null);
                 _chapterSelectView.RefreshChapterRewardView(chapterData, currStageData, currClearData, rewardItemList);
             }
         }

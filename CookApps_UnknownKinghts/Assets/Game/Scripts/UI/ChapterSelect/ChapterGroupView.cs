@@ -16,6 +16,11 @@ namespace InGame.ForState.ForChapterSelect
         [SerializeField] private RectTransform     _RECT_Focus  = null;
 
         // --------------------------------------------------
+        // Variables
+        // --------------------------------------------------
+        private Vector2 _canvasOrigin = Vector2.zero;
+
+        // --------------------------------------------------
         // Functinos - Nomal
         // --------------------------------------------------
         public void SetToChapterItems(List<UserData.ClearData> userClearData, int chapterStep)
@@ -37,7 +42,7 @@ namespace InGame.ForState.ForChapterSelect
         public Vector2 GetToTargetChapterItemPos(int stageStep)
         {
             var prevPos = _chapterItem[stageStep - 1].RectTrans.anchoredPosition - _RECT_Focus.anchoredPosition;
-            return _RECT_Canvas.anchoredPosition - prevPos;
+            return _canvasOrigin - prevPos;
         }
     }
 }
