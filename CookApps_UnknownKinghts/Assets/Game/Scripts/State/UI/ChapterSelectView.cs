@@ -56,10 +56,10 @@ namespace InGame.ForState.ForChapterSelect
             _chapterInfoView.SetToChapterInfo(chapterStep, chapterName);
         }
 
-        public void OnInitToChapterRewardView(Action onClickPrevStage, Action onClickNextStage, Chapter targetchapter, Stage targetStage, UserData.ClearData clearData, List<RewardItemData> rewardList)
+        public void OnInitToChapterRewardView(Action onClickPrevStage, Action onClickNextStage, Action onClickEnterBattle, Chapter targetchapter, Stage targetStage, UserData.ClearData clearData, List<RewardItemData> rewardList)
         {
             _chapterRewardView.OnInit          (targetchapter   , targetStage, clearData, rewardList);
-            _chapterRewardView.SetToButtonEvent(onClickPrevStage, onClickNextStage);
+            _chapterRewardView.SetToButtonEvent(onClickPrevStage, onClickNextStage, onClickEnterBattle);
         }
 
         public void RefreshChapterRewardView(Chapter targetchapter, Stage targetStage, UserData.ClearData clearData, List<RewardItemData> rewardList)

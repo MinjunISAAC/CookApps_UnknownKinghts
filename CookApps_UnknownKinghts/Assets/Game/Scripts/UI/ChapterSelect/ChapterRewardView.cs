@@ -28,6 +28,9 @@ namespace InGame.ForState.ForChapterSelect
         [SerializeField] private RewardItemView  _rewardItemOrigin  = null;
         [SerializeField] private Transform       _rewardItemParents = null;
 
+        [Header("4. Enter Group")]
+        [SerializeField] private Button          _BTN_EnterBattle   = null;
+
         // --------------------------------------------------
         // Variables
         // --------------------------------------------------
@@ -74,12 +77,13 @@ namespace InGame.ForState.ForChapterSelect
             _TMP_Stage.text = $"{chapter}-{stage}";
         }
 
-        public void SetToButtonEvent(Action onClickPrevStage, Action onClickNextStage)
+        public void SetToButtonEvent(Action onClickPrevStage, Action onClickNextStage, Action onClickEnterBattle)
         {
             if (!_isInit)
             {
-                _BTN_PrevStage.onClick.AddListener(() => onClickPrevStage());
-                _BTN_NextStage.onClick.AddListener(() => onClickNextStage());
+                _BTN_PrevStage.onClick  .AddListener(() => onClickPrevStage  ());
+                _BTN_NextStage.onClick  .AddListener(() => onClickNextStage  ());
+                _BTN_EnterBattle.onClick.AddListener(() => onClickEnterBattle());
                 _isInit = true;
             }
         }

@@ -21248,6 +21248,7 @@ MonoBehaviour:
   _TMP_Stage: {fileID: 1504862309}
   _rewardItemOrigin: {fileID: 7530792555508400311, guid: bfe790e97aabceb44a62cfa9e9699815, type: 3}
   _rewardItemParents: {fileID: 1975355908}
+  _BTN_EnterBattle: {fileID: 325671206}
 --- !u!1 &1487126971
 GameObject:
   m_ObjectHideFlags: 0
@@ -24599,6 +24600,7 @@ MonoBehaviour:
   _TMP_Stage: {fileID: 0}
   _rewardItemOrigin: {fileID: 0}
   _rewardItemParents: {fileID: 0}
+  _BTN_EnterBattle: {fileID: 0}
 --- !u!1 &1708256491
 GameObject:
   m_ObjectHideFlags: 0

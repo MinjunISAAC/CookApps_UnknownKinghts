@@ -118,11 +118,11 @@ namespace InGame.ForState
 
             var targetChapterClearData = UserDataSystem.GetToClearData(_targetChapterStep, _targetStageStep);
 
-            _chapterSelectView.SetToReturnButton     (OnClickAction);
-            _chapterSelectView.SetToChapterInfoView  (targetChapterData);
-            _chapterSelectView.SetToChapterGroupView (chapterClearDataList, targetChapterData.Step);
-            _chapterSelectView.MoveToMap             (userLastStageStep);
-            _chapterSelectView.OnInitToChapterRewardView(_PrevStage, _NextStage, targetChapterData, targetStageData, targetChapterClearData, rewardItemList);
+            _chapterSelectView.SetToReturnButton        (OnClickAction);
+            _chapterSelectView.SetToChapterInfoView     (targetChapterData);
+            _chapterSelectView.SetToChapterGroupView    (chapterClearDataList, targetChapterData.Step);
+            _chapterSelectView.MoveToMap                (userLastStageStep);
+            _chapterSelectView.OnInitToChapterRewardView(_PrevStage, _NextStage, _EnterBattle, targetChapterData, targetStageData, targetChapterClearData, rewardItemList);
         }
 
         private void _PrevStage()
@@ -145,7 +145,7 @@ namespace InGame.ForState
 
         private void _NextStage()
         {
-            var chapterData = _owner.GetToChapter(_targetChapterStep);
+            var chapterData   = _owner.GetToChapter(_targetChapterStep);
             var stageQuantity = chapterData.StageQuantity;
 
             if (_targetStageStep < stageQuantity )
@@ -160,6 +160,16 @@ namespace InGame.ForState
                 _chapterSelectView.MoveToMap(currStageData.Step, 0.25f, null);
                 _chapterSelectView.RefreshChapterRewardView(chapterData, currStageData, currClearData, rewardItemList);
             }
+        }
+
+        private void _EnterBattle()
+        {
+            var stage = _owner.GetToStage(_targetChapterStep, _targetStageStep);
+            Loader.Instance.Show
+            (
+                null,
+                () => StateMachine.Instance.ChangeState(EStateType.BuildDeck, stage)
+            );
         }
     }
 }

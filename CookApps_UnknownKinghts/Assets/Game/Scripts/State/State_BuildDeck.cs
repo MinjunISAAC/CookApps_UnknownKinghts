@@ -7,6 +7,8 @@ using UnityEngine;
 
 // ----- User Defined
 using Utility.SimpleFSM;
+using Utiltiy.ForLoader;
+using InGame.ForState.ForUI;
 
 namespace InGame.ForState
 {
@@ -16,7 +18,10 @@ namespace InGame.ForState
         // Variables
         // --------------------------------------------------
         // ----- Owner
-        private Owner _owner = null;
+        private Owner         _owner         = null;
+
+        // ----- UI
+        private BuildDeckView _buildDeckView = null;
 
         // --------------------------------------------------
         // Property
@@ -39,7 +44,23 @@ namespace InGame.ForState
                 return;
             }
 
+            _buildDeckView = (BuildDeckView)_owner.UIOwner.GetStateUI();
+            if (_buildDeckView == null)
+            {
+                Debug.LogError($"<color=red>[State_{State}._Start] {State} View가 Null 상태입니다.</color>");
+                return;
+            }
             #endregion
+
+            // Loader Hide
+            Loader.Instance.Hide
+            (
+                () =>
+                {
+                    _buildDeckView.gameObject.SetActive(true);
+                }
+                , null
+            );
         }
         protected override void _Update()
         {
