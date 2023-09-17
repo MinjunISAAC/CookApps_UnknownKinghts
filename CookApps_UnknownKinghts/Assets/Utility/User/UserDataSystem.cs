@@ -42,12 +42,6 @@ namespace Utility.ForData.ForUser
         public static int    GetToExp         () => UserData.Experience;
         public static string GetToUserName    () => UserData.UserName;
 
-        public static void SetToCoin()
-        {
-            UserData.Test();
-            Save();
-        }
-
         public static int    GetToCoin        () => UserData.CurrencyCoin;
         public static int    GetToGem         () => UserData.CurrencyGem;
         public static int    GetToHealth      () => UserData.CurrencyHealth;
