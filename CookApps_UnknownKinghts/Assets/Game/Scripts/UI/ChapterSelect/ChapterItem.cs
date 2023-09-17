@@ -11,8 +11,14 @@ namespace InGame.ForState.ForChapterSelect
         // --------------------------------------------------
         // Components
         // --------------------------------------------------
+        [SerializeField] private RectTransform   _RECT_This     = null;
         [SerializeField] private TextMeshProUGUI _TMP_Count     = null;
         [SerializeField] private List<Image>     _IMG_StarGroup = null;
+
+        // --------------------------------------------------
+        // Properties
+        // --------------------------------------------------
+        public RectTransform RectTrans => _RECT_This;
 
         // --------------------------------------------------
         // Functions - Nomal

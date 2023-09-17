@@ -70,7 +70,7 @@ namespace InGame.ForState
             var stageData           = _owner.GetToStage  (userLastChapterStep, userLastStageStep);
 
             // UI Init
-            _SetToUI(chapterData, userClearData);
+            _SetToUI(chapterData, userClearData, userLastStageStep);
 
         }
         protected override void _Update()
@@ -85,7 +85,7 @@ namespace InGame.ForState
         }
 
         // ----- Private
-        private void _SetToUI(Chapter targetChapterData, List<UserData.ClearData> chapterClearDataList)
+        private void _SetToUI(Chapter targetChapterData, List<UserData.ClearData> chapterClearDataList, int userLastStageStep)
         {
             void OnClickAction() 
             { 
@@ -99,6 +99,7 @@ namespace InGame.ForState
             _chapterSelectView.SetToReturnButton    (OnClickAction);
             _chapterSelectView.SetToChapterInfoView (targetChapterData);
             _chapterSelectView.SetToChapterGroupView(chapterClearDataList, targetChapterData.Step);
+            _chapterSelectView.MoveToMap            (userLastStageStep);
         }
     }
 }

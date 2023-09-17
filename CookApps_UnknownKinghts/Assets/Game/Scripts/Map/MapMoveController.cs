@@ -29,6 +29,11 @@ namespace InGame.ForMap
         // --------------------------------------------------
         // Fucntions - Nomal
         // --------------------------------------------------
+        public void MoveToMap(Vector2 pos)
+        {
+            _RECT_Map.anchoredPosition = pos;
+        }
+
         private void LockScreenBound(PointerEventData eventData)
         {
             Vector2 newPosition = _RECT_Map.anchoredPosition + eventData.delta;
@@ -50,5 +55,6 @@ namespace InGame.ForMap
                 _prevPos = clampedPosition;
             }
         }
+
     }
 }

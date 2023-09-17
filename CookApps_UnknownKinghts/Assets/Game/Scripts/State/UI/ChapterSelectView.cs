@@ -8,9 +8,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // ----- User Defined
+using Utility.ForData.ForUser;
 using InGame.ForState.ForUI;
 using InGame.ForChapterGroup.ForChapter;
-using Utility.ForData.ForUser;
+using InGame.ForMap;
 
 namespace InGame.ForState.ForChapterSelect
 {
@@ -23,6 +24,9 @@ namespace InGame.ForState.ForChapterSelect
         [SerializeField] private Button            _BTN_Return       = null;
         [SerializeField] private ChapterInfoView   _chapterInfoView  = null;
         [SerializeField] private ChapterGroupView  _chapterGroupView = null;
+        
+        [Header("2. Controller")]
+        [SerializeField] private MapMoveController _mapMoveController = null;
 
         // --------------------------------------------------
         // Variables
@@ -51,5 +55,11 @@ namespace InGame.ForState.ForChapterSelect
         {
             _chapterGroupView.SetToChapterItems(userClearDataList, chapterStep);
         }
+
+        public void MoveToMap(int lastStageStep) 
+        {
+            var pos = _chapterGroupView.GetToTargetChapterItemPos(lastStageStep);
+            _mapMoveController.MoveToMap(pos);
+        } 
     }
 }

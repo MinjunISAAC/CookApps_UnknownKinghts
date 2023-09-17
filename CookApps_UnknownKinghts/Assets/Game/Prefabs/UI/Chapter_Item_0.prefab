@@ -881,6 +881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50570e428bd40f64da4e684ec4ded8a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _RECT_This: {fileID: 5501443907262832152}
   _TMP_Count: {fileID: 5501443905852488295}
   _IMG_StarGroup:
   - {fileID: 5501443905885967712}

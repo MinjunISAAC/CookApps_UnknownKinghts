@@ -12,6 +12,8 @@ namespace InGame.ForState.ForChapterSelect
         // Components
         // --------------------------------------------------
         [SerializeField] private List<ChapterItem> _chapterItem = new List<ChapterItem>();
+        [SerializeField] private RectTransform     _RECT_Canvas = null;
+        [SerializeField] private RectTransform     _RECT_Focus  = null;
 
         // --------------------------------------------------
         // Functinos - Nomal
@@ -30,6 +32,12 @@ namespace InGame.ForState.ForChapterSelect
                 }
                 else chapterItem.SetToClearStar(0);
             }
+        }
+
+        public Vector2 GetToTargetChapterItemPos(int stageStep)
+        {
+            var prevPos = _chapterItem[stageStep - 1].RectTrans.anchoredPosition - _RECT_Focus.anchoredPosition;
+            return _RECT_Canvas.anchoredPosition - prevPos;
         }
     }
 }
