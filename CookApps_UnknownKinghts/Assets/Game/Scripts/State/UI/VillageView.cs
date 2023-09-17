@@ -23,6 +23,7 @@ namespace InGame.ForState.ForUI
         // --------------------------------------------------
         // Variables
         // --------------------------------------------------
+        private bool _isInit = false;
 
         // --------------------------------------------------
         // Functions - Nomal
@@ -34,6 +35,12 @@ namespace InGame.ForState.ForUI
         => _profileView.OnInit(level, exp, levelUpExp, userName);
 
         public void SetToBottomView(Action<EBattleType> onClickToBattleItem)
-        => _bottomView.OnInit(onClickToBattleItem);
+        { 
+            if (!_isInit)
+            {
+                _bottomView.OnInit(onClickToBattleItem);
+                _isInit = true;
+            }
+        } 
     }
 }
