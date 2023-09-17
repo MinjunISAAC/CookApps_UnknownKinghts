@@ -60,11 +60,10 @@ namespace Utiltiy.ForLoader
         // --------------------------------------------------
         // ----- Const
         private const string SHOW_TRIGGER = "Loader_Show";
-        private const string IDLE_TRIGGER = "Loader_Idle";
         private const string HIDE_TRIGGER = "Loader_Hide";
 
         // ----- Private
-        private Coroutine _co_visiable = null;
+        private Coroutine _co_Visiable = null;
 
         // --------------------------------------------------
         // Functions - Event
@@ -92,37 +91,47 @@ namespace Utiltiy.ForLoader
         // --------------------------------------------------
         // Functions - Coroutine
         // --------------------------------------------------
-        public void Visiable(float duration, Action loadWork, Action doneCallBack)
+        public void Show(Action loadWork, Action doneCallBack)
         {
-            if (_co_visiable == null)
-                _co_visiable = StartCoroutine(_Co_Visiable(duration, loadWork, doneCallBack));
+            if (_co_Visiable == null)
+                _co_Visiable = StartCoroutine(_Co_Show(loadWork, doneCallBack));
+        }
+
+        public void Hide(Action loadWork, Action doneCallBack)
+        {
+            if (_co_Visiable == null)
+                _co_Visiable = StartCoroutine(_Co_Hide(loadWork, doneCallBack));
         }
 
         // --------------------------------------------------
         // Functions - Coroutine
         // --------------------------------------------------
-        private IEnumerator _Co_Visiable(float duration, Action loadWork, Action doneCallBack)
+        private IEnumerator _Co_Show(Action loadWork, Action doneCallBack)
         {
             _animation.clip = _animation.GetClip(SHOW_TRIGGER);
             _animation.Play();
 
-            var showSec = _animation.clip.length;
-            yield return new WaitForSeconds(showSec);
-
             loadWork?.Invoke();
-            _animation.clip = _animation.GetClip(IDLE_TRIGGER);
-            _animation.Play();
 
-            yield return new WaitForSeconds(duration);
+            var delay = _animation.clip.length;
+            yield return new WaitForSeconds(delay);
 
+            _co_Visiable = null;
+            doneCallBack?.Invoke();
+        }
+
+        private IEnumerator _Co_Hide(Action loadWork, Action doneCallBack)
+        {
             _animation.clip = _animation.GetClip(HIDE_TRIGGER);
             _animation.Play();
 
-            var hideSec = _animation.clip.length;
-            yield return new WaitForSeconds(hideSec);
+            loadWork?.Invoke();
 
+            var delay = _animation.clip.length;
+            yield return new WaitForSeconds(delay);
+
+            _co_Visiable = null;
             doneCallBack?.Invoke();
-            _co_visiable = null;
         }
     }
 }

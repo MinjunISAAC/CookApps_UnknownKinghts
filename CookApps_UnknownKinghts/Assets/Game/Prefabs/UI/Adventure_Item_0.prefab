@@ -298,6 +298,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5199671863786370498}
+  - component: {fileID: 2069010607338559603}
   m_Layer: 0
   m_Name: Adventure_Item_0
   m_TagString: Untagged
@@ -327,6 +328,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 93, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2069010607338559603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5199671863786370497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6fb0de26110119449611e1a6b63559a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _battleType: 0
+  _BTN_OnClick: {fileID: 8535611875853588975}
 --- !u!1 &5199671864252884351
 GameObject:
   m_ObjectHideFlags: 0

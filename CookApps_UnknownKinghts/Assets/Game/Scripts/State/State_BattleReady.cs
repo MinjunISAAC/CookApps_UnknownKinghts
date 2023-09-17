@@ -1,4 +1,6 @@
 // ----- C#
+using InGame.ForState.ForUI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -7,6 +9,7 @@ using UnityEngine;
 
 // ----- User Defined
 using Utility.SimpleFSM;
+using Utiltiy.ForLoader;
 
 namespace InGame.ForState
 {
@@ -16,7 +19,10 @@ namespace InGame.ForState
         // Variables
         // --------------------------------------------------
         // ----- Owner
-        private Owner _owner = null;
+        private Owner           _owner           = null;
+
+        // ----- UI
+        private BattleReadyView _battleReadyView = null;
 
         // --------------------------------------------------
         // Property
@@ -39,6 +45,23 @@ namespace InGame.ForState
                 return;
             }
 
+            _battleReadyView = (BattleReadyView)_owner.UIOwner.GetStateUI();
+            if (_battleReadyView == null)
+            {
+                Debug.LogError($"<color=red>[State_{State}._Start] {State} View가 Null 상태입니다.</color>");
+                return;
+            }
+
+            // Loader Hide
+            Loader.Instance.Hide
+            (
+                () => { _battleReadyView.gameObject.SetActive(true); }
+                , null
+            );
+
+            // UI Init
+            _SetToUI();
+
             #endregion
         }
         protected override void _Update()
@@ -48,7 +71,15 @@ namespace InGame.ForState
 
         protected override void _Finish(EStateType nextStateKey)
         {
+            _battleReadyView.gameObject.SetActive(false);
             Debug.Log($"<color=yellow>[State_{State}._Start] {State} State에 이탈하였습니다.</color>");
+        }
+
+        // ----- Private
+        private void _SetToUI() 
+        {
+            void OnClickAction() { Loader.Instance.Show(null, () => StateMachine.Instance.ChangeState(EStateType.Village)); }
+            _battleReadyView.SetToReturnButton(OnClickAction);
         }
     }
 }

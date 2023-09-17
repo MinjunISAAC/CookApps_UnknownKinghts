@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-namespace InGame.ForUI
+namespace InGame.ForState.ForVillage
 {
     public class ProfileView : MonoBehaviour
     {

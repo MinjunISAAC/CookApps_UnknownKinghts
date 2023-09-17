@@ -1,39 +1,42 @@
 // ----- C#
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
 // ----- Unity
 using UnityEngine;
+using UnityEngine.UI;
 
 // ----- User Defined
-using InGame.ForState.ForVillage;
-using System;
 using InGame.ForBattle;
 
 namespace InGame.ForState.ForUI
 {
-    public class VillageView : StateView
+    public class BattleEnterItem : MonoBehaviour
     {
         // --------------------------------------------------
         // Components
         // --------------------------------------------------
-        [SerializeField] private ProfileView _profileView = null;
-        [SerializeField] private BottomView  _bottomView  = null;
+        [Header("1. Battle Type")]
+        [SerializeField] private EBattleType _battleType  = EBattleType.Unknown;
+
+        [Header("2. UI Components")]
+        [SerializeField] private Button      _BTN_OnClick = null;
 
         // --------------------------------------------------
-        // Variables
+        // Properties
         // --------------------------------------------------
+        public EBattleType BattleType => _battleType;
 
         // --------------------------------------------------
         // Functions - Nomal
         // --------------------------------------------------
-        public override void OnInit()   { }
-        public override void OnFinish() { }
-
-        public void SetToProfileView(int level, int exp, int levelUpExp, string userName)
-        => _profileView.OnInit(level, exp, levelUpExp, userName);
-
-        public void SetToBottomView(Action<EBattleType> onClickToBattleItem)
-        => _bottomView.OnInit(onClickToBattleItem);
+        public void OnInit(Action<EBattleType> onClickAction)
+        {
+            _BTN_OnClick.onClick.AddListener
+            (
+                () => { Debug.Log($"IN {_battleType}"); onClickAction(_battleType); }
+            );
+        }
     }
 }

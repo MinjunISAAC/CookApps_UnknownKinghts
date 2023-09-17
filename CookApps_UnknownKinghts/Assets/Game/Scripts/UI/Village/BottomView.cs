@@ -1,21 +1,18 @@
-// ----- C#
+using InGame.ForBattle;
+using InGame.ForState.ForUI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
-// ----- Unity
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace InGame.ForState.ForUI
+namespace InGame.ForState.ForVillage
 {
-    public class BattleReadyView : StateView
+    public class BottomView : MonoBehaviour
     {
         // --------------------------------------------------
         // Components
         // --------------------------------------------------
-        [Header("1. UI Group")]
-        [SerializeField] private Button _BTN_Return = null;
+        [SerializeField] private List<BattleEnterItem> _battleEnterItems = new List<BattleEnterItem>();
 
         // --------------------------------------------------
         // Variables
@@ -24,12 +21,13 @@ namespace InGame.ForState.ForUI
         // --------------------------------------------------
         // Functions - Nomal
         // --------------------------------------------------
-        // ----- Public(Override)
-        public override void OnInit()   { }
-        public override void OnFinish() { }
-
-        // ----- public
-        public void SetToReturnButton(Action onClickReturnBtn)
-        => _BTN_Return.onClick.AddListener(() => { onClickReturnBtn(); } );
+        public void OnInit(Action<EBattleType> onClickAction)
+        {
+            for (int i = 0; i < _battleEnterItems.Count; i++)
+            {
+                var battleEnterItem = _battleEnterItems[i];
+                battleEnterItem.OnInit(onClickAction);
+            }
+        }
     }
 }
