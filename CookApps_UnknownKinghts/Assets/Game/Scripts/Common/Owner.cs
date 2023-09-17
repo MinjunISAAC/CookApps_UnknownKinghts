@@ -56,34 +56,12 @@ namespace InGame
             // 3. Currency System Init
             // 4. Chapter Data Init
             JsonParser             .LoadJson();
-            UserDataSystem         .CreateToUserSaveData();
             UserDataSystem         .Load  ();
             CurrencySystem.Instance.OnInit();
             _chapterGroup.OnInit();
 
-            //UserDataSystem.Save();
-
-            var data = UserDataSystem.GetToClearData(1, 2);
-            Debug.Log($"Data Test 1 : {data} | {UserDataSystem.TestData()}");
-
-            UserDataSystem.SetToClearData(1, 1, 2);
-            UserDataSystem.SetToClearData(1, 2, 3);
-            UserDataSystem.SetToClearData(1, 3, 3);
-            UserDataSystem.SetToClearData(1, 4, 3);
-
-            Debug.Log($"Data Test 2 : {data} | {UserDataSystem.TestData()}");
-
-
-
-
-
-
-
             // State √ ±‚»≠
             StateMachine.Instance.ChangeState(EStateType.Village);
-
-
-
 
             yield return null;
         }

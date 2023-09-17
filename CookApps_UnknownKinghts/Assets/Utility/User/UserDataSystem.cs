@@ -1,7 +1,6 @@
 // ----- C#
 using System;
 using System.IO;
-using System.Text;
 
 // ----- Unity
 using UnityEngine;
@@ -43,6 +42,12 @@ namespace Utility.ForData.ForUser
         public static int    GetToExp         () => UserData.Experience;
         public static string GetToUserName    () => UserData.UserName;
 
+        public static void SetToCoin()
+        {
+            UserData.Test();
+            Save();
+        }
+
         public static int    GetToCoin        () => UserData.CurrencyCoin;
         public static int    GetToGem         () => UserData.CurrencyGem;
         public static int    GetToHealth      () => UserData.CurrencyHealth;
@@ -50,7 +55,6 @@ namespace Utility.ForData.ForUser
         public static int    GetToLastChapter () => UserData.LastChapter;
         public static int    GetToLastStage   () => UserData.LastStage;
 
-        public static int TestData() => UserData.ClearDataList.Count;
         public static UserData.ClearData GetToClearData(int chapter, int stage)
         {
             List<UserData.ClearData> dataSet   = UserData.ClearDataList;
@@ -62,12 +66,10 @@ namespace Utility.ForData.ForUser
                 if (data.Chapter == chapter && data.Stage == stage)
                 {
                     clearData = data;
-                    Debug.Log($"뭐지 1? {clearData}");
                     return clearData;
                 }
             }
 
-            Debug.Log($"뭐지 2?");
             return null;
         }
 
@@ -101,13 +103,13 @@ namespace Utility.ForData.ForUser
                 UserData = new UserData();
                 return;
             }
-            
+
             try
             {
                 var pendData = JsonUtility.FromJson<UserData>(fileContents);
                 if (pendData == null)
                 {
-                    Debug.LogError($"<color=red>[UserSystem.Load] {FILE_NAME} 파일을 로드하는데 실패했습니다.</color>");
+                    Debug.LogError($"[UserDataManager.Load] {FILE_NAME} 파일을 로드하는데 실패했습니다.");
                     return;
                 }
 
@@ -128,7 +130,7 @@ namespace Utility.ForData.ForUser
 
             if (!_TrySave(FILE_NAME, jsonContents))
             {
-                Debug.LogError($"<color=red>[UserDataSystem.Save] File을 저장하지 못했습니다.</color>");
+                Debug.LogError($"[UserSaveDataManager.Save] File을 저장하지 못했습니다.");
                 return;
             }
         }
@@ -161,23 +163,24 @@ namespace Utility.ForData.ForUser
                 return false;
             }
         }
-        private static bool _TrySave(string fileName, string saveDataContents, bool useEncodeFileName = true, bool useEncodeData = true)
+
+        private static bool _TrySave(string fileName, string saveDataContents)
         {
             if (string.IsNullOrEmpty(fileName))
             {
-                Debug.LogError($"<color=red>UserDataSystem.Save] 파일명이 비어있습니다.</color>");
+                Debug.LogError("UserSaveDataManager.Save] 파일명이 비어있습니다.");
                 return false;
             }
 
             if (UserData == null)
             {
-                Debug.LogError($"<color=red>[UserDataSystem.Save] User Save Data가 생성되지 않았습니다.</color>");
+                Debug.LogError($"[UserSaveDataManager.Save] User Save Data가 생성되지 않았습니다.");
                 return false;
             }
 
             if (string.IsNullOrEmpty(saveDataContents))
             {
-                Debug.LogWarning($"<color=red>[UserDataSystem.Save] 저장할 컨텐츠가 비어있습니다.</color>");
+                Debug.LogWarning("[UserSaveDataManager.Save] 저장할 컨텐츠가 비어있습니다.");
                 return false;
             }
 
@@ -191,7 +194,6 @@ namespace Utility.ForData.ForUser
                 {
                     fileContents = saveDataContents;
                     File.WriteAllText(filePath, fileContents);
-
                     return true;
                 }
                 catch (Exception e)

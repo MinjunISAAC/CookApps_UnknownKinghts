@@ -1,5 +1,5 @@
 // ----- C#
-using System.Collections;
+using System;
 using System.Collections.Generic;
 
 // ----- Unity
@@ -7,9 +7,10 @@ using UnityEngine;
 
 namespace Utility.ForData.ForUser
 {
+    [Serializable]
     public class UserData
     {
-        [System.Serializable]
+        [Serializable]
         public class ClearData
         {
             public int Chapter   = 0;
