@@ -67,8 +67,7 @@ namespace Utility.ForCurrency
         {
             // User Save Data Load
             UserDataSystem.Load();
-            var userData = UserDataSystem.UserData;
-
+            
             if (null == _instance)
             {
                 var existingInstance = FindObjectOfType<CurrencySystem>();
@@ -79,8 +78,6 @@ namespace Utility.ForCurrency
                     DontDestroyOnLoad(_instance.gameObject);
                 }
             }
-
-            //OnInit(userData.Coin, userData.Gem);
         }
 
         private void OnDestroy()

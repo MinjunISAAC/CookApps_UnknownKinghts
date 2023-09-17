@@ -60,7 +60,7 @@ namespace InGame.ForState
                 new Dictionary<EStateType, SimpleState<EStateType>>()
                 {
                     { EStateType.Village,     new State_Village()     },
-                    { EStateType.BattleReady, new State_BattleReady() },
+                    { EStateType.ChapterSelect, new State_ChapterSelect() },
                     { EStateType.BuildDeck,   new State_BuildDeck()   },
                     { EStateType.Battle,      new State_Battle()      },
                     { EStateType.Result,      new State_Result()      },

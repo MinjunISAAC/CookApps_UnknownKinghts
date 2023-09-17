@@ -109,7 +109,7 @@ namespace InGame.ForState
                     Loader.Instance.Show
                     (
                         null,
-                        () => { StateMachine.Instance.ChangeState(EStateType.BattleReady); }
+                        () => { StateMachine.Instance.ChangeState(EStateType.ChapterSelect); }
                     );
                     break;
             }

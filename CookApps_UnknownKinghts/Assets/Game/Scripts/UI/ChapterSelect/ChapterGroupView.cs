@@ -1,20 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-namespace InGame.ForChapterGroup.ForStage
+namespace InGame.ForState.ForChapterSelect
 {
-    [CreateAssetMenu(menuName = "Chapter Group/Create To Stage", fileName = "Stage")]
-    public class Stage : ScriptableObject
+    public class ChapterGroupView : MonoBehaviour
     {
         // --------------------------------------------------
         // Components
         // --------------------------------------------------
-        [SerializeField] private int _step = 0;
+        [SerializeField] private List<ChapterItem> _chapterItem = new List<ChapterItem>();
 
         // --------------------------------------------------
-        // Properties
+        // Functinos - Nomal
         // --------------------------------------------------
-        public int Step => _step;
+        public void SetToChapterItems()
+        {
+
+        }
     }
 }

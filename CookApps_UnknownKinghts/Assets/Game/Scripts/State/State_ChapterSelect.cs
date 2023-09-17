@@ -1,5 +1,4 @@
 // ----- C#
-using InGame.ForState.ForUI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,10 +9,13 @@ using UnityEngine;
 // ----- User Defined
 using Utility.SimpleFSM;
 using Utiltiy.ForLoader;
+using Utility.ForData.ForUser;
+using InGame.ForState.ForChapterSelect;
+using InGame.ForChapterGroup.ForChapter;
 
 namespace InGame.ForState
 {
-    public class State_BattleReady : SimpleState<EStateType>
+    public class State_ChapterSelect : SimpleState<EStateType>
     {
         // --------------------------------------------------
         // Variables
@@ -22,12 +24,12 @@ namespace InGame.ForState
         private Owner           _owner           = null;
 
         // ----- UI
-        private BattleReadyView _battleReadyView = null;
+        private ChapterSelectView _chapterSelectView = null;
 
         // --------------------------------------------------
         // Property
         // --------------------------------------------------
-        public override EStateType State => EStateType.BattleReady;
+        public override EStateType State => EStateType.ChapterSelect;
 
         // --------------------------------------------------
         // Functions - Nomal
@@ -45,22 +47,28 @@ namespace InGame.ForState
                 return;
             }
 
-            _battleReadyView = (BattleReadyView)_owner.UIOwner.GetStateUI();
-            if (_battleReadyView == null)
+            _chapterSelectView = (ChapterSelectView)_owner.UIOwner.GetStateUI();
+            if (_chapterSelectView == null)
             {
                 Debug.LogError($"<color=red>[State_{State}._Start] {State} View가 Null 상태입니다.</color>");
                 return;
             }
 
+            // Last Chapter Info Load
+            var userLastChapterStep = UserDataSystem.GetToLastChapter();
+            var userLastStageStep   = UserDataSystem.GetToLastStage  ();
+            var chapter             = _owner.GetToChapter(userLastChapterStep);
+            var stage               = _owner.GetToStage  (userLastChapterStep, userLastStageStep);
+            
             // Loader Hide
             Loader.Instance.Hide
             (
-                () => { _battleReadyView.gameObject.SetActive(true); }
+                () => { _chapterSelectView.gameObject.SetActive(true); }
                 , null
             );
 
             // UI Init
-            _SetToUI();
+            _SetToUI(userLastChapterStep, chapter.Name);
 
             #endregion
         }
@@ -71,15 +79,24 @@ namespace InGame.ForState
 
         protected override void _Finish(EStateType nextStateKey)
         {
-            _battleReadyView.gameObject.SetActive(false);
+            _chapterSelectView.gameObject.SetActive(false);
             Debug.Log($"<color=yellow>[State_{State}._Start] {State} State에 이탈하였습니다.</color>");
         }
 
         // ----- Private
-        private void _SetToUI() 
+        private void _SetToUI(int chapterStep, string chapterName)
         {
-            void OnClickAction() { Loader.Instance.Show(null, () => StateMachine.Instance.ChangeState(EStateType.Village)); }
-            _battleReadyView.SetToReturnButton(OnClickAction);
+            void OnClickAction() 
+            { 
+                Loader.Instance.Show
+                (
+                    null, 
+                    () => StateMachine.Instance.ChangeState(EStateType.Village)
+                );
+            }
+
+            _chapterSelectView.SetToReturnButton(OnClickAction);
+            _chapterSelectView.SetToChapterInfoView(chapterStep, chapterName);
         }
     }
 }

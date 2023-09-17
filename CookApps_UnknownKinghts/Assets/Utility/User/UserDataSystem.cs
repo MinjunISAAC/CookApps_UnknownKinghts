@@ -6,6 +6,7 @@ using System.Text;
 // ----- Unity
 using UnityEngine;
 using UnityEditor;
+using System.Collections.Generic;
 
 namespace Utility.ForData.ForUser
 {
@@ -38,13 +39,60 @@ namespace Utility.ForData.ForUser
                 Save();
         }
 
-        public static int    GetToLevel   () => UserData.Level;
-        public static int    GetToExp     () => UserData.Experience;
-        public static string GetToUserName() => UserData.UserName;
+        public static int    GetToLevel       () => UserData.Level;
+        public static int    GetToExp         () => UserData.Experience;
+        public static string GetToUserName    () => UserData.UserName;
 
-        public static int GetToCoin   () => UserData.CurrencyCoin;
-        public static int GetToGem    () => UserData.CurrencyGem;
-        public static int GetToHealth () => UserData.CurrencyHealth;
+        public static int    GetToCoin        () => UserData.CurrencyCoin;
+        public static int    GetToGem         () => UserData.CurrencyGem;
+        public static int    GetToHealth      () => UserData.CurrencyHealth;
+
+        public static int    GetToLastChapter () => UserData.LastChapter;
+        public static int    GetToLastStage   () => UserData.LastStage;
+
+        public static int TestData() => UserData.ClearDataList.Count;
+        public static UserData.ClearData GetToClearData(int chapter, int stage)
+        {
+            List<UserData.ClearData> dataSet   = UserData.ClearDataList;
+            UserData.ClearData       clearData = null; 
+
+            for (int i = 0; i < dataSet.Count; i++)
+            {
+                var data = dataSet[i];
+                if (data.Chapter == chapter && data.Stage == stage)
+                {
+                    clearData = data;
+                    Debug.Log($"¹¹Áö 1? {clearData}");
+                    return clearData;
+                }
+            }
+
+            Debug.Log($"¹¹Áö 2?");
+            return null;
+        }
+
+        public static void SetToClearData(int chapter, int stage, int clearStar)
+        {
+            var data = GetToClearData(chapter, stage);
+
+            if (data != null)
+            {
+                if (data.ClearStar < clearStar)
+                {
+                    var clearData = new UserData.ClearData(chapter, stage, clearStar);
+                
+                    UserData.ClearDataList.Remove(data);
+                    UserData.ClearDataList.Add(clearData);
+                }
+            }
+            else
+            {
+                var clearData = new UserData.ClearData(chapter, stage, clearStar);
+                UserData.ClearDataList.Add(clearData);
+            }
+
+            Save();
+        }
 
         public static void Load()
         {

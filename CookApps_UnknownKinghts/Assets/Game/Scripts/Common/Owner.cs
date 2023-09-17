@@ -6,11 +6,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // ----- User Defined
-using InGame.ForUI;
-using InGame.ForState;
+using JsonUtil;
 using Utility.ForCurrency;
 using Utility.ForData.ForUser;
-using JsonUtil;
+using InGame.ForUI;
+using InGame.ForState;
+using InGame.ForChapterGroup;
+using InGame.ForChapterGroup.ForChapter;
+using InGame.ForChapterGroup.ForStage;
 
 namespace InGame
 {
@@ -19,8 +22,11 @@ namespace InGame
         // --------------------------------------------------
         // Components
         // --------------------------------------------------
-        [Header("0. UI Group")]
-        [SerializeField] private UIOwner _uiOwner = null;
+        [Header("1. Game Data")]
+        [SerializeField] private ChapterGroup _chapterGroup = null;
+
+        [Header("2. UI Owner")]
+        [SerializeField] private UIOwner      _uiOwner      = null;
 
         // --------------------------------------------------
         // Variables
@@ -48,11 +54,24 @@ namespace InGame
             // 1. Json Fil Load
             // 2. User Data Load
             // 3. Currency System Init
+            // 4. Chapter Data Init
             JsonParser             .LoadJson();
+            UserDataSystem         .CreateToUserSaveData();
             UserDataSystem         .Load  ();
             CurrencySystem.Instance.OnInit();
+            _chapterGroup.OnInit();
 
+            //UserDataSystem.Save();
 
+            var data = UserDataSystem.GetToClearData(1, 2);
+            Debug.Log($"Data Test 1 : {data} | {UserDataSystem.TestData()}");
+
+            UserDataSystem.SetToClearData(1, 1, 2);
+            UserDataSystem.SetToClearData(1, 2, 3);
+            UserDataSystem.SetToClearData(1, 3, 3);
+            UserDataSystem.SetToClearData(1, 4, 3);
+
+            Debug.Log($"Data Test 2 : {data} | {UserDataSystem.TestData()}");
 
 
 
@@ -62,14 +81,18 @@ namespace InGame
 
             // State ÃÊ±âÈ­
             StateMachine.Instance.ChangeState(EStateType.Village);
-           
+
+
+
+
             yield return null;
         }
 
         // --------------------------------------------------
         // Functions - Nomal
         // --------------------------------------------------
-        // ----- Private
-        
+        // ----- Public
+        public Chapter GetToChapter(int chapterCount                ) => _chapterGroup.GetToChapter(chapterCount);
+        public Stage   GetToStage  (int chapterCount, int stageCount) => _chapterGroup.GetToStage(chapterCount, stageCount);
     }
 }
