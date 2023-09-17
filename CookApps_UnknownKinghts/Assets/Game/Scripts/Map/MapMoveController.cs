@@ -29,11 +29,18 @@ namespace InGame.ForMap
         // --------------------------------------------------
         // Fucntions - Nomal
         // --------------------------------------------------
+        // ----- Public
         public void MoveToMap(Vector2 pos)
         {
             _RECT_Map.anchoredPosition = pos;
         }
 
+        public void ResetToMap()
+        {
+            _RECT_Map.anchoredPosition = Vector2.zero;
+        }
+
+        // ----- Private
         private void LockScreenBound(PointerEventData eventData)
         {
             Vector2 newPosition = _RECT_Map.anchoredPosition + eventData.delta;

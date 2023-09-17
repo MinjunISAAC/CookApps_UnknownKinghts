@@ -61,5 +61,7 @@ namespace InGame.ForState.ForChapterSelect
             var pos = _chapterGroupView.GetToTargetChapterItemPos(lastStageStep);
             _mapMoveController.MoveToMap(pos);
         } 
+
+        public void ResetToMap() => _mapMoveController.ResetToMap();
     }
 }

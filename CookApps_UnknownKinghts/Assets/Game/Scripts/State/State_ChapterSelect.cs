@@ -58,7 +58,11 @@ namespace InGame.ForState
             // Loader Hide
             Loader.Instance.Hide
             (
-                () => { _chapterSelectView.gameObject.SetActive(true); }
+                () => 
+                { 
+                    _chapterSelectView.gameObject.SetActive(true);
+                    _chapterSelectView.ResetToMap();
+                }
                 , null
             );
 
