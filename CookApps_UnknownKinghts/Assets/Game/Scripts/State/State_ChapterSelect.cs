@@ -55,15 +55,6 @@ namespace InGame.ForState
             }
             #endregion
 
-            // Last Chapter Info Load
-            var userLastChapterStep = UserDataSystem.GetToLastChapter();
-            var userLastStageStep   = UserDataSystem.GetToLastStage  ();
-            var chapter             = _owner.GetToChapter(userLastChapterStep);
-            var stageQuantity       = chapter.StageQuantity;
-            var stage               = _owner.GetToStage  (userLastChapterStep, userLastStageStep);
-
-            Debug.Log($"Value Test {userLastChapterStep} | {userLastStageStep} | {chapter} | {stageQuantity} | {stage}");
-
             // Loader Hide
             Loader.Instance.Hide
             (
@@ -71,10 +62,15 @@ namespace InGame.ForState
                 , null
             );
 
+            // Last Chapter Info Load
+            var userLastChapterStep = UserDataSystem.GetToLastChapter  ();
+            var userLastStageStep   = UserDataSystem.GetToLastStage    ();
+            var userClearData       = UserDataSystem.GetToClearDataList(userLastChapterStep);
+            var chapterData         = _owner.GetToChapter(userLastChapterStep);
+            var stageData           = _owner.GetToStage  (userLastChapterStep, userLastStageStep);
+
             // UI Init
-            _SetToUI(userLastChapterStep, chapter.Name);
-
-
+            _SetToUI(chapterData, userClearData);
 
         }
         protected override void _Update()
@@ -89,7 +85,7 @@ namespace InGame.ForState
         }
 
         // ----- Private
-        private void _SetToUI(int chapterStep, string chapterName)
+        private void _SetToUI(Chapter targetChapterData, List<UserData.ClearData> chapterClearDataList)
         {
             void OnClickAction() 
             { 
@@ -100,8 +96,9 @@ namespace InGame.ForState
                 );
             }
 
-            _chapterSelectView.SetToReturnButton(OnClickAction);
-            _chapterSelectView.SetToChapterInfoView(chapterStep, chapterName);
+            _chapterSelectView.SetToReturnButton    (OnClickAction);
+            _chapterSelectView.SetToChapterInfoView (targetChapterData);
+            _chapterSelectView.SetToChapterGroupView(chapterClearDataList, targetChapterData.Step);
         }
     }
 }

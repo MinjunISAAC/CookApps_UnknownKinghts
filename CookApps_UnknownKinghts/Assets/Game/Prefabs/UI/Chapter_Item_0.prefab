@@ -883,9 +883,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _TMP_Count: {fileID: 5501443905852488295}
   _IMG_StarGroup:
-  - {fileID: 5501443905374456835}
-  - {fileID: 5501443906165384471}
-  - {fileID: 5501443907448993692}
+  - {fileID: 5501443905885967712}
+  - {fileID: 5501443906673291985}
+  - {fileID: 5501443906186638470}
 --- !u!1 &5501443907377262775
 GameObject:
   m_ObjectHideFlags: 0

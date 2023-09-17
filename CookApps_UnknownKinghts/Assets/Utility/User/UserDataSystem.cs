@@ -49,6 +49,20 @@ namespace Utility.ForData.ForUser
         public static int    GetToLastChapter () => UserData.LastChapter;
         public static int    GetToLastStage   () => UserData.LastStage;
 
+        public static List<UserData.ClearData> GetToClearDataList(int chapter) 
+        {
+            List<UserData.ClearData> dataSet          = UserData.ClearDataList;
+            List<UserData.ClearData> chapterClearData = new List<UserData.ClearData>();
+
+            for(int i = 0; i < dataSet.Count; i++)
+            {
+                var data = dataSet[i];
+                if (data != null)
+                    chapterClearData.Add(data);
+            }
+            return chapterClearData;
+        } 
+
         public static UserData.ClearData GetToClearData(int chapter, int stage)
         {
             List<UserData.ClearData> dataSet   = UserData.ClearDataList;
