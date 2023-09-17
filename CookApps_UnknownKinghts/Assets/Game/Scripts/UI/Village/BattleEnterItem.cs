@@ -35,7 +35,7 @@ namespace InGame.ForState.ForUI
         {
             _BTN_OnClick.onClick.AddListener
             (
-                () => { Debug.Log($"IN {_battleType}"); onClickAction(_battleType); }
+                () => { onClickAction(_battleType); }
             );
         }
     }

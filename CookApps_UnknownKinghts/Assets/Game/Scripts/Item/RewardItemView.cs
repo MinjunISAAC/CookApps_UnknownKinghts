@@ -21,6 +21,7 @@ namespace InGame.ForItem.ForReward
         // --------------------------------------------------
         // Variables
         // --------------------------------------------------
+        // ----- Public
         public void OnInit(RewardItemData data)
         {
             var value       = data.Value;
@@ -28,10 +29,19 @@ namespace InGame.ForItem.ForReward
             var iconSprite  = data.IconSprite;
             var starSprite  = data.StarSprite;
 
-            _IMG_Star.sprite  = starSprite;
+            _IMG_Star .sprite = starSprite;
             _IMG_Frame.sprite = frameSprite;
-            _IMG_Icon.sprite  = iconSprite;
-            _TMP_Value.text   = $"{value}";
+            _IMG_Icon .sprite = iconSprite;
+            _TMP_Value.text   = _Format(value);
+
+            if (starSprite == null)
+                _IMG_Star.gameObject.SetActive(false);
+        }
+
+        // ----- Private
+        private string _Format(int value)
+        {
+            return string.Format("{0:#,##0}", value);
         }
     }
 }

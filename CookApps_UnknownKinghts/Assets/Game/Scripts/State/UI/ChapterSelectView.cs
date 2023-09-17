@@ -12,6 +12,8 @@ using Utility.ForData.ForUser;
 using InGame.ForState.ForUI;
 using InGame.ForChapterGroup.ForChapter;
 using InGame.ForMap;
+using InGame.ForItem.ForReward;
+using InGame.ForChapterGroup.ForStage;
 
 namespace InGame.ForState.ForChapterSelect
 {
@@ -21,9 +23,10 @@ namespace InGame.ForState.ForChapterSelect
         // Components
         // --------------------------------------------------
         [Header("1. UI Group")]
-        [SerializeField] private Button            _BTN_Return       = null;
-        [SerializeField] private ChapterInfoView   _chapterInfoView  = null;
-        [SerializeField] private ChapterGroupView  _chapterGroupView = null;
+        [SerializeField] private Button            _BTN_Return        = null;
+        [SerializeField] private ChapterInfoView   _chapterInfoView   = null;
+        [SerializeField] private ChapterGroupView  _chapterGroupView  = null;
+        [SerializeField] private ChapterRewardView _chapterRewardView = null;
         
         [Header("2. Controller")]
         [SerializeField] private MapMoveController _mapMoveController = null;
@@ -42,6 +45,8 @@ namespace InGame.ForState.ForChapterSelect
         // ----- public
         public void SetToReturnButton(Action onClickReturnBtn)
         => _BTN_Return.onClick.AddListener(() => { onClickReturnBtn(); } );
+        public void SetToChapterGroupView(List<UserData.ClearData> userClearDataList, int chapterStep)
+        => _chapterGroupView.SetToChapterItems(userClearDataList, chapterStep);
 
         public void SetToChapterInfoView(Chapter targetChapterData)
         {
@@ -51,9 +56,16 @@ namespace InGame.ForState.ForChapterSelect
             _chapterInfoView.SetToChapterInfo(chapterStep, chapterName);
         }
 
-        public void SetToChapterGroupView(List<UserData.ClearData> userClearDataList, int chapterStep)
+        public void OnInitToChapterRewardView(Action onClickPrevStage, Action onClickNextStage, Chapter targetchapter, Stage targetStage, UserData.ClearData clearData, List<RewardItemData> rewardList)
         {
-            _chapterGroupView.SetToChapterItems(userClearDataList, chapterStep);
+            _chapterRewardView.OnInit          (targetchapter   , targetStage, clearData, rewardList);
+            _chapterRewardView.SetToButtonEvent(onClickPrevStage, onClickNextStage);
+        }
+
+        public void RefreshChapterRewardView(Chapter targetchapter, Stage targetStage, UserData.ClearData clearData, List<RewardItemData> rewardList)
+        {
+            _chapterRewardView.OnInit          (targetchapter, targetStage, clearData, rewardList);
+            _chapterRewardView.SetToStageText(targetchapter.Step, targetStage.Step);
         }
 
         public void MoveToMap(int lastStageStep) 
