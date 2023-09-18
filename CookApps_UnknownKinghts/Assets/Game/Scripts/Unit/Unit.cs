@@ -11,5 +11,10 @@ namespace InGame.ForUnit
         // Components
         // --------------------------------------------------
         [SerializeField] private UnitData _unitData = null;
+
+        // --------------------------------------------------
+        // Properties
+        // --------------------------------------------------
+        public UnitData UnitData => _unitData;
     }
 }

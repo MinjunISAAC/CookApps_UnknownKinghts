@@ -43,7 +43,7 @@ namespace InGame
             private set;
         } = null;
 
-        public UIOwner UIOwner => _uiOwner;
+        public UIOwner    UIOwner    => _uiOwner;
 
         // --------------------------------------------------
         // Functions - Event
@@ -57,10 +57,11 @@ namespace InGame
             // 2. User Data Load
             // 3. Currency System Init
             // 4. Chapter Data Init
-            JsonParser             .LoadJson();
-            UserDataSystem         .Load  ();
-            CurrencySystem.Instance.OnInit();
-            _chapterGroup.OnInit();
+            JsonParser               .LoadJson();
+            UserDataSystem           .Load    ();
+            CurrencySystem.Instance  .OnInit  ();
+            SpritePoolSystem.Instance.OnInit  ();
+            _chapterGroup            .OnInit  ();
 
             // [Test] Unit 추가
             _Test_AddOwnedUnit();
@@ -85,40 +86,45 @@ namespace InGame
         {
             UnitData unknownHero = new UnitData
             (
-                1, 20, "무명용사",
-                EGradeType.Unknown, EUnitType.Unknown, ESpecType.Light, EAttackPosType.Front,
+                SpritePoolSystem.Instance.GetToUnitSprite(EUnitType.UnknownHero),
+                1, 1, 20, "무명용사",
+                EJobType.Warrior, EGradeType.Nomal, EUnitType.UnknownHero, ESpecType.Light, EAttackPosType.Front,
                 150, 5000, 30, 30, 200, 5, 1f,
                 "슬래시 다운", 7
             );
 
             UnitData helio = new UnitData
             (
-                1, 60, "헬리오",
-                EGradeType.Epic, EUnitType.Nomal_Warrior, ESpecType.Fire, EAttackPosType.Front,
+                SpritePoolSystem.Instance.GetToUnitSprite(EUnitType.Helio),
+                3, 1, 60, "헬리오",
+                EJobType.Warrior, EGradeType.Epic, EUnitType.Helio, ESpecType.Fire, EAttackPosType.Front,
                 247, 9317, 60, 60, 200, 7, 1f,
                 "저지먼트", 9
             );
 
             UnitData cerus = new UnitData
             (
-                1, 40, "케루스",
-                EGradeType.Rare, EUnitType.Nomal_Healer, ESpecType.Wind, EAttackPosType.Rear,
+                SpritePoolSystem.Instance.GetToUnitSprite(EUnitType.Cerus),
+                2, 1, 40, "케루스",
+                EJobType.Support, EGradeType.Rare, EUnitType.Cerus, ESpecType.Wind, EAttackPosType.Rear,
                 151, 6195, 28, 28, 200, 5, 1f,
                 "토네이도 스윕", 8
             );
 
             UnitData pelson = new UnitData
             (
-                1, 20, "펠슨",
-                EGradeType.Nomal, EUnitType.Nomal_Wizard, ESpecType.Stone, EAttackPosType.Center,
+                SpritePoolSystem.Instance.GetToUnitSprite(EUnitType.Pelson),
+                1, 1, 20, "펠슨",
+                EJobType.Wizard, EGradeType.Nomal, EUnitType.Pelson, ESpecType.Stone, EAttackPosType.Center,
                 187, 3533, 16, 40, 200, 7, 1f,
                 "어스퀘이크", 8
             );
 
             UnitData flame = new UnitData
             (
-                1, 40, "플라메",
-                EGradeType.Rare, EUnitType.Nomal_Archer, ESpecType.Fire, EAttackPosType.Center,
+                SpritePoolSystem.Instance.GetToUnitSprite(EUnitType.Flame),
+                2, 1, 40, "플라메",
+                EJobType.Archer, EGradeType.Rare, EUnitType.Flame, ESpecType.Fire, EAttackPosType.Center,
                 214, 4703, 42, 70, 200, 5, 1f,
                 "플레임 볼", 9
             );

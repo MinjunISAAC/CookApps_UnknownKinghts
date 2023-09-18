@@ -2,11 +2,10 @@ namespace InGame.ForUnit
 {
     public enum EUnitType
     {
-        Unknown       = 0,
-        Hero          = 1,
-        Nomal_Warrior = 2,
-        Nomal_Archer  = 3,
-        Nomal_Healer  = 4,
-        Nomal_Wizard  = 5,
+        UnknownHero = 0,
+        Helio       = 1,
+        Flame       = 2,
+        Cerus       = 3,
+        Pelson      = 4,
     }
 }

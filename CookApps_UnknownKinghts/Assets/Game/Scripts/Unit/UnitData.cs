@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace InGame.ForUnit.ForData
 {
@@ -24,28 +25,36 @@ namespace InGame.ForUnit.ForData
             public float  CoolTime = 0f;
         }
 
+        public Sprite          Profile       = null;
+
         public int             Level         = 1;
         public int             MaxLevel      = 1;
+        public int             Star          = 1;
         public string          Name          = "";
-         
+
         public EGradeType      GradeType     = EGradeType    .Unknown;
-        public EUnitType       UnitType      = EUnitType     .Unknown;  
+        public EUnitType       UnitType      = EUnitType     .UnknownHero;  
+        public EJobType        JobType       = EJobType      .Unknown;
         public ESpecType       SpecType      = ESpecType     .Unknown;
         public EAttackPosType  AttackPosType = EAttackPosType.Unknown;
 
         public AbilityInfo     Ability       = null;
         public List<SkillInfo> SkillGroup    = new List<SkillInfo>();
 
-
         // ----- Test용 [필요시에 따라 테이블로 관리해야할 부분]
-        public UnitData(int level, int maxLevel, string name,
-                        EGradeType gradeType, EUnitType unitType, ESpecType specType, EAttackPosType attackPosType,
+        public UnitData(Sprite profile,
+                        int star, int level, int maxLevel, string name,
+                        EJobType jobType, EGradeType gradeType, EUnitType unitType, ESpecType specType, EAttackPosType attackPosType,
                         int power, int hp, int defense, int penetratePower, int criticalDamage, int criticalRate, float attackSpeed,
                         string skillName, float coolTime) 
-        { 
+        {
+            Profile       = profile;
+
+            Star          = star;
             Level         = level;
             MaxLevel      = maxLevel;
             Name          = name;
+            JobType       = jobType;
             GradeType     = gradeType;
             UnitType      = unitType;
             SpecType      = specType;

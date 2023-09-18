@@ -8,6 +8,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+// ----- User Defined
+using InGame.ForState.ForBuildDeck;
+using InGame.ForUnit.ForData;
+
 namespace InGame.ForState.ForUI
 {
     public class BuildDeckView : StateView
@@ -15,8 +19,9 @@ namespace InGame.ForState.ForUI
         // --------------------------------------------------
         // Components
         // --------------------------------------------------
-        [SerializeField] private TextMeshProUGUI _TMP_StageName = null; 
-        [SerializeField] private Button          _BTN_Return    = null;
+        [SerializeField] private BuildDeckBottomView _bottomView    = null;
+        [SerializeField] private TextMeshProUGUI     _TMP_StageName = null; 
+        [SerializeField] private Button              _BTN_Return    = null;
 
         // --------------------------------------------------
         // Variables
@@ -35,5 +40,8 @@ namespace InGame.ForState.ForUI
 
         public void SetToStageInfo(string chapterName, int chapterStep, int stageStep)
         => _TMP_StageName.text = $"{chapterName} {chapterStep}-{stageStep}";
+
+        public void SetToBottomView(List<UnitData> ownedUnitDataList)
+        => _bottomView.OnInit(ownedUnitDataList);
     }
 }

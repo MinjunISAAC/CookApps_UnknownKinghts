@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ba61f56f88bb6348b2d0be4d24ef38f, type: 3}
+  m_Name: SpritePool
+  m_EditorClassIdentifier: 
+  _specSpriteList:
+  - Type: 1
+    Sprite: {fileID: 21300000, guid: e29697eba77ba654f84c139ec4b21a23, type: 3}
+  - Type: 2
+    Sprite: {fileID: 21300000, guid: 21a958ea1bf8e90479db3826d7785b36, type: 3}
+  - Type: 3
+    Sprite: {fileID: 21300000, guid: 6cdc4e563f8cf654cb6babf805a17573, type: 3}
+  - Type: 4
+    Sprite: {fileID: 21300000, guid: 26d9f6f741d5e464eb4ec01395f13a51, type: 3}
+  - Type: 5
+    Sprite: {fileID: 21300000, guid: abaadaac75beef847a8801caa4808584, type: 3}
+  - Type: 6
+    Sprite: {fileID: 21300000, guid: 4a1ace31594b24d47b241fc6b92ca955, type: 3}
+  - Type: 7
+    Sprite: {fileID: 21300000, guid: c3a263f4a5eb7c24ebed26c364632ca6, type: 3}
+  _unitSpriteList:
+  - Type: 0
+    Sprite: {fileID: 21300000, guid: b47c75d1f92f8634db4a517c99d7040f, type: 3}
+  - Type: 1
+    Sprite: {fileID: 21300000, guid: c68171797f5589d4cb45e492d3bad7d7, type: 3}
+  - Type: 2
+    Sprite: {fileID: 21300000, guid: 29cee89e8bd57c5479fb3dc20d1097c2, type: 3}
+  - Type: 3
+    Sprite: {fileID: 21300000, guid: f49c5145d66c3004591d76e66c54fd0b, type: 3}
+  - Type: 4
+    Sprite: {fileID: 21300000, guid: 9352222902f0a314f8413943c65d5c25, type: 3}
+  _jobSpriteList:
+  - Type: 1
+    Sprite: {fileID: 21300000, guid: 21876ee63d40a204db83212582f3174f, type: 3}
+  - Type: 2
+    Sprite: {fileID: 21300000, guid: 90e271cea6ac36a439b9bb909988a42d, type: 3}
+  - Type: 3
+    Sprite: {fileID: 21300000, guid: 54bb6e278f8728f4f9f5d60a9710161d, type: 3}
+  - Type: 4
+    Sprite: {fileID: 21300000, guid: 6b7fd3698b9a259468c62d6398a5a518, type: 3}
+  - Type: 5
+    Sprite: {fileID: 21300000, guid: da1887f39723b754d91f611c5c91bf68, type: 3}
+  _gradeFrameSpriteList:
+  - Type: 1
+    Sprite: {fileID: 21300000, guid: 3f23692d8c435804bb69af88706ad90a, type: 3}
+  - Type: 2
+    Sprite: {fileID: 21300000, guid: cdcd7e230b3c4a542a853b1e103aaa53, type: 3}
+  - Type: 3
+    Sprite: {fileID: 21300000, guid: fe735c006e177f94790fd55706bc64c8, type: 3}

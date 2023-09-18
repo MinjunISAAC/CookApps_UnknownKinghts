@@ -13,6 +13,7 @@ using Utility.ForData.ForUser;
 using InGame.ForChapterGroup.ForChapter;
 using InGame.ForChapterGroup.ForStage;
 using InGame.ForChapterGroup;
+using InGame.ForUnit.ForData;
 
 namespace InGame.ForState
 {
@@ -74,8 +75,10 @@ namespace InGame.ForState
             // User 가 가지고 있는 Unit 데이터가 필요
             var ownedUnitDataList = UserDataSystem.GetToOwnedUnitDataList();
 
+            Debug.Log($"Owned Unit Data List {ownedUnitDataList.Count}");
+
             // UI Init
-            _SetToUI(chapterData, stageData);
+            _SetToUI(chapterData, stageData, ownedUnitDataList);
         }
 
         protected override void _Update()
@@ -90,7 +93,7 @@ namespace InGame.ForState
         }
 
         // ----- Private
-        private void _SetToUI(Chapter chapterData, Stage stageData )
+        private void _SetToUI(Chapter chapterData, Stage stageData, List<UnitData> ownedUnitData)
         {
             void OnClickAction()
             {
@@ -103,6 +106,7 @@ namespace InGame.ForState
 
             _buildDeckView.SetToReturnButton(OnClickAction);
             _buildDeckView.SetToStageInfo(chapterData.Name, chapterData.Step, stageData.StageStep);
+            _buildDeckView.SetToBottomView(ownedUnitData);
         }
     }
 }
