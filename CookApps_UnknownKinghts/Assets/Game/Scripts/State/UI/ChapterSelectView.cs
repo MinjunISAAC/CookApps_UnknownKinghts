@@ -45,6 +45,7 @@ namespace InGame.ForState.ForChapterSelect
         // ----- public
         public void SetToReturnButton(Action onClickReturnBtn)
         => _BTN_Return.onClick.AddListener(() => { onClickReturnBtn(); } );
+
         public void SetToChapterGroupView(List<UserData.ClearData> userClearDataList, int chapterStep)
         => _chapterGroupView.SetToChapterItems(userClearDataList, chapterStep);
 
@@ -65,7 +66,7 @@ namespace InGame.ForState.ForChapterSelect
         public void RefreshChapterRewardView(Chapter targetchapter, Stage targetStage, UserData.ClearData clearData, List<RewardItemData> rewardList)
         {
             _chapterRewardView.OnInit          (targetchapter, targetStage, clearData, rewardList);
-            _chapterRewardView.SetToStageText(targetchapter.Step, targetStage.Step);
+            _chapterRewardView.SetToStageText(targetchapter.Step, targetStage.StageStep);
         }
 
         public void MoveToMap(int lastStageStep) 

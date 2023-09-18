@@ -14,6 +14,7 @@ using InGame.ForState.ForChapterSelect;
 using InGame.ForChapterGroup.ForChapter;
 using InGame.ForItem.ForReward;
 using InGame.ForChapterGroup.ForStage;
+using InGame.ForChapterGroup;
 
 namespace InGame.ForState
 {
@@ -82,14 +83,13 @@ namespace InGame.ForState
             var chapterData         = _owner.GetToChapter(_targetChapterStep);
             var stageData           = _owner.GetToStage  (_targetChapterStep, _targetStageStep);
 
-            
             // Reward Item Data Init
             var rewardItemDatas = stageData.RewardList;
 
             // UI Init
             _SetToUI(chapterData, stageData, _userClearData, rewardItemDatas, _targetStageStep);
-
         }
+
         protected override void _Update()
         {
 
@@ -134,11 +134,11 @@ namespace InGame.ForState
 
                 var chapterData = _owner.GetToChapter(_targetChapterStep);
                 var currStageData  = _owner.GetToStage(_targetChapterStep, _targetStageStep);
-                var currClearData  = UserDataSystem.GetToClearData(_targetChapterStep, currStageData.Step);
+                var currClearData  = UserDataSystem.GetToClearData(_targetChapterStep, currStageData.StageStep);
                 var stageData      = _owner.GetToStage(_targetChapterStep, _targetStageStep);
                 var rewardItemList = stageData.RewardList;
 
-                _chapterSelectView.MoveToMap(currStageData.Step, 0.25f, null);
+                _chapterSelectView.MoveToMap(currStageData.StageStep, 0.25f, null);
                 _chapterSelectView.RefreshChapterRewardView(chapterData, currStageData, currClearData, rewardItemList);
             }
         }
@@ -153,22 +153,29 @@ namespace InGame.ForState
                 _targetStageStep++;
 
                 var currStageData  = _owner.GetToStage(_targetChapterStep, _targetStageStep);
-                var currClearData  = UserDataSystem.GetToClearData(_targetChapterStep, currStageData.Step);
+                var currClearData  = UserDataSystem.GetToClearData(_targetChapterStep, currStageData.StageStep);
                 var stageData      = _owner.GetToStage(_targetChapterStep, _targetStageStep);
                 var rewardItemList = stageData.RewardList;
 
-                _chapterSelectView.MoveToMap(currStageData.Step, 0.25f, null);
+                _chapterSelectView.MoveToMap(currStageData.StageStep, 0.25f, null);
                 _chapterSelectView.RefreshChapterRewardView(chapterData, currStageData, currClearData, rewardItemList);
             }
         }
 
         private void _EnterBattle()
         {
-            var stage = _owner.GetToStage(_targetChapterStep, _targetStageStep);
+            var chapter = _owner.GetToChapter(_targetChapterStep);
+            var stage   = _owner.GetToStage(_targetChapterStep, _targetStageStep);
+            
+            ChapterStageInfo info = new ChapterStageInfo();
+            
+            info.ChapterData = chapter;
+            info.StageData   = stage;
+            
             Loader.Instance.Show
             (
                 null,
-                () => StateMachine.Instance.ChangeState(EStateType.BuildDeck, stage)
+                () => StateMachine.Instance.ChangeState(EStateType.BuildDeck, info)
             );
         }
     }

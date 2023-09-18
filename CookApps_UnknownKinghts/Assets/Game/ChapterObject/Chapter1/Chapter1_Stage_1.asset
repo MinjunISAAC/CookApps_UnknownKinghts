@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24ee990a55926064386e6db20cd53fcb, type: 3}
   m_Name: Chapter1_Stage_1
   m_EditorClassIdentifier: 
-  _step: 1
+  _stageStep: 1
   _rewardList:
   - Type: 2
     Value: 50
@@ -39,3 +39,58 @@ MonoBehaviour:
     StarSprite: {fileID: 0}
     FrameSprite: {fileID: 21300000, guid: 877df08e89c560e468434f62557ac7ad, type: 3}
     IconSprite: {fileID: 21300000, guid: f18eec69ae0eb404da66023097a37ce6, type: 3}
+  _unitList:
+  - Level: 1
+    MaxLevel: 20
+    Name: "\uC554\uC11D \uC2AC\uB77C\uC784"
+    GradeType: 1
+    UnitType: 2
+    SpecType: 2
+    AttackPosType: 1
+    Ability:
+      Power: 50
+      Health: 7000
+      Defense: 15
+      PenetratePower: 15
+      CriticalDamage: 200
+      CriticalRate: 2
+      AttackSpeed: 1
+    SkillGroup:
+    - Name: "\uC2A4\uD0AC1"
+      CoolTime: 10
+  - Level: 1
+    MaxLevel: 20
+    Name: "\uC554\uC11D \uC2AC\uB77C\uC784"
+    GradeType: 1
+    UnitType: 2
+    SpecType: 2
+    AttackPosType: 1
+    Ability:
+      Power: 50
+      Health: 7000
+      Defense: 15
+      PenetratePower: 15
+      CriticalDamage: 200
+      CriticalRate: 2
+      AttackSpeed: 1
+    SkillGroup:
+    - Name: "\uC2A4\uD0AC1"
+      CoolTime: 10
+  - Level: 1
+    MaxLevel: 20
+    Name: "\uC554\uC11D \uC2AC\uB77C\uC784"
+    GradeType: 1
+    UnitType: 2
+    SpecType: 2
+    AttackPosType: 1
+    Ability:
+      Power: 50
+      Health: 7000
+      Defense: 15
+      PenetratePower: 15
+      CriticalDamage: 200
+      CriticalRate: 2
+      AttackSpeed: 1
+    SkillGroup:
+    - Name: "\uC2A4\uD0AC1"
+      CoolTime: 10

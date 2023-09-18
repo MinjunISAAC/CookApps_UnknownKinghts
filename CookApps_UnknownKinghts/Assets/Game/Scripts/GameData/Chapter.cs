@@ -38,7 +38,7 @@ namespace InGame.ForChapterGroup.ForChapter
             for (int i = 0; i < _stageList.Count; i++)
             {
                 var stage     = _stageList[i];
-                var stageStep = stage.Step;
+                var stageStep = stage.StageStep;
 
                 _stageSet.Add(stageStep, stage);
             }

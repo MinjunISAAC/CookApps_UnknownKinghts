@@ -1,9 +1,12 @@
 // ----- C#
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 
 // ----- Unity
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace InGame.ForState.ForUI
 {
@@ -12,6 +15,8 @@ namespace InGame.ForState.ForUI
         // --------------------------------------------------
         // Components
         // --------------------------------------------------
+        [SerializeField] private TextMeshProUGUI _TMP_StageName = null; 
+        [SerializeField] private Button          _BTN_Return    = null;
 
         // --------------------------------------------------
         // Variables
@@ -20,14 +25,15 @@ namespace InGame.ForState.ForUI
         // --------------------------------------------------
         // Functions - Nomal
         // --------------------------------------------------
-        public override void OnInit()
-        {
+        // ----- Public(Override)
+        public override void OnInit() { }
+        public override void OnFinish() { }
 
-        }
+        // ----- public
+        public void SetToReturnButton(Action onClickReturnBtn)
+        => _BTN_Return.onClick.AddListener(() => { onClickReturnBtn(); });
 
-        public override void OnFinish()
-        {
-
-        }
+        public void SetToStageInfo(string chapterName, int chapterStep, int stageStep)
+        => _TMP_StageName.text = $"{chapterName} {chapterStep}-{stageStep}";
     }
 }

@@ -9,6 +9,10 @@ using UnityEngine;
 using Utility.SimpleFSM;
 using Utiltiy.ForLoader;
 using InGame.ForState.ForUI;
+using Utility.ForData.ForUser;
+using InGame.ForChapterGroup.ForChapter;
+using InGame.ForChapterGroup.ForStage;
+using InGame.ForChapterGroup;
 
 namespace InGame.ForState
 {
@@ -61,7 +65,19 @@ namespace InGame.ForState
                 }
                 , null
             );
+
+            // Last Chapter Info Load
+            var chapterStageInfo = (ChapterStageInfo)startParam;
+            var chapterData      = chapterStageInfo.ChapterData;
+            var stageData        = chapterStageInfo.StageData;
+
+            // User 가 가지고 있는 Unit 데이터가 필요
+            var ownedUnitDataList = UserDataSystem.GetToOwnedUnitDataList();
+
+            // UI Init
+            _SetToUI(chapterData, stageData);
         }
+
         protected override void _Update()
         {
 
@@ -69,7 +85,24 @@ namespace InGame.ForState
 
         protected override void _Finish(EStateType nextStateKey)
         {
+            _buildDeckView.gameObject.SetActive(false);
             Debug.Log($"<color=yellow>[State_{State}._Start] {State} State에 이탈하였습니다.</color>");
+        }
+
+        // ----- Private
+        private void _SetToUI(Chapter chapterData, Stage stageData )
+        {
+            void OnClickAction()
+            {
+                Loader.Instance.Show
+                (
+                    null,
+                    () => StateMachine.Instance.ChangeState(EStateType.ChapterSelect)
+                );
+            }
+
+            _buildDeckView.SetToReturnButton(OnClickAction);
+            _buildDeckView.SetToStageInfo(chapterData.Name, chapterData.Step, stageData.StageStep);
         }
     }
 }

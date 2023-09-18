@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24ee990a55926064386e6db20cd53fcb, type: 3}
   m_Name: Chapter1_Stage_8
   m_EditorClassIdentifier: 
-  _step: 8
+  _stageStep: 8
   _rewardList:
   - Type: 2
     Value: 50
@@ -39,3 +39,4 @@ MonoBehaviour:
     StarSprite: {fileID: 0}
     FrameSprite: {fileID: 21300000, guid: 877df08e89c560e468434f62557ac7ad, type: 3}
     IconSprite: {fileID: 21300000, guid: f18eec69ae0eb404da66023097a37ce6, type: 3}
+  _unitList: []

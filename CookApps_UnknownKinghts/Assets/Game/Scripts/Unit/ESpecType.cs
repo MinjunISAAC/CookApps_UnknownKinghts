@@ -4,7 +4,7 @@ namespace InGame.ForUnit
     {
         Unknown  = 0,
         Fire     = 1,
-        Ston     = 2,
+        Stone     = 2,
         Wind     = 3,
         Mecha    = 4,
         Water    = 5,

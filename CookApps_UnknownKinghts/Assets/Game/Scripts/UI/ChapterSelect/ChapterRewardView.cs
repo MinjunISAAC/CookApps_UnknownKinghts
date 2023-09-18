@@ -48,7 +48,7 @@ namespace InGame.ForState.ForChapterSelect
                 _SetToClearStar(0);
                 _ResetToRewardItem();
                 _SetToClearStar(0);
-                SetToStageText(targetchapter.Step, targetStage.Step);
+                SetToStageText(targetchapter.Step, targetStage.StageStep);
             }
             else
             {

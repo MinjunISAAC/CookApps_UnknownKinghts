@@ -6,6 +6,7 @@ using System.IO;
 using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
+using InGame.ForUnit.ForData;
 
 namespace Utility.ForData.ForUser
 {
@@ -79,6 +80,27 @@ namespace Utility.ForData.ForUser
             }
 
             return null;
+        }
+
+        public static List<UnitData> GetToOwnedUnitDataList() => UserData.OwnedUnits;
+        public static void AddToOwnedUnitDataList(UnitData unitData)
+        {
+            List<UnitData> ownedUnits = UserData.OwnedUnits;
+            bool           owned      = false;
+
+            for (int i = 0; i < ownedUnits.Count; i++)
+            {
+                var ownedUnit = ownedUnits[i];
+                if (ownedUnit.UnitType == unitData.UnitType)
+                {
+                    owned = true;
+                    break;
+                }
+            }
+
+            if (!owned) UserData.OwnedUnits.Add(unitData);
+
+            Save();
         }
 
         public static void SetToClearData(int chapter, int stage, int clearStar)

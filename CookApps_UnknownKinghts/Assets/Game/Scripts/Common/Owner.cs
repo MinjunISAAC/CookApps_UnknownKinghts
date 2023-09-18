@@ -14,6 +14,8 @@ using InGame.ForState;
 using InGame.ForChapterGroup;
 using InGame.ForChapterGroup.ForChapter;
 using InGame.ForChapterGroup.ForStage;
+using InGame.ForUnit.ForData;
+using InGame.ForUnit;
 
 namespace InGame
 {
@@ -60,6 +62,9 @@ namespace InGame
             CurrencySystem.Instance.OnInit();
             _chapterGroup.OnInit();
 
+            // [Test] Unit 추가
+            _Test_AddOwnedUnit();
+
             // State 초기화
             StateMachine.Instance.ChangeState(EStateType.Village);
 
@@ -72,5 +77,57 @@ namespace InGame
         // ----- Public
         public Chapter GetToChapter(int chapterCount                ) => _chapterGroup.GetToChapter(chapterCount);
         public Stage   GetToStage  (int chapterCount, int stageCount) => _chapterGroup.GetToStage(chapterCount, stageCount);
+
+        // --------------------------------------------------
+        // Functions - Test
+        // --------------------------------------------------
+        private void _Test_AddOwnedUnit()
+        {
+            UnitData unknownHero = new UnitData
+            (
+                1, 20, "무명용사",
+                EGradeType.Unknown, EUnitType.Unknown, ESpecType.Light, EAttackPosType.Front,
+                150, 5000, 30, 30, 200, 5, 1f,
+                "슬래시 다운", 7
+            );
+
+            UnitData helio = new UnitData
+            (
+                1, 60, "헬리오",
+                EGradeType.Epic, EUnitType.Nomal_Warrior, ESpecType.Fire, EAttackPosType.Front,
+                247, 9317, 60, 60, 200, 7, 1f,
+                "저지먼트", 9
+            );
+
+            UnitData cerus = new UnitData
+            (
+                1, 40, "케루스",
+                EGradeType.Rare, EUnitType.Nomal_Healer, ESpecType.Wind, EAttackPosType.Rear,
+                151, 6195, 28, 28, 200, 5, 1f,
+                "토네이도 스윕", 8
+            );
+
+            UnitData pelson = new UnitData
+            (
+                1, 20, "펠슨",
+                EGradeType.Nomal, EUnitType.Nomal_Wizard, ESpecType.Stone, EAttackPosType.Center,
+                187, 3533, 16, 40, 200, 7, 1f,
+                "어스퀘이크", 8
+            );
+
+            UnitData flame = new UnitData
+            (
+                1, 40, "플라메",
+                EGradeType.Rare, EUnitType.Nomal_Archer, ESpecType.Fire, EAttackPosType.Center,
+                214, 4703, 42, 70, 200, 5, 1f,
+                "플레임 볼", 9
+            );
+
+            UserDataSystem.AddToOwnedUnitDataList(unknownHero);
+            UserDataSystem.AddToOwnedUnitDataList(helio      );
+            UserDataSystem.AddToOwnedUnitDataList(cerus      );
+            UserDataSystem.AddToOwnedUnitDataList(pelson     );
+            UserDataSystem.AddToOwnedUnitDataList(flame      );
+        }
     }
 }
