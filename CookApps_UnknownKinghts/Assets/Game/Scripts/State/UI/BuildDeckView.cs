@@ -32,12 +32,49 @@ namespace InGame.ForState.ForUI
         // Functions - Nomal
         // --------------------------------------------------
         // ----- Public(Override)
-        public override void OnInit() { }
+        public override void OnInit()   { }
         public override void OnFinish() { }
 
         // ----- public
         public void SetToReturnButton(Action onClickReturnBtn)
         => _BTN_Return.onClick.AddListener(() => { onClickReturnBtn(); });
+
+        public void SetToBuildDeck_UI(List<UnitData> unitDataList)
+        => _bottomView.SetToBuildDeck(unitDataList);
+
+        public void SetToBuildDeck_OnClickEvent(Action<bool, EUnitType> onClickBtn)
+        => _bottomView.SetTopBuildDeckBtn(onClickBtn);
+
+        public void SetToBattleStart(Action onClickBattle)
+        => _bottomView.SetToBattleBtn(onClickBattle);
+
+        public void ResetToBuildDeckView()
+        {
+            _BTN_Return.onClick.RemoveAllListeners();
+
+            _bottomView.ResetToDeckCard();
+        } 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public void SetToStageInfo(string chapterName, int chapterStep, int stageStep)
         => _TMP_StageName.text = $"{chapterName} {chapterStep}-{stageStep}";

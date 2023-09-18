@@ -37,6 +37,48 @@ namespace InGame.ForState.ForBuildDeck
         // --------------------------------------------------
         // Functions - Nomal
         // --------------------------------------------------
+        // ----- Public
+        public void SetToDeckCardUI(UnitData data)
+        {
+            var unitLevel   = data.Level;
+            var starCount   = data.Star;
+            var unitGrade   = data.GradeType;
+            var unitProfile = data.Profile;
+            var unitSpec    = data.SpecType;
+            var unitJob     = data.JobType;
+
+            _unitType            = data.UnitType;
+            _IMG_Frame   .sprite = SpritePoolSystem.Instance.GetToGradeFrameSprite(unitGrade);
+            _IMG_SpecIcon.sprite = SpritePoolSystem.Instance.GetToSpecSprite(unitSpec);
+            _IMG_JobIcon .sprite = SpritePoolSystem.Instance.GetToJobSprite(unitJob);
+            _IMG_Photo   .sprite = unitProfile;
+            _TMP_Level   .text   = $"Lv.{unitLevel}";
+
+            _SetToStar(starCount);
+        }
+
+        public void SetToDeckCartOnClickEven(Action<bool, EUnitType> onClickBtn)
+        {
+
+        }
+
+
+        // ----- Private
+        private void _SetToStar(int starCount)
+        {
+            for(int i = 0; i < starCount; i++)
+            {
+                var star = _starGroup[i];
+                star.gameObject.SetActive(true);
+            }
+
+            for (int i = starCount; i < _starGroup.Count; i++)
+            {
+                var star = _starGroup[i];
+                star.gameObject.SetActive(false);
+            }
+        }
+        /*
         public void SetToUnitCard(UnitData data, Action<bool, EUnitType> onClickBtn)
         {
             var unitLevel   = data.Level;
@@ -67,21 +109,6 @@ namespace InGame.ForState.ForBuildDeck
                 }
             );
         }
-
-        // ----- Private
-        private void _SetToStar(int starCount)
-        {
-            for(int i = 0; i < starCount; i++)
-            {
-                var star = _starGroup[i];
-                star.gameObject.SetActive(true);
-            }
-
-            for (int i = starCount; i < _starGroup.Count; i++)
-            {
-                var star = _starGroup[i];
-                star.gameObject.SetActive(false);
-            }
-        }
+        */
     }
 }

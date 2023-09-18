@@ -36,8 +36,8 @@ namespace InGame.ForUnit
         private Dictionary<EUnitType, Unit> _playerUnitPools = new Dictionary<EUnitType, Unit>();
         private Dictionary<EUnitType, Unit> _enemyUnitPools  = new Dictionary<EUnitType, Unit>();
 
-        private List<Unit> _currPlayerUnit = new List<Unit>();
-        private List<Unit> _currEnemyUnit  = new List<Unit>();
+        [SerializeField] private List<Unit> _currPlayerUnit = new List<Unit>();
+        [SerializeField] private List<Unit> _currEnemyUnit  = new List<Unit>();
 
         // --------------------------------------------------
         // Functions - Event
@@ -71,6 +71,7 @@ namespace InGame.ForUnit
         // Functions - Nomal
         // --------------------------------------------------
         // ----- Public
+        /*
         public Unit GetToPlayerUnit(UnitData unitData)
         {
             if (_playerUnitPools.TryGetValue(unitData.UnitType, out var targetUnit))
@@ -157,9 +158,7 @@ namespace InGame.ForUnit
         }
 
         public void SetToBuildDeck()
-        {
-            Debug.Log($"Currrr {_currPlayerUnit.Count}");
-            _buildDeckSetter.SetToBuildDeck(_currPlayerUnit);
-        }
+        => _buildDeckSetter.SetToBuildDeck(_currPlayerUnit);
+        */
     }
 }
