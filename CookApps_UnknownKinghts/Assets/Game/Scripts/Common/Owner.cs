@@ -25,10 +25,13 @@ namespace InGame
         // Components
         // --------------------------------------------------
         [Header("1. Game Data")]
-        [SerializeField] private ChapterGroup _chapterGroup = null;
+        [SerializeField] private ChapterGroup   _chapterGroup   = null;
 
-        [Header("2. UI Owner")]
-        [SerializeField] private UIOwner      _uiOwner      = null;
+        [Header("2. Manage Group")]
+        [SerializeField] private UnitController _unitController = null;
+
+        [Header("3. UI Owner")]
+        [SerializeField] private UIOwner        _uiOwner        = null;
 
         // --------------------------------------------------
         // Variables
@@ -43,7 +46,8 @@ namespace InGame
             private set;
         } = null;
 
-        public UIOwner    UIOwner    => _uiOwner;
+        public UIOwner        UIOwner        => _uiOwner;
+        public UnitController UnitController => _unitController;
 
         // --------------------------------------------------
         // Functions - Event

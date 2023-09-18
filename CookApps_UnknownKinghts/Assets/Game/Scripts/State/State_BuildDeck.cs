@@ -8,12 +8,13 @@ using UnityEngine;
 // ----- User Defined
 using Utility.SimpleFSM;
 using Utiltiy.ForLoader;
-using InGame.ForState.ForUI;
 using Utility.ForData.ForUser;
+using InGame.ForState.ForUI;
 using InGame.ForChapterGroup.ForChapter;
 using InGame.ForChapterGroup.ForStage;
 using InGame.ForChapterGroup;
 using InGame.ForUnit.ForData;
+using InGame.ForUnit;
 
 namespace InGame.ForState
 {
@@ -23,10 +24,13 @@ namespace InGame.ForState
         // Variables
         // --------------------------------------------------
         // ----- Owner
-        private Owner         _owner         = null;
+        private Owner         _owner           = null;
+
+        // ----- Manage
+        private UnitController _unitController = null;
 
         // ----- UI
-        private BuildDeckView _buildDeckView = null;
+        private BuildDeckView _buildDeckView   = null;
 
         // --------------------------------------------------
         // Property
@@ -49,6 +53,13 @@ namespace InGame.ForState
                 return;
             }
 
+            _unitController = _owner.UnitController;
+            if (_unitController == null)
+            {
+                Debug.LogError($"<color=red>[State_{State}._Start] Unit Controller가 Null 상태입니다.</color>");
+                return;
+            }
+
             _buildDeckView = (BuildDeckView)_owner.UIOwner.GetStateUI();
             if (_buildDeckView == null)
             {
@@ -60,10 +71,7 @@ namespace InGame.ForState
             // Loader Hide
             Loader.Instance.Hide
             (
-                () =>
-                {
-                    _buildDeckView.gameObject.SetActive(true);
-                }
+                () => { _buildDeckView.gameObject.SetActive(true); }
                 , null
             );
 
@@ -72,13 +80,16 @@ namespace InGame.ForState
             var chapterData      = chapterStageInfo.ChapterData;
             var stageData        = chapterStageInfo.StageData;
 
-            // User 가 가지고 있는 Unit 데이터가 필요
+            // User가 가지고 있는 Unit 데이터가 필요
             var ownedUnitDataList = UserDataSystem.GetToOwnedUnitDataList();
 
             Debug.Log($"Owned Unit Data List {ownedUnitDataList.Count}");
 
             // UI Init
             _SetToUI(chapterData, stageData, ownedUnitDataList);
+
+            // Build Deck에 맞는 Unit 생성 및 포지션 수정
+            _SetToDeckUnit(ownedUnitDataList);
         }
 
         protected override void _Update()
@@ -107,6 +118,15 @@ namespace InGame.ForState
             _buildDeckView.SetToReturnButton(OnClickAction);
             _buildDeckView.SetToStageInfo(chapterData.Name, chapterData.Step, stageData.StageStep);
             _buildDeckView.SetToBottomView(ownedUnitData);
+        }
+
+        private void _SetToDeckUnit(List<UnitData> ownedUnitDataList)
+        {
+            for (int i = 0; i < ownedUnitDataList.Count; i++)
+            {
+                var unitData   = ownedUnitDataList[i];
+                var unitPrefab = _unitController.GetToUnit(unitData);  
+            }
         }
     }
 }

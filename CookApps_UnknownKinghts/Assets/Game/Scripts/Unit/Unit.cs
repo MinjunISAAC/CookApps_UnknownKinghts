@@ -16,5 +16,13 @@ namespace InGame.ForUnit
         // Properties
         // --------------------------------------------------
         public UnitData UnitData => _unitData;
+
+        // --------------------------------------------------
+        // Functions - Nomal
+        // --------------------------------------------------
+        public void ChangeToUnitData(UnitData unitData) 
+        {
+            _unitData = unitData;
+        }
     }
 }

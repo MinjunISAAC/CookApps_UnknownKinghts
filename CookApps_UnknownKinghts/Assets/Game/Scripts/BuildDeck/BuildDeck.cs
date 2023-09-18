@@ -17,8 +17,8 @@ namespace InGame.ForState.ForBuildDeck
         // --------------------------------------------------
         // Variables
         // --------------------------------------------------
-        private Dictionary<EAttackPosType, BuildDeckArea> _areaSet = null;
-        private Dictionary<EAttackPosType, List<Unit>>    _unitSet = null;
+        private Dictionary<EAttackPosType, BuildDeckArea> _areaSet = new Dictionary<EAttackPosType, BuildDeckArea>();
+        private Dictionary<EAttackPosType, List<Unit>>    _unitSet = new Dictionary<EAttackPosType, List<Unit>>();
 
         private List<Unit> _frontUnitList  = new List<Unit>();
         private List<Unit> _centerUnitList = new List<Unit>();
