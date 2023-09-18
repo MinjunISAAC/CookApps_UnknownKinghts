@@ -60,7 +60,7 @@ namespace InGame.ForState.ForBuildDeck
             for (int i = 0; i < _unitDeckCardList.Count; i++)
             {
                 var deckCard = _unitDeckCardList[i];
-                deckCard.SetToDeckCartOnClickEven(onClickBtn);
+                deckCard.SetToDeckCartOnClickEvent(onClickBtn);
             }
         }
 

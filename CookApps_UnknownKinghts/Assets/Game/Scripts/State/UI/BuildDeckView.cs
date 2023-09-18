@@ -51,8 +51,7 @@ namespace InGame.ForState.ForUI
         public void ResetToBuildDeckView()
         {
             _BTN_Return.onClick.RemoveAllListeners();
-
-            _bottomView.ResetToDeckCard();
+            _bottomView        .ResetToDeckCard();
         } 
 
 

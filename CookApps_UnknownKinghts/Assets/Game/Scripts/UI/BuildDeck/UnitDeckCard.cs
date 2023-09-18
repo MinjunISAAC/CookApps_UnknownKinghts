@@ -28,7 +28,7 @@ namespace InGame.ForState.ForBuildDeck
         // --------------------------------------------------
         private EUnitType _unitType  = EUnitType.UnknownHero;
         private bool      _isInclude = false;
-
+        
         // --------------------------------------------------
         // Properties
         // --------------------------------------------------
@@ -57,11 +57,17 @@ namespace InGame.ForState.ForBuildDeck
             _SetToStar(starCount);
         }
 
-        public void SetToDeckCartOnClickEven(Action<bool, EUnitType> onClickBtn)
+        public void SetToDeckCartOnClickEvent(Action<bool, EUnitType> onClickBtn)
         {
-
+            _BTN_Click.onClick.AddListener
+            (
+                () =>
+                {
+                    onClickBtn(_isInclude, _unitType);
+                    _isInclude = !_isInclude;
+                }
+            );
         }
-
 
         // ----- Private
         private void _SetToStar(int starCount)

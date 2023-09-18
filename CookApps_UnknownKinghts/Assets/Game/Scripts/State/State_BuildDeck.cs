@@ -94,10 +94,24 @@ namespace InGame.ForState
             var enemyUnitDataList = stageData.UnitList;
 
             // 1. 사용할 수 있는 유닛 리스트 / 적 유닛 리스트 생성
-            _SetToReturnBtn  (OnClickAction);
-            _SetToBottomUI   (ownedUnitDataList);
-            _SetToBattleStart();
+            _SetToReturn       (OnClickAction);
+            _SetToBattleStart  ();
+            _SetToBottomUI     (ownedUnitDataList);
 
+
+
+
+            _SetToUnitDeckEvent
+            (
+                (isInclude, type) => 
+                {
+                    Debug.Log($"TEST 중 : {isInclude}, {type}");
+                    
+                    // 추가일 경우
+
+                    // 삭제일 경우
+                }
+            );
 
 
 
@@ -132,8 +146,11 @@ namespace InGame.ForState
         private void _SetToBottomUI(List<UnitData> ownedUnitDataList)
         => _buildDeckView.SetToBuildDeck_UI(ownedUnitDataList);
 
-        private void _SetToReturnBtn(Action onClickReturn)
+        private void _SetToReturn(Action onClickReturn)
         => _buildDeckView.SetToReturnButton(onClickReturn);
+
+        private void _SetToUnitDeckEvent(Action<bool, EUnitType> onClickEvent)
+        => _buildDeckView.SetToBuildDeck_OnClickEvent(onClickEvent);
 
         private void _SetToBattleStart()
         {
