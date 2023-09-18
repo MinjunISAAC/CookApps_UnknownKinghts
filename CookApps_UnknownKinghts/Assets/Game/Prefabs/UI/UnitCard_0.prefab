@@ -209,6 +209,7 @@ MonoBehaviour:
   _IMG_Photo: {fileID: 236334792072624809}
   _IMG_SpecIcon: {fileID: 236334791206241101}
   _IMG_JobIcon: {fileID: 236334792668519579}
+  _IMG_Hide: {fileID: 236334792509537369}
   _starGroup:
   - {fileID: 236334790978162078}
   - {fileID: 236334791737638964}

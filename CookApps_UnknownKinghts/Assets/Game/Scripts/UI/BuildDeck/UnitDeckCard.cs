@@ -20,6 +20,7 @@ namespace InGame.ForState.ForBuildDeck
         [SerializeField] private Image           _IMG_Photo    = null;
         [SerializeField] private Image           _IMG_SpecIcon = null;
         [SerializeField] private Image           _IMG_JobIcon  = null;
+        [SerializeField] private Image           _IMG_Hide     = null;
         [SerializeField] private List<Image>     _starGroup    = null;
         [SerializeField] private Button          _BTN_Click    = null;
 
@@ -65,6 +66,8 @@ namespace InGame.ForState.ForBuildDeck
                 {
                     onClickBtn(_isInclude, _unitType);
                     _isInclude = !_isInclude;
+
+                    _IMG_Hide.gameObject.SetActive(_isInclude);
                 }
             );
         }
