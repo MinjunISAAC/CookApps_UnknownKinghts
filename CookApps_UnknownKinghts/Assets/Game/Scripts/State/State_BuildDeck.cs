@@ -117,16 +117,14 @@ namespace InGame.ForState
 
             _buildDeckView.SetToReturnButton(OnClickAction);
             _buildDeckView.SetToStageInfo(chapterData.Name, chapterData.Step, stageData.StageStep);
-
-
-
-
+            
             _buildDeckView.SetToBottomView
             (
                 ownedUnitData,
-                (type) => 
+                (isInclude, type) => 
                 {
-                    _unitController.RefreshToPlayerUnitDeck(type);
+                    _unitController.RefreshToPlayerUnitDeck(isInclude, type);
+                    _unitController.SetToBuildDeck();
                 }
             );
         }

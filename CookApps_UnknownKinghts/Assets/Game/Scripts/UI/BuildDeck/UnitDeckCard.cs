@@ -26,7 +26,8 @@ namespace InGame.ForState.ForBuildDeck
         // --------------------------------------------------
         // Variables
         // --------------------------------------------------
-        private EUnitType _unitType = EUnitType.UnknownHero;
+        private EUnitType _unitType  = EUnitType.UnknownHero;
+        private bool      _isInclude = false;
 
         // --------------------------------------------------
         // Properties
@@ -36,7 +37,7 @@ namespace InGame.ForState.ForBuildDeck
         // --------------------------------------------------
         // Functions - Nomal
         // --------------------------------------------------
-        public void SetToUnitCard(UnitData data, Action<EUnitType> onClickBtn)
+        public void SetToUnitCard(UnitData data, Action<bool, EUnitType> onClickBtn)
         {
             var unitLevel   = data.Level;
             var starCount   = data.Star;
@@ -56,7 +57,15 @@ namespace InGame.ForState.ForBuildDeck
 
             _SetToStar(starCount);
 
-            _BTN_Click.onClick.AddListener(() => { Debug.Log($"Call {_unitType}"); onClickBtn(_unitType); });
+            _BTN_Click.onClick.AddListener
+            (
+                () => 
+                { 
+                    Debug.Log($"Call {_unitType}"); 
+                    onClickBtn(_isInclude,_unitType);
+                    _isInclude = !_isInclude;
+                }
+            );
         }
 
         // ----- Private

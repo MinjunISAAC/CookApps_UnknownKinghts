@@ -42,7 +42,7 @@ namespace InGame.ForState.ForUI
         public void SetToStageInfo(string chapterName, int chapterStep, int stageStep)
         => _TMP_StageName.text = $"{chapterName} {chapterStep}-{stageStep}";
 
-        public void SetToBottomView(List<UnitData> ownedUnitDataList, Action<EUnitType> onClickCardView)
+        public void SetToBottomView(List<UnitData> ownedUnitDataList, Action<bool, EUnitType> onClickCardView)
         => _bottomView.OnInit(ownedUnitDataList, onClickCardView);
     }
 }

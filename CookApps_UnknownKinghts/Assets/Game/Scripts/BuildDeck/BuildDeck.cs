@@ -72,14 +72,15 @@ namespace InGame.ForState.ForBuildDeck
 
         public void ResetToUnit()
         {
-            _frontUnitList.Clear();
+            _frontUnitList .Clear();
             _centerUnitList.Clear();
-            _rearUnitList.Clear();
+            _rearUnitList  .Clear();
         }
 
         public void ExcludeToUnit(Unit unit)
         {
             var attackType = unit.UnitData.AttackPosType;
+            Debug.Log($"Exclude 1 {attackType} | {_frontUnitList.Count} | {_centerUnitList.Count} | {_rearUnitList.Count}");
             if (_unitSet.TryGetValue(attackType, out var unitList))
             {
                 for (int i = 0; i < unitList.Count; i++) 
@@ -88,11 +89,37 @@ namespace InGame.ForState.ForBuildDeck
 
                     if (targetUnit.UnitData.UnitType == unit.UnitData.UnitType)
                     {
+                        Debug.Log($"Exclude 2 {attackType} | {_frontUnitList.Count} | {_centerUnitList.Count} | {_rearUnitList.Count}");
+
                         _TryToTargetPos(false, targetUnit);
                         break;
                     }
                 }
             }
+        }
+
+        public void IncludeToUnit(Unit unit)
+        {
+            Debug.Log($"Include {_frontUnitList.Count} | {_centerUnitList.Count} | {_rearUnitList.Count}");
+            var  attackType = unit.UnitData.AttackPosType;
+            var  isInclude  = false;
+            Unit targetUnit = null;
+
+            if (_unitSet.TryGetValue(attackType, out var unitList))
+            {
+                for (int i = 0; i < unitList.Count; i++)
+                {
+                    targetUnit = unitList[i];
+
+                    if (targetUnit.UnitData.UnitType == unit.UnitData.UnitType)
+                    {
+                        isInclude = true;
+                        break;
+                    }
+                }
+            }
+            
+            if (!isInclude) _TryToTargetPos(true, targetUnit);
         }
 
         // ----- Private
@@ -120,6 +147,7 @@ namespace InGame.ForState.ForBuildDeck
                 
                 unit.gameObject.SetActive(isAdd);
 
+                Debug.Log($"콜할때 한번만");
                 var count     = unitList.Count;
                 var transList = area.GetToAreaList(count);
 
@@ -140,6 +168,5 @@ namespace InGame.ForState.ForBuildDeck
             else
                 return false;
         }
-
     }
 }

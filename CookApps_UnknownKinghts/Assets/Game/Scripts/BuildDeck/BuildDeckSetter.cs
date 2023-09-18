@@ -34,9 +34,19 @@ namespace InGame.ForState.ForBuildDeck
             }
         }
 
-        public void RefreshToBuildDeck(Unit unit)
+        public void SetToBuildDeck(List<Unit> playerUnitList)
         {
-            _playerBuildDeck.ExcludeToUnit(unit);
+            for (int i = 0; i < playerUnitList.Count; i++)
+            {
+                var unit = playerUnitList[i];
+                _playerBuildDeck.SetToUnit(unit);
+            }
+        }
+
+        public void RefreshToBuildDeck(bool isAdd, Unit unit)
+        {
+            if (isAdd) _playerBuildDeck.IncludeToUnit(unit);
+            else       _playerBuildDeck.ExcludeToUnit(unit);
         }
 
         public void ResetToBuildDeck()

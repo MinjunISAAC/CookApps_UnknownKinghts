@@ -23,7 +23,7 @@ namespace InGame.ForState.ForBuildDeck
         // --------------------------------------------------
         // Functions - Nomal
         // --------------------------------------------------
-        public void OnInit(List<UnitData> unitDataList, Action<EUnitType> onCliCkCardBtn) 
+        public void OnInit(List<UnitData> unitDataList, Action<bool, EUnitType> onCliCkCardBtn) 
         {
             for (int i = _unitDeckParents.childCount - 1; i >= 0; i--)
             {

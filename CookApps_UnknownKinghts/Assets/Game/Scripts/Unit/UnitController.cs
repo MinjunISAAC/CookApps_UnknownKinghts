@@ -123,15 +123,27 @@ namespace InGame.ForUnit
             _buildDeckSetter.ResetToBuildDeck();
         }
 
-        public void RefreshToPlayerUnitDeck(EUnitType unitType)
+        public void RefreshToPlayerUnitDeck(bool isAdd, EUnitType unitType)
         {
-            for (int i = 0; i < _currPlayerUnit.Count; i++)
+            if (isAdd) 
             {
-                var unit = _currPlayerUnit[i];
-                if (unit.UnitData.UnitType == unitType)
+                if (_playerUnitPools.TryGetValue(unitType, out var targetUnit))
                 {
-                    _buildDeckSetter.RefreshToBuildDeck(unit);
-                    break;
+                    targetUnit.gameObject.SetActive(true);
+                    _buildDeckSetter.RefreshToBuildDeck(isAdd, targetUnit);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < _currPlayerUnit.Count; i++)
+                {
+                    var unit = _currPlayerUnit[i];
+                    if (unit.UnitData.UnitType == unitType)
+                    {
+                        _buildDeckSetter.RefreshToBuildDeck(isAdd, unit);
+                        _currPlayerUnit.Remove(unit);
+                        break;
+                    }
                 }
             }
         }
@@ -142,6 +154,12 @@ namespace InGame.ForUnit
             _currEnemyUnit  = enemyUnitList;
 
             _buildDeckSetter.SetToBuildDeck(playerUnitList, enemyUnitList);
+        }
+
+        public void SetToBuildDeck()
+        {
+            Debug.Log($"Currrr {_currPlayerUnit.Count}");
+            _buildDeckSetter.SetToBuildDeck(_currPlayerUnit);
         }
     }
 }
