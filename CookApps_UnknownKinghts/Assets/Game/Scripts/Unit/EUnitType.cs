@@ -7,5 +7,8 @@ namespace InGame.ForUnit
         Flame       = 2,
         Cerus       = 3,
         Pelson      = 4,
+
+        Slime       = 5,
+        BoneSlime   = 6,
     }
 }

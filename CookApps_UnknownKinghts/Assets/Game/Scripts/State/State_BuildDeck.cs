@@ -82,14 +82,13 @@ namespace InGame.ForState
 
             // User가 가지고 있는 Unit 데이터가 필요
             var ownedUnitDataList = UserDataSystem.GetToOwnedUnitDataList();
-
-            Debug.Log($"Owned Unit Data List {ownedUnitDataList.Count}");
+            var enemyUnitDataList = stageData.UnitList;
 
             // UI Init
             _SetToUI(chapterData, stageData, ownedUnitDataList);
 
             // Build Deck에 맞는 Unit 생성 및 포지션 수정
-            _SetToDeckUnit(ownedUnitDataList);
+            _SetToDeckUnit(ownedUnitDataList, enemyUnitDataList);
         }
 
         protected override void _Update()
@@ -99,6 +98,7 @@ namespace InGame.ForState
 
         protected override void _Finish(EStateType nextStateKey)
         {
+            _unitController.ResetToUnit();
             _buildDeckView.gameObject.SetActive(false);
             Debug.Log($"<color=yellow>[State_{State}._Start] {State} State에 이탈하였습니다.</color>");
         }
@@ -117,16 +117,34 @@ namespace InGame.ForState
 
             _buildDeckView.SetToReturnButton(OnClickAction);
             _buildDeckView.SetToStageInfo(chapterData.Name, chapterData.Step, stageData.StageStep);
-            _buildDeckView.SetToBottomView(ownedUnitData);
+
+
+
+
+            _buildDeckView.SetToBottomView
+            (
+                ownedUnitData,
+                (type) => 
+                {
+                    _unitController.RefreshToPlayerUnitDeck(type);
+                }
+            );
         }
 
-        private void _SetToDeckUnit(List<UnitData> ownedUnitDataList)
+        private void _SetToDeckUnit(List<UnitData> ownedUnitDataList, List<UnitData> enemyUnitDataList)
         {
+            var unitList = new List<Unit>();
+            
             for (int i = 0; i < ownedUnitDataList.Count; i++)
             {
                 var unitData   = ownedUnitDataList[i];
-                var unitPrefab = _unitController.GetToUnit(unitData);  
+                var unitPrefab = _unitController.GetToPlayerUnit(unitData);
+
+                unitList.Add(unitPrefab);
             }
+
+            var enemyUnitList = _unitController.GetToEnemyUnit(enemyUnitDataList);
+            _unitController.SetToBuildDeck(unitList, enemyUnitList);
         }
     }
 }

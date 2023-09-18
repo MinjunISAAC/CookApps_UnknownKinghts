@@ -11,6 +11,7 @@ using UnityEngine.UI;
 // ----- User Defined
 using InGame.ForState.ForBuildDeck;
 using InGame.ForUnit.ForData;
+using InGame.ForUnit;
 
 namespace InGame.ForState.ForUI
 {
@@ -41,7 +42,7 @@ namespace InGame.ForState.ForUI
         public void SetToStageInfo(string chapterName, int chapterStep, int stageStep)
         => _TMP_StageName.text = $"{chapterName} {chapterStep}-{stageStep}";
 
-        public void SetToBottomView(List<UnitData> ownedUnitDataList)
-        => _bottomView.OnInit(ownedUnitDataList);
+        public void SetToBottomView(List<UnitData> ownedUnitDataList, Action<EUnitType> onClickCardView)
+        => _bottomView.OnInit(ownedUnitDataList, onClickCardView);
     }
 }

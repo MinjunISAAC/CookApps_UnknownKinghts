@@ -1,4 +1,6 @@
+using InGame.ForUnit;
 using InGame.ForUnit.ForData;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,14 +23,22 @@ namespace InGame.ForState.ForBuildDeck
         // --------------------------------------------------
         // Functions - Nomal
         // --------------------------------------------------
-        public void OnInit(List<UnitData> unitDataList) 
-        { 
+        public void OnInit(List<UnitData> unitDataList, Action<EUnitType> onCliCkCardBtn) 
+        {
+            for (int i = _unitDeckParents.childCount - 1; i >= 0; i--)
+            {
+                var unitDeck = _unitDeckParents.GetChild(i);
+                Destroy(unitDeck.gameObject);
+            }
+
+            _ownedUnitDataList.Clear();
+
             for (int i = 0; i < unitDataList.Count; i++) 
             {
                 var unitData = unitDataList[i];
                 var unitDeck = Instantiate(_originUnitDeckCard, _unitDeckParents);
 
-                unitDeck.SetToUnitCard(unitData);
+                unitDeck.SetToUnitCard(unitData, onCliCkCardBtn);
                 _ownedUnitDataList.Add(unitData);
             }
         }

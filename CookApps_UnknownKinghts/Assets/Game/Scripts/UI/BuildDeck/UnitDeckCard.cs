@@ -1,4 +1,6 @@
+using InGame.ForUnit;
 using InGame.ForUnit.ForData;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -13,17 +15,28 @@ namespace InGame.ForState.ForBuildDeck
         // Components
         // --------------------------------------------------
         [Header("UI Components Group")]
-        [SerializeField] private TextMeshProUGUI _TMP_Level      = null;
-        [SerializeField] private Image           _IMG_Frame      = null;
-        [SerializeField] private Image           _IMG_Photo      = null;
-        [SerializeField] private Image           _IMG_SpecIcon   = null;
-        [SerializeField] private Image           _IMG_JobIcon    = null;
-        [SerializeField] private List<Image>     _starGroup      = null;
+        [SerializeField] private TextMeshProUGUI _TMP_Level    = null;
+        [SerializeField] private Image           _IMG_Frame    = null;
+        [SerializeField] private Image           _IMG_Photo    = null;
+        [SerializeField] private Image           _IMG_SpecIcon = null;
+        [SerializeField] private Image           _IMG_JobIcon  = null;
+        [SerializeField] private List<Image>     _starGroup    = null;
+        [SerializeField] private Button          _BTN_Click    = null;
+
+        // --------------------------------------------------
+        // Variables
+        // --------------------------------------------------
+        private EUnitType _unitType = EUnitType.UnknownHero;
+
+        // --------------------------------------------------
+        // Properties
+        // --------------------------------------------------
+        public EUnitType UnitType => _unitType;
 
         // --------------------------------------------------
         // Functions - Nomal
         // --------------------------------------------------
-        public void SetToUnitCard(UnitData data)
+        public void SetToUnitCard(UnitData data, Action<EUnitType> onClickBtn)
         {
             var unitLevel   = data.Level;
             var starCount   = data.Star;
@@ -31,6 +44,8 @@ namespace InGame.ForState.ForBuildDeck
             var unitProfile = data.Profile;
             var unitSpec    = data.SpecType;
             var unitJob     = data.JobType;
+
+            _unitType = data.UnitType;
 
             _IMG_Frame   .sprite = SpritePoolSystem.Instance.GetToGradeFrameSprite(unitGrade);
             _IMG_SpecIcon.sprite = SpritePoolSystem.Instance.GetToSpecSprite      (unitSpec);
@@ -40,6 +55,8 @@ namespace InGame.ForState.ForBuildDeck
             _TMP_Level.text = $"Lv.{unitLevel}";
 
             _SetToStar(starCount);
+
+            _BTN_Click.onClick.AddListener(() => { Debug.Log($"Call {_unitType}"); onClickBtn(_unitType); });
         }
 
         // ----- Private
