@@ -18,13 +18,14 @@ namespace InGame.ForUnit
         // Components
         // --------------------------------------------------
         [Header("1. Unit(Player) Group")]
-        [SerializeField] private List<Unit>      _playerUniList   = null;
+        [SerializeField] private List<Unit>      _playerUniList    = null;
 
         [Header("2. Unit(Enemy) Group")]
-        [SerializeField] private List<Unit>      _enemyUniList    = null;
+        [SerializeField] private List<Unit>      _enemyUniList     = null;
 
         [Header("3. Position Group")]
-        [SerializeField] private BuildDeckSetter _buildDeckSetter = null;
+        [SerializeField] private BuildDeckSetter _buildDeckSetter  = null;
+        [SerializeField] private BuildDeckSetter _battleDeckSetter = null;
 
         [SerializeField] private Transform _deckTrans = null;
 
@@ -119,9 +120,11 @@ namespace InGame.ForUnit
 
             return unitList;
         }
+        public void SetToPlayerUnit_BattleDeck(List<Unit> unitList) => _battleDeckSetter.SetToBuildPlayerDeck(unitList);
+        public void SetToEnemyUnit_BattleDeck(List<Unit> unitList)  => _battleDeckSetter.SetToBuildEnemyDeck(unitList);
 
-        public void SetToPlayerUnitPosition(List<Unit> unitList) => _buildDeckSetter.SetToBuildPlayerDeck(unitList);
-        public void SetToEnemyUnitPosition(List<Unit> unitList) => _buildDeckSetter.SetToBuildEnemyDeck(unitList);
+        public void SetToPlayerUnit_BuildDeck(List<Unit> unitList) => _buildDeckSetter.SetToBuildPlayerDeck(unitList);
+        public void SetToEnemyUnit_BuildDeck(List<Unit> unitList) => _buildDeckSetter.SetToBuildEnemyDeck(unitList);
 
 
         /*

@@ -95,13 +95,18 @@ namespace InGame.ForState
             var ownedUnitDataList = UserDataSystem.GetToOwnedUnitDataList();
             var enemyUnitDataList = _stage.UnitList;
 
-            // 1. 사용할 수 있는 유닛 리스트 / 적 유닛 리스트 생성
             _SetToReturn       (OnClickAction);
             _SetToBattleStart  ();
             _SetToBottomUI     (ownedUnitDataList);
 
             var enemyUnitList = _unitController.GetToEnemyUnit(enemyUnitDataList);
-            _unitController.SetToEnemyUnitPosition(enemyUnitList);
+            _unitController.SetToEnemyUnit_BuildDeck(enemyUnitList);
+
+            for (int i = 0; i < enemyUnitList.Count; i++)
+            {
+                var enemyUnit = enemyUnitList[i];
+                _onEnemyUnitList.Add(enemyUnit);
+            }
 
             _SetToUnitDeckEvent
             (
@@ -135,7 +140,7 @@ namespace InGame.ForState
                         _unitController.ReturnToPlayerUnit(resultUnitData);
                     }
                     
-                    _unitController.SetToPlayerUnitPosition(_onPlayerUnitList);
+                    _unitController.SetToPlayerUnit_BuildDeck(_onPlayerUnitList);
                 }
             );
         }

@@ -606,7 +606,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 57882264}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.266, y: 0, z: 0}
+  m_LocalPosition: {x: 4.266, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -628,7 +628,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a9ea8559e18a1d4e866298d6de3207e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackPosType: 0
+  _attackPosType: 1
   _oneList:
   - {fileID: 1401296691}
   _twoList:
@@ -8113,6 +8113,7 @@ MonoBehaviour:
   - {fileID: 7048994198919479307, guid: 9c9d58322f3b4564ab766a67e776ac0e, type: 3}
   - {fileID: 481883198347016067, guid: 36e1848c7a5d65c45a9d7e4ab00405d0, type: 3}
   _buildDeckSetter: {fileID: 974192874}
+  _battleDeckSetter: {fileID: 919132148980877389}
   _deckTrans: {fileID: 481234951}
 --- !u!1 &509397776
 GameObject:
@@ -22199,7 +22200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a9ea8559e18a1d4e866298d6de3207e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackPosType: 0
+  _attackPosType: 1
   _oneList:
   - {fileID: 1741826381}
   _twoList:
@@ -23202,7 +23203,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1498979322}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.266, y: 0.27, z: 0}
+  m_LocalPosition: {x: -4.266, y: 0.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -23471,7 +23472,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1514460668}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.7, y: 0, z: 0}
+  m_LocalPosition: {x: 6.7, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -26105,7 +26106,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1672761986}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.483, y: 0, z: 0}
+  m_LocalPosition: {x: 5.483, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -26238,7 +26239,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1677742163}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.483, y: 0.27, z: 0}
+  m_LocalPosition: {x: -5.483, y: 0.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -29370,7 +29371,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1849803393}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.7, y: 0.27, z: 0}
+  m_LocalPosition: {x: -6.7, y: 0.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -34248,6 +34249,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 543450652699120374}
+  - component: {fileID: 919132148980877389}
   m_Layer: 0
   m_Name: '[BattleStage]'
   m_TagString: Untagged
@@ -34255,6 +34257,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &919132148980877389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148980877388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13e833d697c659b4781325b52d2aa9b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerBuildDeck: {fileID: 414847535}
+  _enemyBuildDeck: {fileID: 285491434}
 --- !u!23 &1255415110131532795
 MeshRenderer:
   m_ObjectHideFlags: 0

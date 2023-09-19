@@ -3,6 +3,7 @@ using InGame.ForBattle;
 using InGame.ForBattle.ForTime;
 using InGame.ForCam;
 using InGame.ForState.ForUI;
+using InGame.ForUnit;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -24,7 +25,8 @@ namespace InGame.ForState
         private Owner _owner = null;
 
         // ----- Manage
-        private CamController _camController = null;
+        private UnitController _unitController = null;
+        private CamController  _camController  = null;
 
         // ----- UI
         private BattleView _battleView = null;
@@ -54,6 +56,13 @@ namespace InGame.ForState
                 return;
             }
 
+            _unitController = _owner.UnitController;
+            if (_unitController == null)
+            {
+                Debug.LogError($"<color=red>[State_{State}._Start] Unit Controller가 Null 상태입니다.</color>");
+                return;
+            }
+
             _camController = _owner.CamController;
             if (_camController == null)
             {
@@ -69,47 +78,37 @@ namespace InGame.ForState
             }
             #endregion
 
+            // Battle Info Set
+            var battleInfo  = (BattleData)startParam;
+            var stage       = battleInfo.StageInfo;
+            var playTime    = stage.PlayTime;
+            var playerUnits = battleInfo.PlayerUnit;
+            var enemyUnits  = battleInfo.EnemyUnit;
+
+            Debug.Log($"ENemy {enemyUnits.Count}");
             // Loader Hide
             Loader.Instance.Hide
             (
-                () => { _battleView.gameObject.SetActive(true); },
+                () => 
+                { 
+                    _battleView.gameObject.SetActive(true);
+                    _SetToUnit(playerUnits, enemyUnits);
+                },
                 () => { }
             );
 
-            // Battle Info Set
-            var battleInfo = (BattleData)startParam;
-            var stage      = battleInfo.StageInfo;
-            var playTime   = stage.PlayTime;
-
+            // Camera Move
             _camController.ChangeToCamState
             (
                 CamController.ECamState.BattleStart, 0.5f, 
                 () =>
                 {
-                    // Battle Timer Start
-                    _battleView.PlayToTimer(playTime, () => { Debug.Log($"끝남!!"); });
-                    _battleView.SetToBottomView
-                    (
-                        () =>
-                        {
-                            if (_isTimeScaleUp)
-                            {
-                                TimeScaler.RevertValue();
-                                _battleView.VisiableToTimeScaleBtn(false);
-                            }
-                            else
-                            {
-                                TimeScaler.SetValue(TIMESCALEUP_VALUE);
-                                _battleView.VisiableToTimeScaleBtn(true);
-                            }
-
-                            _isTimeScaleUp = !_isTimeScaleUp;
-                        }
-                    );
+                    _SetToUI      ();
+                    _StartToBattle(playTime);
                 }
             );
-
         }
+
         protected override void _Update()
         {
             Debug.Log($"Time Sacle = {TimeScaler.GetValue()}");
@@ -117,7 +116,48 @@ namespace InGame.ForState
 
         protected override void _Finish(EStateType nextStateKey)
         {
+            _battleView.gameObject.SetActive(false);
             Debug.Log($"<color=yellow>[State_{State}._Start] {State} State에 이탈하였습니다.</color>");
+        }
+
+        // ----- Private
+        private void _StartToBattle(float playTime)
+        {
+            // Battle Timer Start
+            _battleView.PlayToTimer
+            (
+                playTime, 
+                () => { Debug.Log($"끝남!!"); }
+            );
+        }
+
+        private void _SetToUnit(List<Unit> playerUnitList, List<Unit> enemyUnitList)
+        {
+            _unitController.SetToPlayerUnit_BattleDeck(playerUnitList);
+            _unitController.SetToEnemyUnit_BattleDeck(enemyUnitList);
+        }
+
+        private void _SetToUI()
+        {
+            // Battle UI Init
+            _battleView.SetToBottomView
+            (
+                () =>
+                {
+                    if (_isTimeScaleUp)
+                    {
+                        TimeScaler.RevertValue();
+                        _battleView.VisiableToTimeScaleBtn(false);
+                    }
+                    else
+                    {
+                        TimeScaler.SetValue(TIMESCALEUP_VALUE);
+                        _battleView.VisiableToTimeScaleBtn(true);
+                    }
+
+                    _isTimeScaleUp = !_isTimeScaleUp;
+                }
+            );
         }
     }
 }
