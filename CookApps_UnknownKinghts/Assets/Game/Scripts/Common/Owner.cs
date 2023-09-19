@@ -16,6 +16,8 @@ using InGame.ForChapterGroup.ForChapter;
 using InGame.ForChapterGroup.ForStage;
 using InGame.ForUnit.ForData;
 using InGame.ForUnit;
+using InGame.ForBattle.ForTime;
+using InGame.ForCam;
 
 namespace InGame
 {
@@ -29,6 +31,8 @@ namespace InGame
 
         [Header("2. Manage Group")]
         [SerializeField] private UnitController _unitController = null;
+        [SerializeField] private CamController  _camController  = null;
+        [SerializeField] private Transform _test = null;
 
         [Header("3. UI Owner")]
         [SerializeField] private UIOwner        _uiOwner        = null;
@@ -48,7 +52,9 @@ namespace InGame
 
         public UIOwner        UIOwner        => _uiOwner;
         public UnitController UnitController => _unitController;
+        public CamController  CamController  => _camController;   
 
+        public Transform Test => _test;
         // --------------------------------------------------
         // Functions - Event
         // --------------------------------------------------
@@ -76,6 +82,10 @@ namespace InGame
             yield return null;
         }
 
+        private void Update()
+        {
+            StateMachine.Instance.OnUpdate();
+        }
         // --------------------------------------------------
         // Functions - Nomal
         // --------------------------------------------------

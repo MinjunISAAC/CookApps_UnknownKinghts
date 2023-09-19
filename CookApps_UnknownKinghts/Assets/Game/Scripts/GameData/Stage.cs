@@ -21,11 +21,15 @@ namespace InGame.ForChapterGroup.ForStage
         [Header("3. Unit Group")]
         [SerializeField] private List<UnitData>       _unitList   = null;
 
+        [Header("4. Play Option")]
+        [SerializeField] private float                _playTime   = 0f;
+
         // --------------------------------------------------
         // Properties
         // --------------------------------------------------
         public int                  StageStep   => _stageStep;
         public List<RewardItemData> RewardList  => _rewardList;
         public List<UnitData>       UnitList    => _unitList;
+        public float                PlayTime    => _playTime;
     }
 }

@@ -26,6 +26,8 @@ namespace InGame.ForUnit
         [Header("3. Position Group")]
         [SerializeField] private BuildDeckSetter _buildDeckSetter = null;
 
+        [SerializeField] private Transform _deckTrans = null;
+
         // --------------------------------------------------
         // Variables
         // --------------------------------------------------
@@ -36,6 +38,7 @@ namespace InGame.ForUnit
         private Dictionary<EUnitType, Unit> _playerUnitPools = new Dictionary<EUnitType, Unit>();
         private Dictionary<EUnitType, Unit> _enemyUnitPools  = new Dictionary<EUnitType, Unit>();
 
+        public Transform DeckTrans => _deckTrans;
         // --------------------------------------------------
         // Functions - Event
         // --------------------------------------------------

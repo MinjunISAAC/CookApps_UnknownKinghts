@@ -40,11 +40,14 @@ MonoBehaviour:
     FrameSprite: {fileID: 21300000, guid: 877df08e89c560e468434f62557ac7ad, type: 3}
     IconSprite: {fileID: 21300000, guid: f18eec69ae0eb404da66023097a37ce6, type: 3}
   _unitList:
-  - Level: 1
+  - Profile: {fileID: 0}
+    Level: 1
     MaxLevel: 20
+    Star: 0
     Name: "\uC880\uBE44 \uC804\uC0AC"
     GradeType: 1
     UnitType: 2
+    JobType: 0
     SpecType: 6
     AttackPosType: 1
     Ability:
@@ -58,11 +61,14 @@ MonoBehaviour:
     SkillGroup:
     - Name: "\uC2A4\uD0AC"
       CoolTime: 9
-  - Level: 1
+  - Profile: {fileID: 0}
+    Level: 1
     MaxLevel: 20
+    Star: 0
     Name: "\uC880\uBE44 \uC804\uC0AC"
     GradeType: 1
     UnitType: 2
+    JobType: 0
     SpecType: 6
     AttackPosType: 1
     Ability:
@@ -76,11 +82,14 @@ MonoBehaviour:
     SkillGroup:
     - Name: "\uC2A4\uD0AC"
       CoolTime: 9
-  - Level: 1
+  - Profile: {fileID: 0}
+    Level: 1
     MaxLevel: 20
+    Star: 0
     Name: "\uC880\uBE44 \uC804\uC0AC"
     GradeType: 1
     UnitType: 2
+    JobType: 0
     SpecType: 6
     AttackPosType: 2
     Ability:
@@ -94,3 +103,4 @@ MonoBehaviour:
     SkillGroup:
     - Name: "\uC2A4\uD0AC"
       CoolTime: 9
+  _playTime: 60

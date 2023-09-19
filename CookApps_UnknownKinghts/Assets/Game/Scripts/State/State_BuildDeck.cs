@@ -34,7 +34,9 @@ namespace InGame.ForState
         // ----- UI
         private BuildDeckView _buildDeckView    = null;
 
-        // ----- Unit Group
+        // ----- Battle Info
+        private Chapter       _chapter          = null;
+        private Stage         _stage            = null;
         private List<Unit>    _onPlayerUnitList = new List<Unit>();
         private List<Unit>    _onEnemyUnitList  = new List<Unit>();
 
@@ -86,12 +88,12 @@ namespace InGame.ForState
 
             // Last Chapter Info Load
             var chapterStageInfo = (ChapterStageInfo)startParam;
-            var chapterData      = chapterStageInfo.ChapterData;
-            var stageData        = chapterStageInfo.StageData;
+            _chapter = chapterStageInfo.ChapterData;
+            _stage   = chapterStageInfo.StageData;
 
             // User가 가지고 있는 Unit 데이터가 필요
             var ownedUnitDataList = UserDataSystem.GetToOwnedUnitDataList();
-            var enemyUnitDataList = stageData.UnitList;
+            var enemyUnitDataList = _stage.UnitList;
 
             // 1. 사용할 수 있는 유닛 리스트 / 적 유닛 리스트 생성
             _SetToReturn       (OnClickAction);
@@ -136,21 +138,6 @@ namespace InGame.ForState
                     _unitController.SetToPlayerUnitPosition(_onPlayerUnitList);
                 }
             );
-
-
-
-
-
-
-
-
-
-            /*
-            // UI Init
-
-            // Build Deck에 맞는 Unit 생성 및 포지션 수정
-            _SetToDeckUnit(ownedUnitDataList, enemyUnitDataList);
-            */
         }
 
         protected override void _Update()
@@ -178,8 +165,20 @@ namespace InGame.ForState
 
         private void _SetToBattleStart()
         {
-            BattleData battleData = new BattleData(_onPlayerUnitList, _onEnemyUnitList);
-            _buildDeckView.SetToBattleStart(() => { StateMachine.Instance.ChangeState(EStateType.Battle, battleData); });
+            BattleData battleData = new BattleData(_chapter, _stage, _onPlayerUnitList, _onEnemyUnitList);
+            _buildDeckView.SetToBattleStart
+            (
+                () =>
+                {
+
+                    Loader.Instance.Show
+                    (
+                        null,
+                        () => StateMachine.Instance.ChangeState(EStateType.Battle, battleData),
+                        1f
+                    );
+                }
+            );
         }
 
         /*

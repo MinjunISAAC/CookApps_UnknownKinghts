@@ -91,10 +91,10 @@ namespace Utiltiy.ForLoader
         // --------------------------------------------------
         // Functions - Coroutine
         // --------------------------------------------------
-        public void Show(Action loadWork, Action doneCallBack)
+        public void Show(Action loadWork, Action doneCallBack, float duration = 0)
         {
             if (_co_Visiable == null)
-                _co_Visiable = StartCoroutine(_Co_Show(loadWork, doneCallBack));
+                _co_Visiable = StartCoroutine(_Co_Show(duration, loadWork, doneCallBack));
         }
 
         public void Hide(Action loadWork, Action doneCallBack)
@@ -106,7 +106,7 @@ namespace Utiltiy.ForLoader
         // --------------------------------------------------
         // Functions - Coroutine
         // --------------------------------------------------
-        private IEnumerator _Co_Show(Action loadWork, Action doneCallBack)
+        private IEnumerator _Co_Show(float duration, Action loadWork, Action doneCallBack)
         {
             _animation.clip = _animation.GetClip(SHOW_TRIGGER);
             _animation.Play();
@@ -114,7 +114,9 @@ namespace Utiltiy.ForLoader
             loadWork?.Invoke();
 
             var delay = _animation.clip.length;
-            yield return new WaitForSeconds(delay);
+            
+            if (delay < duration) yield return new WaitForSeconds(duration);
+            else                  yield return new WaitForSeconds(delay);
 
             _co_Visiable = null;
             doneCallBack?.Invoke();

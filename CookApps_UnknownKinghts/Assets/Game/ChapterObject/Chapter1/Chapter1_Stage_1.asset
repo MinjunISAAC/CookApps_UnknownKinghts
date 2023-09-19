@@ -103,3 +103,4 @@ MonoBehaviour:
     SkillGroup:
     - Name: "\uC2A4\uD0AC1"
       CoolTime: 10
+  _playTime: 60
