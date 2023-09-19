@@ -114,7 +114,10 @@ namespace InGame.ForUnit
             }
         }
 
-        public void SetToTimeScale() => _animator.speed *= TimeScaler.GetValue();
+        public void SetToTimeScale() 
+        {
+            _animator.speed = TimeScaler.GetValue();
+        } 
 
         public void Hit(int hitValue)
         {
@@ -257,7 +260,14 @@ namespace InGame.ForUnit
                     sec += Time.deltaTime * TimeScaler.GetValue();
                 else
                 {
-                    _targetUnit.Hit(_power);
+                    var power        = _power;
+                    var criticalRate = _criticalRate / 100f;
+                    var randomValue  = UnityEngine.Random.value;
+
+                    if (randomValue < criticalRate)
+                        power = _criticalDamage;
+
+                    _targetUnit.Hit(power);
 
                     HitToUnit(_targetUnit);
 

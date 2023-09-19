@@ -91,26 +91,27 @@ namespace InGame.ForState
 
             _unitController.SetToEnemyGroup(playerUnits, enemyUnits);
             StartCoroutine(_battleView.BattleStartView(2.5f, () => _StartToBattle(playTime, playerUnits, enemyUnits)));
-
+            
             _unitController.SetToUnitHitEvent
             (
                 playerUnits, 
-                (unit) => 
+                (targetUnit) => 
                 {
-                    var hit = _battleView.ShowToHitInfo((int)unit.Power);
-                    hit.transform.position = Camera.main.WorldToScreenPoint(unit.TargetUnit.transform.position);
+                    var hit = _battleView.ShowToHitInfo((int)targetUnit.Power);
+                    hit.transform.position = Camera.main.WorldToScreenPoint(targetUnit.TargetUnit.transform.position);
                 }
             );
 
             _unitController.SetToUnitHitEvent
             (
                 enemyUnits, 
-                (unit) => 
+                (targetUnit) => 
                 { 
-                    var hit = _battleView.ShowToHitInfo((int)unit.Power);
-                    hit.transform.position = Camera.main.WorldToScreenPoint(unit.TargetUnit.transform.position);
+                    var hit = _battleView.ShowToHitInfo((int)targetUnit.Power);
+                    hit.transform.position = Camera.main.WorldToScreenPoint(targetUnit.TargetUnit.transform.position);
                 }
             );
+            
 
             // Loader Hide
             Loader.Instance.Hide
@@ -205,11 +206,13 @@ namespace InGame.ForState
 
         private void _SetToUI(List<Unit> playerUnits, List<Unit> enemyUnits)
         {
+
             // Battle UI Init
             _battleView.SetToBottomView
             (
                 () =>
                 {
+
                     if (_isTimeScaleUp)
                     {
                         TimeScaler.RevertValue();
