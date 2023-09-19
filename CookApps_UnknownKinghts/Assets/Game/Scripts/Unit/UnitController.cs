@@ -36,9 +36,6 @@ namespace InGame.ForUnit
         private Dictionary<EUnitType, Unit> _playerUnitPools = new Dictionary<EUnitType, Unit>();
         private Dictionary<EUnitType, Unit> _enemyUnitPools  = new Dictionary<EUnitType, Unit>();
 
-        [SerializeField] private List<Unit> _currPlayerUnit = new List<Unit>();
-        [SerializeField] private List<Unit> _currEnemyUnit  = new List<Unit>();
-
         // --------------------------------------------------
         // Functions - Event
         // --------------------------------------------------
@@ -71,7 +68,6 @@ namespace InGame.ForUnit
         // Functions - Nomal
         // --------------------------------------------------
         // ----- Public
-        /*
         public Unit GetToPlayerUnit(UnitData unitData)
         {
             if (_playerUnitPools.TryGetValue(unitData.UnitType, out var targetUnit))
@@ -85,6 +81,17 @@ namespace InGame.ForUnit
                 Debug.LogError($"<color=red>[UnitController.GetToPlayerUnit] {unitData.UnitType}에 맞는 Unit이 Pool에 존재하지 않습니다.</color>");
                 return null;
             }
+        }
+
+        public void ReturnToPlayerUnit(UnitData unitData)
+        {
+            if (_playerUnitPools.TryGetValue(unitData.UnitType, out var targetUnit))
+            {
+                targetUnit.gameObject.SetActive(false);
+                targetUnit.ChangeToUnitData(unitData);
+            }
+            else
+                Debug.LogError($"<color=red>[UnitController.GetToPlayerUnit] {unitData.UnitType}에 맞는 Unit이 Pool에 존재하지 않습니다.</color>");
         }
 
         public List<Unit> GetToEnemyUnit(List<UnitData> unitDatas)
@@ -110,6 +117,12 @@ namespace InGame.ForUnit
             return unitList;
         }
 
+        public void SetToPlayerUnitPosition(List<Unit> unitList) => _buildDeckSetter.SetToBuildPlayerDeck(unitList);
+        public void SetToEnemyUnitPosition(List<Unit> unitList) => _buildDeckSetter.SetToBuildEnemyDeck(unitList);
+
+
+        /*
+        
         public void ResetToUnit()
         {
             void Reset(List<Unit> unitList)

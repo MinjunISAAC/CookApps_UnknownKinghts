@@ -20,9 +20,9 @@ namespace InGame.ForState.ForBuildDeck
         private Dictionary<EAttackPosType, BuildDeckArea> _areaSet = new Dictionary<EAttackPosType, BuildDeckArea>();
         private Dictionary<EAttackPosType, List<Unit>>    _unitSet = new Dictionary<EAttackPosType, List<Unit>>();
 
-        private List<Unit> _frontUnitList  = new List<Unit>();
-        private List<Unit> _centerUnitList = new List<Unit>();
-        private List<Unit> _rearUnitList   = new List<Unit>();
+        [SerializeField] private List<Unit> _frontUnitList  = new List<Unit>();
+        [SerializeField] private List<Unit> _centerUnitList = new List<Unit>();
+        [SerializeField] private List<Unit> _rearUnitList   = new List<Unit>();
 
         private bool       _isInit         = false;
 
@@ -49,25 +49,67 @@ namespace InGame.ForState.ForBuildDeck
         // Functions - Nomal
         // --------------------------------------------------
         // ----- Public
-        public void SetToUnit(Unit targetUnit)
+        public void SetToUnit(List<Unit> unitList)
         {
-            var unitData    = targetUnit.UnitData;
-            var unitLevel   = unitData.Level;
-            var unitSpec    = unitData.SpecType;
-            var unitName    = unitData.Name;
-            var unitJob     = unitData.JobType;
-            var unitPosType = unitData.AttackPosType;
+            ResetToUnit();
 
-            // 현재 들어갈 공간이 있는가?
-            if (_TryToTargetPos(true, targetUnit))
+            for(int i = 0; i < unitList.Count; i++)
             {
+                var unit        = unitList[i];
+                var unitData    = unit.UnitData;
+                var unitLevel   = unitData.Level;
+                var unitSpec    = unitData.SpecType;
+                var unitName    = unitData.Name;
+                var unitJob     = unitData.JobType;
+                var unitPosType = unitData.AttackPosType;
 
+                if (_unitSet.TryGetValue(unitPosType, out var unitGroup))
+                {
+                    if (unitGroup.Count < 3) { unitGroup.Add(unit); }
+                }
             }
-            else
+
+            if (_areaSet.TryGetValue(EAttackPosType.Front, out var frontArea))
             {
-                // [TODO] Toast Message 필요
+                var positionList = frontArea.GetToAreaList(_frontUnitList.Count);
+
+                for (int i = 0; i < _frontUnitList.Count; i++)
+                {
+                    var unit = _frontUnitList[i];
+                    var pos  = positionList[i];
+
+                    unit.transform.position = pos.position;
+                    unit.transform.rotation = pos.rotation;
+                }
+            }
+            
+            if (_areaSet.TryGetValue(EAttackPosType.Center, out var centerArea))
+            {
+                var positionList = centerArea.GetToAreaList(_centerUnitList.Count);
+
+                for (int i = 0; i < _centerUnitList.Count; i++)
+                {
+                    var unit = _centerUnitList[i];
+                    var pos = positionList[i];
+
+                    unit.transform.position = pos.position;
+                    unit.transform.rotation = pos.rotation;
+                }
             }
 
+            if (_areaSet.TryGetValue(EAttackPosType.Rear, out var rearArea))
+            {
+                var positionList = rearArea.GetToAreaList(_rearUnitList.Count);
+
+                for (int i = 0; i < _rearUnitList.Count; i++)
+                {
+                    var unit = _rearUnitList[i];
+                    var pos = positionList[i];
+
+                    unit.transform.position = pos.position;
+                    unit.transform.rotation = pos.rotation;
+                }
+            }
         }
 
         public void ResetToUnit()
@@ -91,7 +133,7 @@ namespace InGame.ForState.ForBuildDeck
                     {
                         Debug.Log($"Exclude 2 {attackType} | {_frontUnitList.Count} | {_centerUnitList.Count} | {_rearUnitList.Count}");
 
-                        _TryToTargetPos(false, targetUnit);
+                        //_TryToTargetPos(false, targetUnit);
                         break;
                     }
                 }
@@ -119,11 +161,31 @@ namespace InGame.ForState.ForBuildDeck
                 }
             }
             
-            if (!isInclude) _TryToTargetPos(true, targetUnit);
+            //if (!isInclude) _TryToTargetPos(true, targetUnit);
         }
 
         // ----- Private
-        private bool _TryToTargetPos(bool isAdd, Unit unit)
+        /*
+        private bool _TryToTargetPos(Unit unit)
+        {
+            var unitData    = unit.UnitData;
+            var unitPosType = unitData.AttackPosType;
+
+            if (!_unitSet.TryGetValue(unitPosType, out var unitList))
+            {
+                Debug.LogError($"<color=red>[BuildDeck._TryToTargetPos] {unitPosType}에 해당하는 Unit Set이 존재하지 않습니다.</color>");
+                return false;
+            }
+        }
+        */
+
+
+
+
+
+
+
+/*        private bool _TryToTargetPos(Unit unit)
         {
             var unitData    = unit.UnitData;
             var unitPosType = unitData.AttackPosType;
@@ -142,12 +204,6 @@ namespace InGame.ForState.ForBuildDeck
 
             if (unitList.Count < area.MaxCopacity)
             {
-                if (isAdd) unitList.Add(unit);
-                else       unitList.Remove(unit);
-                
-                unit.gameObject.SetActive(isAdd);
-
-                Debug.Log($"콜할때 한번만");
                 var count     = unitList.Count;
                 var transList = area.GetToAreaList(count);
 
@@ -168,5 +224,6 @@ namespace InGame.ForState.ForBuildDeck
             else
                 return false;
         }
+*/
     }
 }

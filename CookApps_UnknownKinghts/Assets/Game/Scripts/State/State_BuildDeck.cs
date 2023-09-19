@@ -98,18 +98,42 @@ namespace InGame.ForState
             _SetToBattleStart  ();
             _SetToBottomUI     (ownedUnitDataList);
 
-
-
+            var enemyUnitList = _unitController.GetToEnemyUnit(enemyUnitDataList);
+            _unitController.SetToEnemyUnitPosition(enemyUnitList);
 
             _SetToUnitDeckEvent
             (
                 (isInclude, type) => 
                 {
-                    Debug.Log($"TEST 중 : {isInclude}, {type}");
-                    
-                    // 추가일 경우
+                    UnitData resultUnitData = null;
+                    for (int i = 0; i < ownedUnitDataList.Count; i++)
+                    {
+                        var searchUnitData = ownedUnitDataList[i];
+                        if (searchUnitData.UnitType == type)
+                        {
+                            resultUnitData = searchUnitData;
+                            break;
+                        }
+                    }
 
-                    // 삭제일 경우
+                    if (resultUnitData == null)
+                        return;
+
+                    Unit targetUnit = null;
+
+                    if (!isInclude)
+                    {
+                        targetUnit = _unitController.GetToPlayerUnit(resultUnitData);
+                        _onPlayerUnitList.Add(targetUnit);
+                    }
+                    else
+                    {
+                        targetUnit = _unitController.GetToPlayerUnit(resultUnitData);
+                        _onPlayerUnitList.Remove(targetUnit);
+                        _unitController.ReturnToPlayerUnit(resultUnitData);
+                    }
+                    
+                    _unitController.SetToPlayerUnitPosition(_onPlayerUnitList);
                 }
             );
 
