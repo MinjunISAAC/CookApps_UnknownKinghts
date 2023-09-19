@@ -94,8 +94,12 @@ namespace InGame.ForState
                     _battleView.gameObject.SetActive(true);
                     _SetToUnit(playerUnits, enemyUnits);
                 },
-                () => { }
+                () => 
+                {
+                }
             );
+
+            _IntroToUnit(playerUnits, enemyUnits);
 
             // Camera Move
             _camController.ChangeToCamState
@@ -135,6 +139,21 @@ namespace InGame.ForState
         {
             _unitController.SetToPlayerUnit_BattleDeck(playerUnitList);
             _unitController.SetToEnemyUnit_BattleDeck(enemyUnitList);
+        }
+
+        private void _IntroToUnit(List<Unit> playerUnitList, List<Unit> enemyUnitList)
+        {
+            void Intro(List<Unit> list)
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+                    var unit = list[i];
+                    unit.ChangeToUnitState(Unit.EState.Intro, 1.5f);
+                }
+            }
+
+            Intro(playerUnitList);
+            Intro(enemyUnitList);
         }
 
         private void _SetToUI()

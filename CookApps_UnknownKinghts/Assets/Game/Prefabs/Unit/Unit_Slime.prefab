@@ -382,6 +382,7 @@ MonoBehaviour:
       CriticalRate: 0
       AttackSpeed: 0
     SkillGroup: []
+  _animator: {fileID: 8049942252005162245}
 --- !u!1 &7058961250203940970
 GameObject:
   m_ObjectHideFlags: 0
