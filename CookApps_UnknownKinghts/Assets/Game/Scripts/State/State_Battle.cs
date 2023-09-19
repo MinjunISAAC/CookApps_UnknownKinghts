@@ -35,6 +35,9 @@ namespace InGame.ForState
         private const float TIMESCALEUP_VALUE = 1.5f;
         private bool _isTimeScaleUp = false;
 
+        private List<Unit> _playerUnits = new List<Unit>();
+        private List<Unit> _enemyUnits  = new List<Unit>();
+
         // --------------------------------------------------
         // Property
         // --------------------------------------------------
@@ -43,7 +46,7 @@ namespace InGame.ForState
         // --------------------------------------------------
         // Functions - Nomal
         // --------------------------------------------------
-        // ----- Protected Game Flow
+        // ----- Protected Game Flowz
         protected override void _Start(EStateType preStateKey, object startParam)
         {
             Debug.Log($"<color=yellow>[State_{State}._Start] {State} State에 진입하였습니다.</color>");
@@ -79,38 +82,60 @@ namespace InGame.ForState
             #endregion
 
             // Battle Info Set
-            var battleInfo  = (BattleData)startParam;
-            var stage       = battleInfo.StageInfo;
-            var playTime    = stage.PlayTime;
-            var playerUnits = battleInfo.PlayerUnit;
-            var enemyUnits  = battleInfo.EnemyUnit;
+            var battleInfo   = (BattleData)startParam;
+            
+            var stage        = battleInfo.StageInfo;
+            var playTime     = stage     .PlayTime;
+            var playerUnits  = battleInfo.PlayerUnit;
+            var enemyUnits   = battleInfo.EnemyUnit;
 
-            Debug.Log($"ENemy {enemyUnits.Count}");
-            // Loader Hide
-            Loader.Instance.Hide
+            _unitController.SetToEnemyGroup(playerUnits, enemyUnits);
+            StartCoroutine(_battleView.BattleStartView(2.5f, () => _StartToBattle(playTime, playerUnits, enemyUnits)));
+
+            _unitController.SetToUnitHitEvent
             (
-                () => 
-                { 
-                    _battleView.gameObject.SetActive(true);
-                    _SetToUnit(playerUnits, enemyUnits);
-                },
-                () => 
+                playerUnits, 
+                (unit) => 
                 {
+                    var hit = _battleView.ShowToHitInfo((int)unit.Power);
+                    hit.transform.position = Camera.main.WorldToScreenPoint(unit.TargetUnit.transform.position);
                 }
             );
 
-            _IntroToUnit(playerUnits, enemyUnits);
+            _unitController.SetToUnitHitEvent
+            (
+                enemyUnits, 
+                (unit) => 
+                { 
+                    var hit = _battleView.ShowToHitInfo((int)unit.Power);
+                    hit.transform.position = Camera.main.WorldToScreenPoint(unit.TargetUnit.transform.position);
+                }
+            );
+
+            // Loader Hide
+            Loader.Instance.Hide
+            (
+                () =>
+                {
+                    _battleView.gameObject.SetActive(true);
+                    _battleView.SetToTimer(playTime);
+                    _SetToUnit(playerUnits, enemyUnits);
+                    _SearchToMaterUnit(playerUnits, enemyUnits);
+                    _SearchToMaterUnit(enemyUnits , playerUnits);
+                    _IntroToUnit(playerUnits, enemyUnits);
+                }, null
+            );
 
             // Camera Move
             _camController.ChangeToCamState
             (
-                CamController.ECamState.BattleStart, 0.5f, 
-                () =>
-                {
-                    _SetToUI      ();
-                    _StartToBattle(playTime);
+                CamController.ECamState.BattleStart, 1f, 
+                () => 
+                { 
+                    _SetToUI(playerUnits, enemyUnits); 
                 }
             );
+
         }
 
         protected override void _Update()
@@ -120,18 +145,24 @@ namespace InGame.ForState
 
         protected override void _Finish(EStateType nextStateKey)
         {
+
             _battleView.gameObject.SetActive(false);
             Debug.Log($"<color=yellow>[State_{State}._Start] {State} State에 이탈하였습니다.</color>");
         }
 
         // ----- Private
-        private void _StartToBattle(float playTime)
+        private void _StartToBattle(float playTime, List<Unit> playerList, List<Unit> enemyList)
         {
             // Battle Timer Start
+            _BattleToUnit(playerList, enemyList);
+
             _battleView.PlayToTimer
             (
                 playTime, 
-                () => { Debug.Log($"끝남!!"); }
+                () => 
+                { 
+                    Debug.Log($"끝남!!"); 
+                }
             );
         }
 
@@ -148,7 +179,8 @@ namespace InGame.ForState
                 for (int i = 0; i < list.Count; i++)
                 {
                     var unit = list[i];
-                    unit.ChangeToUnitState(Unit.EState.Intro, 1.5f);
+                    _battleView.CreatedToHpBar(unit);
+                    unit.ChangeToUnitState(Unit.EState.Intro, 1.25f);
                 }
             }
 
@@ -156,7 +188,22 @@ namespace InGame.ForState
             Intro(enemyUnitList);
         }
 
-        private void _SetToUI()
+        private void _BattleToUnit(List<Unit> playerUnitList, List<Unit> enemyUnitList)
+        {
+            for (int i = 0; i < playerUnitList.Count; i++)
+            {
+                var unit = playerUnitList[i];
+                unit.ChangeToUnitState(Unit.EState.Run);
+            }
+
+            for (int i = 0; i < enemyUnitList.Count; i++)
+            {
+                var unit = enemyUnitList[i];
+                unit.ChangeToUnitState(Unit.EState.Run);
+            }
+        }
+
+        private void _SetToUI(List<Unit> playerUnits, List<Unit> enemyUnits)
         {
             // Battle UI Init
             _battleView.SetToBottomView
@@ -174,9 +221,33 @@ namespace InGame.ForState
                         _battleView.VisiableToTimeScaleBtn(true);
                     }
 
+                    _unitController.SetToTimeScale(playerUnits, enemyUnits);
                     _isTimeScaleUp = !_isTimeScaleUp;
                 }
             );
+        }
+
+        public void _SearchToMaterUnit(List<Unit> unitList, List<Unit> targetUnitList)
+        {
+            foreach (var unit in unitList)
+            {
+                float closestDistance  = float.MaxValue;
+                Unit closestTargetUnit = null;
+
+                foreach (var targetUnit in targetUnitList)
+                {
+                    float sqrDistance = (targetUnit.transform.position - unit.transform.position).sqrMagnitude;
+
+                    if (sqrDistance < closestDistance)
+                    {
+                        closestDistance = sqrDistance;
+                        closestTargetUnit = targetUnit;
+                    }
+                }
+
+                // Assign the closest target unit to the current unit
+                unit.SetToTargetUnit(closestTargetUnit);
+            }
         }
     }
 }

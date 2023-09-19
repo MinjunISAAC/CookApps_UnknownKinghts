@@ -166,6 +166,7 @@ MonoBehaviour:
     MaxLevel: 0
     Star: 0
     Name: 
+    AttackDistane: 0
     GradeType: 0
     UnitType: 6
     JobType: 0
@@ -181,6 +182,17 @@ MonoBehaviour:
       AttackSpeed: 0
     SkillGroup: []
   _animator: {fileID: 715456854354316057}
+  _attackClip: {fileID: 7400000, guid: 38db71b772e940b791a0d173406cbb04, type: 3}
+  _unitState: 0
+  _targetUnit: {fileID: 0}
+  _attackDistane: 0
+  _power: 0
+  _health: 0
+  _defense: 0
+  _penetratePower: 0
+  _criticalDamage: 0
+  _criticalRate: 0
+  _attackSpeed: 0
 --- !u!1 &718816639923847077
 GameObject:
   m_ObjectHideFlags: 0

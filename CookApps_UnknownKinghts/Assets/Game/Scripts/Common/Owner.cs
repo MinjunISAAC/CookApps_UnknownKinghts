@@ -103,7 +103,7 @@ namespace InGame
                 SpritePoolSystem.Instance.GetToUnitSprite(EUnitType.UnknownHero),
                 1, 1, 20, "무명용사",
                 EJobType.Warrior, EGradeType.Nomal, EUnitType.UnknownHero, ESpecType.Light, EAttackPosType.Front,
-                150, 5000, 30, 30, 200, 5, 1f,
+                1f, 150, 5000, 30, 30, 200, 5, 1f,
                 "슬래시 다운", 7
             );
 
@@ -112,7 +112,7 @@ namespace InGame
                 SpritePoolSystem.Instance.GetToUnitSprite(EUnitType.Helio),
                 3, 1, 60, "헬리오",
                 EJobType.Warrior, EGradeType.Epic, EUnitType.Helio, ESpecType.Fire, EAttackPosType.Front,
-                247, 9317, 60, 60, 200, 7, 1f,
+                1.25f, 247, 9317, 60, 60, 200, 7, 1f,
                 "저지먼트", 9
             );
 
@@ -121,7 +121,7 @@ namespace InGame
                 SpritePoolSystem.Instance.GetToUnitSprite(EUnitType.Cerus),
                 2, 1, 40, "케루스",
                 EJobType.Support, EGradeType.Rare, EUnitType.Cerus, ESpecType.Wind, EAttackPosType.Rear,
-                151, 6195, 28, 28, 200, 5, 1f,
+                3f, 151, 6195, 28, 28, 200, 5, 1f,
                 "토네이도 스윕", 8
             );
 
@@ -130,7 +130,7 @@ namespace InGame
                 SpritePoolSystem.Instance.GetToUnitSprite(EUnitType.Pelson),
                 1, 1, 20, "펠슨",
                 EJobType.Wizard, EGradeType.Nomal, EUnitType.Pelson, ESpecType.Stone, EAttackPosType.Center,
-                187, 3533, 16, 40, 200, 7, 1f,
+                2f, 187, 3533, 16, 40, 200, 7, 1f,
                 "어스퀘이크", 8
             );
 
@@ -139,7 +139,7 @@ namespace InGame
                 SpritePoolSystem.Instance.GetToUnitSprite(EUnitType.Flame),
                 2, 1, 40, "플라메",
                 EJobType.Archer, EGradeType.Rare, EUnitType.Flame, ESpecType.Fire, EAttackPosType.Center,
-                214, 4703, 42, 70, 200, 5, 1f,
+                2.25f, 214, 4703, 42, 70, 200, 5, 1f,
                 "플레임 볼", 9
             );
 

@@ -170,7 +170,6 @@ namespace InGame.ForState
 
         private void _SetToBattleStart()
         {
-            BattleData battleData = new BattleData(_chapter, _stage, _onPlayerUnitList, _onEnemyUnitList);
             _buildDeckView.SetToBattleStart
             (
                 () =>
@@ -179,11 +178,38 @@ namespace InGame.ForState
                     Loader.Instance.Show
                     (
                         null,
-                        () => StateMachine.Instance.ChangeState(EStateType.Battle, battleData),
+                        () => 
+                        {
+                            BattleData battleData = new BattleData(_chapter, _stage, _onPlayerUnitList, _onEnemyUnitList);
+                            StateMachine.Instance.ChangeState(EStateType.Battle, battleData);
+                        },
                         1f
                     );
                 }
             );
+        }
+
+        public void _SearchToMaterUnit(List<Unit> unitList, List<Unit> targetUnitList)
+        {
+            foreach (var unit in unitList)
+            {
+                float closestDistance   = float.MaxValue;
+                Unit  closestTargetUnit = null;
+
+                foreach (var targetUnit in targetUnitList)
+                {
+                    float sqrDistance = (targetUnit.transform.position - unit.transform.position).sqrMagnitude;
+
+                    if (sqrDistance < closestDistance)
+                    {
+                        closestDistance   = sqrDistance;
+                        closestTargetUnit = targetUnit;
+                    }
+                }
+
+                // Assign the closest target unit to the current unit
+                unit.SetToTargetUnit(closestTargetUnit);
+            }
         }
 
         /*

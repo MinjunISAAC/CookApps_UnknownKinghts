@@ -11,11 +11,10 @@ namespace InGame.ForBattle
     {
         public BattleData(Chapter chapter, Stage stage, List<Unit> playerUnit, List<Unit> enemyUnit)
         {
-            ChapterInfo = chapter;
-            StageInfo   = stage;
-            PlayerUnit  = playerUnit;
-            EnemyUnit   = enemyUnit;
-
+            ChapterInfo      = chapter;
+            StageInfo        = stage;
+            PlayerUnit       = playerUnit;
+            EnemyUnit        = enemyUnit;
         }
 
         public Chapter    ChapterInfo;

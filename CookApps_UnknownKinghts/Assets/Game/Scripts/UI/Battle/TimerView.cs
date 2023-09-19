@@ -23,6 +23,9 @@ namespace InGame.ForBattle.ForUI
         // Functions - Nomal
         // --------------------------------------------------
         // ----- Public
+        public void SetToTimer(float time)
+        => _TMP_Timer.text = _Format(time);
+
         public void PlayToTimer(float duration, Action doneCallBack)
         {
             if (_co_Timer == null)

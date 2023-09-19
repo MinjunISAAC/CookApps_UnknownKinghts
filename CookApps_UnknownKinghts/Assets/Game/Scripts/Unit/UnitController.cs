@@ -1,6 +1,7 @@
 // ----- C#
 using InGame.ForState.ForBuildDeck;
 using InGame.ForUnit.ForData;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -27,7 +28,9 @@ namespace InGame.ForUnit
         [SerializeField] private BuildDeckSetter _buildDeckSetter  = null;
         [SerializeField] private BuildDeckSetter _battleDeckSetter = null;
 
-        [SerializeField] private Transform _deckTrans = null;
+        [SerializeField] private Transform       _deckTrans        = null;
+
+        [SerializeField] private UnitHit         _originUnitHit    = null;
 
         // --------------------------------------------------
         // Variables
@@ -39,7 +42,6 @@ namespace InGame.ForUnit
         private Dictionary<EUnitType, Unit> _playerUnitPools = new Dictionary<EUnitType, Unit>();
         private Dictionary<EUnitType, Unit> _enemyUnitPools  = new Dictionary<EUnitType, Unit>();
 
-        public Transform DeckTrans => _deckTrans;
         // --------------------------------------------------
         // Functions - Event
         // --------------------------------------------------
@@ -125,10 +127,72 @@ namespace InGame.ForUnit
 
         public void SetToPlayerUnit_BuildDeck(List<Unit> unitList) => _buildDeckSetter.SetToBuildPlayerDeck(unitList);
         public void SetToEnemyUnit_BuildDeck(List<Unit> unitList) => _buildDeckSetter.SetToBuildEnemyDeck(unitList);
-
-
-        /*
         
+        public void SetToTargetUnit(List<Unit> unitList, Unit targetUnit)
+        {
+            for (int i = 0; i < unitList.Count; i++)
+            {
+                var unit = unitList[i];
+
+                unit.SetToTargetUnit(targetUnit);
+            }
+        }
+        public Unit SearchToTargetUnit(List<Unit> unitList)
+        {
+            for (int i = 0; i <unitList.Count; i++)
+            {
+                var unit = unitList[i];
+                if (unit.UnitState != Unit.EState.Die)
+                    return unit;
+                else
+                    continue;
+            }
+
+            return null;
+        }
+        public void SetToEnemyGroup(List<Unit> playerUnitList, List<Unit> enemyUnitList) 
+        {
+            void Set(List<Unit> listA, List<Unit> listB)
+            {
+                for(int i = 0; i < listA.Count; i++)
+                {
+                    var unit = listA[i];
+                    unit.SetToEnemyGroup(listB);
+                }
+            }
+
+            Set(playerUnitList, enemyUnitList);
+            Set(enemyUnitList, playerUnitList);
+        }
+        public void SetToTimeScale(List<Unit> playerUnitList, List<Unit> enemyUnitList)
+        {
+            for (int i = 0; i < playerUnitList.Count; i++)
+            {
+                var unit = playerUnitList[i];
+                unit.SetToTimeScale();
+            }
+
+            for (int i = 0; i < enemyUnitList.Count; i++)
+            {
+                var unit = enemyUnitList[i];
+                unit.SetToTimeScale();
+            }
+        }
+
+
+        public void SetToUnitHitEvent(List<Unit> unitList, Action<Unit> hitAction)
+        {
+            for (int i = 0; i < unitList.Count; i++)
+            {
+                var unit = unitList[i];
+                unit.onHit += (hitAc) => hitAction(hitAc);
+            }
+        }
+
+        public void ResetToUnitHitEvent(List<Unit> unitList)
+        {
+        }
+        /*
         public void ResetToUnit()
         {
             void Reset(List<Unit> unitList)

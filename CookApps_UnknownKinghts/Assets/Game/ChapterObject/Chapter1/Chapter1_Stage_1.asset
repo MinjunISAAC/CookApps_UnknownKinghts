@@ -45,6 +45,7 @@ MonoBehaviour:
     MaxLevel: 20
     Star: 0
     Name: "\uC554\uC11D \uC2AC\uB77C\uC784"
+    AttackDistane: 1
     GradeType: 1
     UnitType: 5
     JobType: 0
@@ -52,7 +53,7 @@ MonoBehaviour:
     AttackPosType: 1
     Ability:
       Power: 50
-      Health: 7000
+      Health: 3000
       Defense: 15
       PenetratePower: 15
       CriticalDamage: 200
@@ -66,6 +67,7 @@ MonoBehaviour:
     MaxLevel: 20
     Star: 0
     Name: "\uC554\uC11D \uC2AC\uB77C\uC784"
+    AttackDistane: 1
     GradeType: 1
     UnitType: 5
     JobType: 0
@@ -73,7 +75,7 @@ MonoBehaviour:
     AttackPosType: 1
     Ability:
       Power: 50
-      Health: 7000
+      Health: 3000
       Defense: 15
       PenetratePower: 15
       CriticalDamage: 200
@@ -87,6 +89,7 @@ MonoBehaviour:
     MaxLevel: 20
     Star: 0
     Name: "\uC554\uC11D \uC2AC\uB77C\uC784"
+    AttackDistane: 1
     GradeType: 1
     UnitType: 5
     JobType: 0
@@ -94,7 +97,7 @@ MonoBehaviour:
     AttackPosType: 1
     Ability:
       Power: 50
-      Health: 7000
+      Health: 3000
       Defense: 15
       PenetratePower: 15
       CriticalDamage: 200
