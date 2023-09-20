@@ -29,6 +29,7 @@ namespace InGame.ForUnit
         // --------------------------------------------------
         [Header("Unit Data Group")]
         [SerializeField] protected UnitData _unitData = null;
+        [SerializeField] protected Sprite   _profile   = null;   
 
         [Header("Animate Group")]
         [SerializeField] protected Animator      _animator   = null;
@@ -71,7 +72,8 @@ namespace InGame.ForUnit
         // Properties
         // --------------------------------------------------
         public UnitData UnitData   => _unitData;
-        public EState   UnitState   => _unitState;
+        public Sprite   Profile    => _profile;
+        public EState   UnitState  => _unitState;
         public Unit     TargetUnit => _targetUnit;
 
         public float AttackDistane  => _attackDistane;

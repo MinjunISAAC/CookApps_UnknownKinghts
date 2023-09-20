@@ -84,7 +84,19 @@ namespace InGame.ForState
             );
 
             // Return OnClick Action
-            void OnClickAction() { Loader.Instance.Show ( null, () => StateMachine.Instance.ChangeState(EStateType.ChapterSelect)); }
+            void OnClickAction() 
+            { 
+                Loader.Instance.Show 
+                ( 
+                    () =>
+                    {
+                        _buildDeckView.ResetToBuildDeckView();
+                        _unitController.ResetToPlayerUnit(_onPlayerUnitList);
+                        _unitController.ResetToEnemyUnit(_onEnemyUnitList);
+                    }, 
+                    () => StateMachine.Instance.ChangeState(EStateType.ChapterSelect)
+                ); 
+            }
 
             // Last Chapter Info Load
             var chapterStageInfo = (ChapterStageInfo)startParam;
@@ -152,8 +164,8 @@ namespace InGame.ForState
 
         protected override void _Finish(EStateType nextStateKey)
         {
-            _buildDeckView           .ResetToBuildDeckView();
             _buildDeckView.gameObject.SetActive(false);
+
 
             Debug.Log($"<color=yellow>[State_{State}._Start] {State} State에 이탈하였습니다.</color>");
         }

@@ -10,5 +10,6 @@ namespace InGame.ForUnit
 
         Slime       = 5,
         BoneSlime   = 6,
+        NomalArchur = 7,
     }
 }

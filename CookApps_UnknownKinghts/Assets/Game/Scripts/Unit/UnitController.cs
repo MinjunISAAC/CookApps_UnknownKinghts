@@ -192,7 +192,32 @@ namespace InGame.ForUnit
 
         public void ResetToUnitHitEvent(List<Unit> unitList)
         {
+
         }
+
+        public void ResetToPlayerUnit(List<Unit> unitList)
+        {
+            for (int i = unitList.Count - 1; i >= 0; i--)
+            {
+                var unit = unitList[i];
+                unit.gameObject.SetActive(false);
+            }
+
+            unitList.Clear();
+        }
+
+
+        public void ResetToEnemyUnit(List<Unit> unitList)
+        {
+            for (int i = unitList.Count - 1; i >= 0; i--)
+            {
+                var unit = unitList[i];
+                Destroy(unit.gameObject);
+            }
+
+            unitList.Clear();
+        }
+
         /*
         public void ResetToUnit()
         {

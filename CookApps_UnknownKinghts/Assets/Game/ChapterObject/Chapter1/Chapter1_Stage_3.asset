@@ -39,5 +39,89 @@ MonoBehaviour:
     StarSprite: {fileID: 0}
     FrameSprite: {fileID: 21300000, guid: 877df08e89c560e468434f62557ac7ad, type: 3}
     IconSprite: {fileID: 21300000, guid: f18eec69ae0eb404da66023097a37ce6, type: 3}
-  _unitList: []
+  _unitList:
+  - Level: 1
+    MaxLevel: 20
+    Star: 0
+    Name: "\uC554\uC11D \uC2AC\uB77C\uC784"
+    AttackDistane: 1
+    GradeType: 1
+    UnitType: 5
+    JobType: 0
+    SpecType: 2
+    AttackPosType: 1
+    Ability:
+      Power: 50
+      Health: 3000
+      Defense: 15
+      PenetratePower: 15
+      CriticalDamage: 200
+      CriticalRate: 2
+      AttackSpeed: 1
+    SkillGroup:
+    - Name: "\uC2A4\uD0AC1"
+      CoolTime: 10
+  - Level: 1
+    MaxLevel: 20
+    Star: 0
+    Name: "\uC554\uC11D \uC2AC\uB77C\uC784"
+    AttackDistane: 1
+    GradeType: 1
+    UnitType: 5
+    JobType: 0
+    SpecType: 2
+    AttackPosType: 1
+    Ability:
+      Power: 50
+      Health: 3000
+      Defense: 15
+      PenetratePower: 15
+      CriticalDamage: 200
+      CriticalRate: 2
+      AttackSpeed: 1
+    SkillGroup:
+    - Name: "\uC2A4\uD0AC1"
+      CoolTime: 10
+  - Level: 1
+    MaxLevel: 20
+    Star: 0
+    Name: "\uBF08 \uC2AC\uB77C\uC784"
+    AttackDistane: 1
+    GradeType: 1
+    UnitType: 6
+    JobType: 1
+    SpecType: 2
+    AttackPosType: 2
+    Ability:
+      Power: 100
+      Health: 6000
+      Defense: 20
+      PenetratePower: 20
+      CriticalDamage: 200
+      CriticalRate: 2
+      AttackSpeed: 1
+    SkillGroup:
+    - Name: "\uC2A4\uD0AC"
+      CoolTime: 9
+  - Level: 1
+    MaxLevel: 20
+    Star: 0
+    Name: "\uAD81\uC218"
+    AttackDistane: 3
+    GradeType: 0
+    UnitType: 7
+    JobType: 2
+    SpecType: 1
+    AttackPosType: 3
+    Ability:
+      Power: 120
+      Health: 4000
+      Defense: 20
+      PenetratePower: 20
+      CriticalDamage: 200
+      CriticalRate: 2
+      AttackSpeed: 1
+    SkillGroup:
+    - Name: "\uC2A4\uD0AC"
+      CoolTime: 8
   _playTime: 60

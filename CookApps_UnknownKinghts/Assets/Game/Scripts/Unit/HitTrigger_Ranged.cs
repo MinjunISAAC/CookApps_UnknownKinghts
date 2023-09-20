@@ -23,6 +23,7 @@ namespace InGame.ForUnit
         // --------------------------------------------------
         // Functions - Nomal
         // --------------------------------------------------
+        
         public override void PlayHitFx()
         {
             if (_targetUnit != null && _originFx != null)

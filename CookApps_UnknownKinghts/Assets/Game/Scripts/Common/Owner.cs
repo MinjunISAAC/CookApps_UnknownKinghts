@@ -100,7 +100,6 @@ namespace InGame
         {
             UnitData unknownHero = new UnitData
             (
-                SpritePoolSystem.Instance.GetToUnitSprite(EUnitType.UnknownHero),
                 1, 1, 20, "¹«¸í¿ë»ç",
                 EJobType.Warrior, EGradeType.Nomal, EUnitType.UnknownHero, ESpecType.Light, EAttackPosType.Front,
                 1f, 150, 5000, 30, 30, 200, 5, 1f,
@@ -109,7 +108,6 @@ namespace InGame
 
             UnitData helio = new UnitData
             (
-                SpritePoolSystem.Instance.GetToUnitSprite(EUnitType.Helio),
                 3, 1, 60, "Çï¸®¿À",
                 EJobType.Warrior, EGradeType.Epic, EUnitType.Helio, ESpecType.Fire, EAttackPosType.Front,
                 1.25f, 247, 9317, 60, 60, 200, 7, 1f,
@@ -118,7 +116,6 @@ namespace InGame
 
             UnitData cerus = new UnitData
             (
-                SpritePoolSystem.Instance.GetToUnitSprite(EUnitType.Cerus),
                 2, 1, 40, "ÄÉ·ç½º",
                 EJobType.Support, EGradeType.Rare, EUnitType.Cerus, ESpecType.Wind, EAttackPosType.Rear,
                 3f, 151, 6195, 28, 28, 200, 5, 1f,
@@ -127,7 +124,6 @@ namespace InGame
 
             UnitData pelson = new UnitData
             (
-                SpritePoolSystem.Instance.GetToUnitSprite(EUnitType.Pelson),
                 1, 1, 20, "Æç½¼",
                 EJobType.Wizard, EGradeType.Nomal, EUnitType.Pelson, ESpecType.Stone, EAttackPosType.Center,
                 2f, 187, 3533, 16, 40, 200, 7, 1f,
@@ -136,7 +132,6 @@ namespace InGame
 
             UnitData flame = new UnitData
             (
-                SpritePoolSystem.Instance.GetToUnitSprite(EUnitType.Flame),
                 2, 1, 40, "ÇÃ¶ó¸Þ",
                 EJobType.Archer, EGradeType.Rare, EUnitType.Flame, ESpecType.Fire, EAttackPosType.Center,
                 2.25f, 214, 4703, 42, 70, 200, 5, 1f,

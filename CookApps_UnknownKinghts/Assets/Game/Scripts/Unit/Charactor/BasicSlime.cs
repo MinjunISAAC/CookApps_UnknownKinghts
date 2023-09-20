@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnknownHero : Unit
+public class BasicSlime : Unit
 {
     // --------------------------------------------------
     // Components
     // --------------------------------------------------
-    
+
     // --------------------------------------------------
     // Variables
     // --------------------------------------------------
@@ -19,20 +19,24 @@ public class UnknownHero : Unit
     // --------------------------------------------------
     protected override IEnumerator _Co_Skill()
     {
-        if (_targetUnit != null)
+        _targetUnit = _SearchToFarthestUnit();
+
+        transform.transform.LookAt(_targetUnit.transform);
+
+        _animator.SetTrigger($"{EState.Run}");
+
+        while (Vector3.Distance(transform.position, _targetUnit.transform.position) > 2f)
         {
-            _animator.SetTrigger($"{EState.Skill}");
-            transform.transform.LookAt(_targetUnit.transform);
+            transform.position = Vector3.MoveTowards(transform.position, _targetUnit.transform.position, Time.deltaTime * 2f);
+            yield return null;
+        }
 
-            var power = _power * SKILL_FACTOR;
-            _targetUnit.Hit((int)power);
+        _animator.SetTrigger($"{EState.Skill}");
 
-            var delay   = _skillClip.length;
-            yield return new WaitForSeconds(delay);
-        
-            ChangeToUnitState(EState.Run);
-        }    
+        var delayTIme = _skillClip.length;
+        yield return new WaitForSeconds(delayTIme);
 
+        ChangeToUnitState(EState.Run);
         yield return null;
     }
 
@@ -58,5 +62,28 @@ public class UnknownHero : Unit
             if (newTarget != null) ChangeToUnitState(EState.Run);
             else ChangeToUnitState(EState.Idle);
         }
+    }
+
+    private Unit _SearchToFarthestUnit()
+    {
+        float farthestDistance = 0f;
+        Unit farthestEnemy = null;
+
+        for (int i = 0; i < _enemyUnitList.Count; i++)
+        {
+            var enemy = _enemyUnitList[i];
+            if (enemy.UnitState != EState.Die)
+            {
+                float sqrDistance = (transform.position - enemy.transform.position).sqrMagnitude;
+
+                if (sqrDistance > farthestDistance)
+                {
+                    farthestDistance = sqrDistance;
+                    farthestEnemy = enemy;
+                }
+            }
+        }
+
+        return farthestEnemy;
     }
 }

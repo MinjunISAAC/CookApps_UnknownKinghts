@@ -25,8 +25,6 @@ namespace InGame.ForUnit.ForData
             public float  CoolTime = 0f;
         }
 
-        public Sprite          Profile       = null;
-
         public int             Level         = 1;
         public int             MaxLevel      = 1;
         public int             Star          = 1;
@@ -43,14 +41,11 @@ namespace InGame.ForUnit.ForData
         public List<SkillInfo> SkillGroup    = new List<SkillInfo>();
 
         // ----- Test용 [필요시에 따라 테이블로 관리해야할 부분]
-        public UnitData(Sprite profile,
-                        int star, int level, int maxLevel, string name,
+        public UnitData(int star, int level, int maxLevel, string name,
                         EJobType jobType, EGradeType gradeType, EUnitType unitType, ESpecType specType, EAttackPosType attackPosType,
                         float attackDistance, int power, int hp, int defense, int penetratePower, int criticalDamage, int criticalRate, float attackSpeed,
                         string skillName, float coolTime) 
         {
-            Profile       = profile;
-
             Star          = star;
             Level         = level;
             MaxLevel      = maxLevel;

@@ -44,7 +44,7 @@ namespace InGame.ForState.ForBuildDeck
             var unitLevel   = data.Level;
             var starCount   = data.Star;
             var unitGrade   = data.GradeType;
-            var unitProfile = data.Profile;
+            var unitProfile = SpritePoolSystem.Instance.GetToUnitSprite(data.UnitType);
             var unitSpec    = data.SpecType;
             var unitJob     = data.JobType;
 

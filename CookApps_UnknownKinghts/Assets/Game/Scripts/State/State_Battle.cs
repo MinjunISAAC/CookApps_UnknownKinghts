@@ -86,15 +86,25 @@ namespace InGame.ForState
             
             var stage        = battleInfo.StageInfo;
             var playTime     = stage     .PlayTime;
-            var playerUnits  = battleInfo.PlayerUnit;
-            var enemyUnits   = battleInfo.EnemyUnit;
 
-            _unitController.SetToEnemyGroup(playerUnits, enemyUnits);
-            StartCoroutine(_battleView.BattleStartView(2.5f, () => _StartToBattle(playTime, playerUnits, enemyUnits)));
+            for (int i = 0; i < battleInfo.PlayerUnit.Count; i++)
+            {
+                var unit = battleInfo.PlayerUnit[i];  
+                _playerUnits.Add(unit);
+            }
+
+            for (int i = 0; i < battleInfo.EnemyUnit.Count; i++)
+            {
+                var unit = battleInfo.EnemyUnit[i];
+                _enemyUnits.Add(unit);
+            }
+
+            _unitController.SetToEnemyGroup(_playerUnits, _enemyUnits);
+            StartCoroutine(_battleView.BattleStartView(2.5f, () => _StartToBattle(playTime, _playerUnits, _enemyUnits)));
             
             _unitController.SetToUnitHitEvent
             (
-                playerUnits, 
+                _playerUnits, 
                 (targetUnit) => 
                 {
                     var hit = _battleView.ShowToHitInfo((int)targetUnit.Power);
@@ -104,7 +114,7 @@ namespace InGame.ForState
 
             _unitController.SetToUnitHitEvent
             (
-                enemyUnits, 
+                _enemyUnits, 
                 (targetUnit) => 
                 { 
                     var hit = _battleView.ShowToHitInfo((int)targetUnit.Power);
@@ -120,10 +130,10 @@ namespace InGame.ForState
                 {
                     _battleView.gameObject.SetActive(true);
                     _battleView.SetToTimer(playTime);
-                    _SetToUnit(playerUnits, enemyUnits);
-                    _SearchToMaterUnit(playerUnits, enemyUnits);
-                    _SearchToMaterUnit(enemyUnits , playerUnits);
-                    _IntroToUnit(playerUnits, enemyUnits);
+                    _SetToUnit(_playerUnits, _enemyUnits);
+                    _SearchToMaterUnit(_playerUnits, _enemyUnits);
+                    _SearchToMaterUnit(_enemyUnits, _playerUnits);
+                    _IntroToUnit(_playerUnits, _enemyUnits);
                 }, null
             );
 
@@ -133,7 +143,7 @@ namespace InGame.ForState
                 CamController.ECamState.BattleStart, 1f, 
                 () => 
                 { 
-                    _SetToUI(playerUnits, enemyUnits); 
+                    _SetToUI(_playerUnits, _enemyUnits); 
                 }
             );
 
@@ -146,7 +156,8 @@ namespace InGame.ForState
 
         protected override void _Finish(EStateType nextStateKey)
         {
-
+            _unitController.ResetToPlayerUnit(_playerUnits);
+            _unitController.ResetToEnemyUnit(_enemyUnits);
             _battleView.gameObject.SetActive(false);
             Debug.Log($"<color=yellow>[State_{State}._Start] {State} State에 이탈하였습니다.</color>");
         }
@@ -161,7 +172,7 @@ namespace InGame.ForState
             (
                 playTime, 
                 () => 
-                { 
+                {
                     Debug.Log($"끝남!!"); 
                 }
             );
@@ -252,5 +263,6 @@ namespace InGame.ForState
                 unit.SetToTargetUnit(closestTargetUnit);
             }
         }
+
     }
 }
