@@ -385,16 +385,9 @@ MonoBehaviour:
     SkillGroup: []
   _animator: {fileID: 8049942252005162245}
   _attackClip: {fileID: 7400000, guid: b2c5dad1c2b246f48024751ad65ef02b, type: 3}
-  _unitState: 0
-  _targetUnit: {fileID: 0}
-  _attackDistane: 0
-  _power: 0
-  _health: 0
-  _defense: 0
-  _penetratePower: 0
-  _criticalDamage: 0
-  _criticalRate: 0
-  _attackSpeed: 0
+  _skillClip: {fileID: 0}
+  _skillTrigger: {fileID: 6373643090427329068}
+  _hitTrigger: {fileID: 74700618112073263}
 --- !u!1 &7058961250203940970
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,6 +432,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7511329828313675671}
   - component: {fileID: 8049942252005162245}
+  - component: {fileID: 74700618112073263}
+  - component: {fileID: 6373643090427329068}
   m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
@@ -483,6 +478,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &74700618112073263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7166997229555608877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70e185fba7e29884682462dd9e241b0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _originSkillFx: {fileID: 0}
+--- !u!114 &6373643090427329068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7166997229555608877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 760fe16c54a44c9448a866b98663aa42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _originSkillFx: {fileID: 0}
 --- !u!1 &7450863537739052052
 GameObject:
   m_ObjectHideFlags: 0

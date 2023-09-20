@@ -158,6 +158,7 @@ namespace InGame.ForUnit
                 {
                     var unit = listA[i];
                     unit.SetToEnemyGroup(listB);
+                    unit.SetToPlayerGroup(listA);
                 }
             }
 
@@ -185,7 +186,7 @@ namespace InGame.ForUnit
             for (int i = 0; i < unitList.Count; i++)
             {
                 var unit = unitList[i];
-                unit.onHit += (hitAc) => hitAction(hitAc);
+                unit.SetToHitEvent(hitAction);
             }
         }
 

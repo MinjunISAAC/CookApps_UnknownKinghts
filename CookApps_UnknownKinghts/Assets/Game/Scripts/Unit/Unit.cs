@@ -25,45 +25,48 @@ namespace InGame.ForUnit
         }
 
         // --------------------------------------------------
-        // Event
-        // --------------------------------------------------
-        public event Action<Unit> onHit = null;
-        public void HitToUnit(Unit unit)
-        {
-            if (onHit != null)
-                onHit(unit);
-        }
-
-        // --------------------------------------------------
         // Components
         // --------------------------------------------------
         [Header("Unit Data Group")]
-        [SerializeField] private UnitData _unitData = null;
+        [SerializeField] protected UnitData _unitData = null;
 
         [Header("Animate Group")]
-        [SerializeField] private Animator      _animator   = null;
-        [SerializeField] private AnimationClip _attackClip = null;
+        [SerializeField] protected Animator      _animator   = null;
+        [SerializeField] protected AnimationClip _attackClip = null;
+        [SerializeField] protected AnimationClip _skillClip  = null;
+
+        [Header("Hit  Group")]
+        [SerializeField] protected SkillTrigger_Base _skillTrigger = null;
+        [SerializeField] protected HitTrigger_Base   _hitTrigger   = null;
 
         // --------------------------------------------------
         // Variables
         // --------------------------------------------------
+        // ----- Const
+        protected const float INTRO_WALK_VALUE = 3f;
+        protected const float PERCENT_VALUE    = 100f;
+
         // ----- Private
-        [SerializeField] private EState    _unitState       = EState.Unknown;
+        [SerializeField] protected EState     _unitState       = EState.Unknown;
+        protected Coroutine  _co_CurrentState = null;
+        protected Unit       _targetUnit      = null;
+        protected List<Unit> _playerUnitList  = new List<Unit>();
+        protected List<Unit> _enemyUnitList   = new List<Unit>();
+
+        protected float _attackDistane  = 0f;
+        protected int   _power          = 0;
+        protected int   _health         = 0;
+        protected int   _defense        = 0;
+        protected int   _penetratePower = 0;
+        protected int   _criticalDamage = 0;
+        protected int   _criticalRate   = 0;
+        protected float _attackSpeed    = 0f;
+
+        protected string _skillName     = "";
+        protected float  _skillCoolTime = 0f;
+        protected float  _skillTime     = 0f;
+        protected bool   _isStart       = false;
         
-        private Coroutine _co_CurrentState = null;
-        [SerializeField] private Unit      _targetUnit      =  null;
-
-        private List<Unit> _enemyUnitList = new List<Unit>();
-
-        public float _attackDistane  = 0f;
-        public int   _power          = 0;
-        public int   _health         = 0;
-        public int   _defense        = 0;
-        public int   _penetratePower = 0;
-        public int   _criticalDamage = 0;
-        public int   _criticalRate   = 0;
-        public float _attackSpeed    = 0f;
-
         // --------------------------------------------------
         // Properties
         // --------------------------------------------------
@@ -81,6 +84,27 @@ namespace InGame.ForUnit
         public float AttackSpeed    => _attackSpeed;
 
         // --------------------------------------------------
+        // Functions - Event
+        // --------------------------------------------------
+        private void Update()
+        {
+            if (!_isStart)
+                return;
+
+            if (_skillTime < _skillCoolTime) 
+            {
+                _skillTime += Time.deltaTime;
+            }
+            else
+            {
+                ChangeToUnitState(EState.Skill);
+                _skillTime = 0;
+            }
+
+            Debug.Log($"UNIT {gameObject.name} | Cool Time {_skillTime}");
+        }
+
+        // --------------------------------------------------
         // Functions - Nomal
         // --------------------------------------------------
         public void ChangeToUnitData(UnitData unitData) 
@@ -95,6 +119,9 @@ namespace InGame.ForUnit
             _criticalDamage = _unitData.Ability.CriticalDamage;
             _criticalRate   = _unitData.Ability.CriticalRate;
             _attackSpeed    = _unitData.Ability.AttackSpeed;
+
+            _skillName      = _unitData.SkillGroup[0].Name;
+            _skillCoolTime  = _unitData.SkillGroup[0].CoolTime;
         }
 
         public void SetToTargetUnit(Unit unit)
@@ -103,6 +130,21 @@ namespace InGame.ForUnit
                 return;
 
             _targetUnit = unit;
+
+            if (_skillTrigger != null)
+            {
+                _skillTrigger.Set(_power, _targetUnit, _SkillToCallBack);
+                _hitTrigger  .Set(_power, _targetUnit, _HitToCallBack);
+            }
+        }
+
+        public void SetToPlayerGroup(List<Unit> unitGroup)
+        {
+            for (int i = 0; i < unitGroup.Count; i++)
+            {
+                var unit = unitGroup[i];
+                _playerUnitList.Add(unit);
+            }
         }
 
         public void SetToEnemyGroup(List<Unit> unitGroup)
@@ -124,7 +166,17 @@ namespace InGame.ForUnit
             _health -= hitValue;
         }
 
-        private Unit _SearchToTargetUnit()
+        public void Heal(int healValue)
+        {
+            _health += healValue;
+        }
+
+        public void SetToHitEvent(Action<Unit> hitAction)
+        {
+            _hitTrigger.onHit += (hitAction);
+        }
+
+        protected Unit _SearchToTargetUnit()
         {
             if (_targetUnit != null)
                 return null;
@@ -148,6 +200,39 @@ namespace InGame.ForUnit
             }
 
             return closestEnemy;
+        }
+
+        protected virtual void _HitToCallBack()
+        {
+            if (_targetUnit.Health <= 0)
+            {
+                var power        = _power;
+                var criticalRate = _criticalRate / PERCENT_VALUE;
+                var randomValue  = UnityEngine.Random.value;
+
+                if (randomValue < criticalRate)
+                    power = _criticalDamage;
+
+                _targetUnit.ChangeToUnitState(EState.Die);
+                _targetUnit = null;
+
+                var newTarget = _SearchToTargetUnit();
+                _targetUnit = newTarget;
+
+                if (_skillTrigger != null)
+                {
+                    _skillTrigger.Set(_power, _targetUnit, _SkillToCallBack);
+                    _hitTrigger  .Set(_power, _targetUnit, _HitToCallBack);
+                }
+
+                if (newTarget != null) ChangeToUnitState(EState.Run);
+                else ChangeToUnitState(EState.Idle);
+            }
+        }
+
+        protected virtual void _SkillToCallBack()
+        {
+            
         }
 
         // --------------------------------------------------
@@ -198,7 +283,10 @@ namespace InGame.ForUnit
         {
             var sec      = 0.0f;
             var startPos = transform.position;
-            var endPos   = transform.position + transform.forward * 3f;
+            var endPos   = transform.position + transform.forward * INTRO_WALK_VALUE;
+
+            _isStart   = false;
+            _skillTime = 0.0f;
 
             _animator.speed = _animator.speed * TimeScaler.GetValue();
 
@@ -213,7 +301,7 @@ namespace InGame.ForUnit
             _animator.SetTrigger($"{EState.Idle}");
 
             transform.position = endPos;
-
+            _isStart = true;
             doneCallBack?.Invoke();
         }
 
@@ -222,6 +310,7 @@ namespace InGame.ForUnit
             if (_targetUnit != null)
             {
                 _animator.SetTrigger($"{EState.Run}");
+
                 while (Vector3.Distance(transform.position, _targetUnit.transform.position) > _unitData.AttackDistane)
                 {
                     transform.transform.LookAt(_targetUnit.transform);
@@ -233,7 +322,6 @@ namespace InGame.ForUnit
             }
             else
             {
-
             }
 
             yield return null;
@@ -245,8 +333,10 @@ namespace InGame.ForUnit
             yield return null;
         }
 
-        private IEnumerator _Co_Attack()
+        protected virtual IEnumerator _Co_Attack()
         {
+            _animator.ResetTrigger($"{EState.Run}");
+
             if (_targetUnit != null) 
                 _animator.SetTrigger($"{EState.Attack}");
 
@@ -256,36 +346,10 @@ namespace InGame.ForUnit
             
             while (_unitState == EState.Attack)
             {
-                if (sec < _attackClip.length * 0.75f * _attackSpeed * TimeScaler.GetValue())
+                if (sec < _attackClip.length * _attackSpeed * TimeScaler.GetValue())
                     sec += Time.deltaTime * TimeScaler.GetValue();
                 else
-                {
-                    var power        = _power;
-                    var criticalRate = _criticalRate / 100f;
-                    var randomValue  = UnityEngine.Random.value;
-
-                    if (randomValue < criticalRate)
-                        power = _criticalDamage;
-
-                    _targetUnit.Hit(power);
-
-                    HitToUnit(_targetUnit);
-
-                    if (_targetUnit.Health <= 0)
-                    {
-                        _targetUnit.ChangeToUnitState(EState.Die);
-                        _targetUnit = null;
-
-                        var newTarget = _SearchToTargetUnit();
-                        _targetUnit = newTarget;
-
-                        if (newTarget != null) ChangeToUnitState(EState.Run);
-                        else                   ChangeToUnitState(EState.Idle);
-                    }
-
                     sec = 0.0f;
-                }
-
                 
                 yield return null;
             }
@@ -300,7 +364,7 @@ namespace InGame.ForUnit
             yield return null;
         }
 
-        private IEnumerator _Co_Skill()
+        protected virtual IEnumerator _Co_Skill()
         {
 
             yield return null;
@@ -309,6 +373,10 @@ namespace InGame.ForUnit
         private IEnumerator _Co_Die()
         {
             _animator.SetTrigger($"{EState.Die}");
+            
+            _isStart   = false;
+            _skillTime = 0.0f;
+            
             yield return null;
         }
     }
